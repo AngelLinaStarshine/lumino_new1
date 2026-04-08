@@ -1,0 +1,9 @@
+export { default as HomePage } from './HomePage';
+export { default as StoryPage } from './StoryPage';
+export { default as PathsPage } from './PathsPage';
+export { default as TuitionPage } from './TuitionPage';
+export { default as ProPage } from './ProPage';
+export { default as BookPage } from './BookPage';
+export { default as EnrollPage } from './EnrollPage';
+export { default as PrivacyPage } from './PrivacyPage';
+export { default as TermsPage } from './TermsPage';
