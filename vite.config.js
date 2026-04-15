@@ -10,5 +10,11 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+    commonjsOptions: {
+      include: [/react-icons/, /node_modules/],
+    },
+  },
+  optimizeDeps: {
+    include: ['react-icons/fa'],
   },
 });
