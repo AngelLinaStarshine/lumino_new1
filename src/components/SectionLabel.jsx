@@ -11,7 +11,7 @@ export default function SectionLabel({ children }) {
         background: 'rgba(45, 155, 132, 0.1)',
         border: `1px solid rgba(45, 155, 132, 0.28)`,
         color: theme.navy,
-        fontSize: 13,
+        fontSize: 14,
         fontWeight: 700,
         letterSpacing: '0.06em',
         textTransform: 'uppercase',

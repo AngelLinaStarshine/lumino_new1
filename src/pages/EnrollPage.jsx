@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Container, SectionLabel, Card, Button } from '../components';
 import { AGE_GROUPS, COURSES, getEnrollmentLink } from '../data/siteData';
 import { theme, font } from '../styles/theme';
 
 const AGE_INDEX = { junior: 0, middle: 1, senior: 2 };
+const VALID_AGES = new Set(AGE_GROUPS.map((a) => a.id));
+const VALID_SUBJECTS = new Set(COURSES.map((c) => c.id));
 
 function courseTrackLabel(course, ageGroupId) {
   const i = AGE_INDEX[ageGroupId];
@@ -12,8 +15,45 @@ function courseTrackLabel(course, ageGroupId) {
 }
 
 export default function EnrollPage() {
+  const [searchParams] = useSearchParams();
+  const ageParam = VALID_AGES.has(searchParams.get('age') || '') ? searchParams.get('age') : null;
+  const subjectParam = VALID_SUBJECTS.has(searchParams.get('subject') || '')
+    ? searchParams.get('subject')
+    : null;
+
+  useEffect(() => {
+    if (!ageParam && !subjectParam) return;
+
+    const run = () => {
+      let el = null;
+      if (ageParam && subjectParam) {
+        el = document.getElementById(`enroll-row-${ageParam}-${subjectParam}`);
+      }
+      if (!el && ageParam) {
+        el = document.getElementById(`enroll-age-${ageParam}`);
+      }
+      if (!el && subjectParam) {
+        el = document.getElementById(`enroll-row-${AGE_GROUPS[0].id}-${subjectParam}`);
+      }
+      if (!el) {
+        el = document.getElementById('enroll-section');
+      }
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    const t = window.setTimeout(run, 80);
+    return () => window.clearTimeout(t);
+  }, [ageParam, subjectParam]);
+
+  const rowIsHighlighted = (ageId, courseId) => {
+    if (ageParam && subjectParam) return ageId === ageParam && courseId === subjectParam;
+    if (ageParam && !subjectParam) return ageId === ageParam;
+    if (!ageParam && subjectParam) return courseId === subjectParam;
+    return false;
+  };
+
   return (
-    <section style={{ paddingTop: 140, paddingBottom: 80 }}>
+    <section id="enroll-section" style={{ paddingTop: 140, paddingBottom: 80, scrollMarginTop: 96 }}>
       <Container>
         <div style={{ textAlign: 'center', marginBottom: 48, width: '100%' }}>
           <SectionLabel>Enroll</SectionLabel>
@@ -36,7 +76,11 @@ export default function EnrollPage() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
           {AGE_GROUPS.map((age) => (
-            <Card key={age.id} style={{ padding: 28 }}>
+            <Card
+              key={age.id}
+              id={`enroll-age-${age.id}`}
+              style={{ padding: 28, scrollMarginTop: 96 }}
+            >
               <div
                 style={{
                   display: 'flex',
@@ -84,9 +128,11 @@ export default function EnrollPage() {
                 {COURSES.map((course) => {
                   const link = getEnrollmentLink(age.id, course.id);
                   const track = courseTrackLabel(course, age.id);
+                  const highlighted = rowIsHighlighted(age.id, course.id);
                   return (
                     <div
                       key={course.id}
+                      id={`enroll-row-${age.id}-${course.id}`}
                       style={{
                         display: 'flex',
                         flexWrap: 'wrap',
@@ -95,8 +141,11 @@ export default function EnrollPage() {
                         gap: 16,
                         padding: '16px 18px',
                         borderRadius: 14,
-                        border: `1px solid ${theme.border}`,
-                        background: theme.light,
+                        border: highlighted
+                          ? `2px solid ${theme.teal}`
+                          : `1px solid ${theme.border}`,
+                        background: highlighted ? 'rgba(17, 94, 89, 0.08)' : theme.light,
+                        scrollMarginTop: 96,
                       }}
                     >
                       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, minWidth: 0 }}>

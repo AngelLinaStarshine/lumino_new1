@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Container, SectionLabel, Card, CtaBanner } from '../components';
+import HowWeOperateSection from '../components/HowWeOperateSection';
 import {
   STORY_HERO_PARAGRAPHS,
   BELIEFS,
@@ -10,9 +12,10 @@ import {
   AI_POSITION_TEXT,
   STORY_VISION_MISSION_VALUES,
   STORY_TEAM_BODY,
-  TEAM_PLACEHOLDER_ROLES,
-  STORY_HIRING,
-  DISCOVERY_CALL_FORM_URL,
+  DISCOVERY_CALL_URL,
+  PROBLEM_PARENT_VOICES,
+  PROBLEM_LUMINO_ANSWERS,
+  SKILLS_THAT_MATTER,
 } from '../data/siteData';
 import { theme, font } from '../styles/theme';
 
@@ -23,7 +26,15 @@ const editorial = {
 };
 
 export default function StoryPage() {
+  const location = useLocation();
   const vmv = STORY_VISION_MISSION_VALUES;
+
+  useEffect(() => {
+    if (location.hash !== '#how-we-operate') return;
+    requestAnimationFrame(() => {
+      document.getElementById('how-we-operate')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }, [location.pathname, location.hash]);
 
   return (
     <>
@@ -63,8 +74,114 @@ export default function StoryPage() {
         </Container>
       </section>
 
-      {/* Section 2: Beliefs */}
+      {/* Why we exist */}
+      <section style={{ padding: '80px 0', background: theme.light }}>
+        <Container>
+          <SectionLabel>Why LuminoLearn Exists</SectionLabel>
+          <h2
+            style={{
+              fontFamily: font.display,
+              fontSize: 36,
+              color: theme.navy,
+              marginBottom: 40,
+            }}
+          >
+            The gap between what schools teach and what your child actually needs
+          </h2>
+          <div
+            className="grid-2 story-problem-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: 32,
+              alignItems: 'start',
+            }}
+          >
+            <div>
+              <h3
+                style={{
+                  fontFamily: font.display,
+                  fontSize: 20,
+                  color: theme.navy,
+                  marginBottom: 20,
+                }}
+              >
+                What parents tell us
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {PROBLEM_PARENT_VOICES.map((item, i) => (
+                  <Card key={i} style={{ padding: 24 }}>
+                    <p style={{ fontWeight: 700, color: theme.navy, marginBottom: 10, fontSize: 16 }}>
+                      {item.quote}
+                    </p>
+                    <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.65 }}>{item.body}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3
+                style={{
+                  fontFamily: font.display,
+                  fontSize: 20,
+                  color: theme.navy,
+                  marginBottom: 20,
+                }}
+              >
+                What we do instead
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                {PROBLEM_LUMINO_ANSWERS.map((item, i) => (
+                  <Card key={i} style={{ padding: 24 }}>
+                    <p style={{ fontWeight: 700, color: theme.teal, marginBottom: 10, fontSize: 16 }}>
+                      {item.title}
+                    </p>
+                    <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.65 }}>{item.body}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Skills we build */}
       <section style={{ padding: '80px 0' }}>
+        <Container>
+          <SectionLabel>Why These Skills, Why Now</SectionLabel>
+          <h2
+            style={{
+              fontFamily: font.display,
+              fontSize: 34,
+              color: theme.navy,
+              marginBottom: 40,
+            }}
+          >
+            We teach the skills your child&apos;s school probably doesn&apos;t, yet.
+          </h2>
+          <div
+            className="grid-2 story-skills-grid"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, 1fr)',
+              gap: 20,
+            }}
+          >
+            {SKILLS_THAT_MATTER.map((s, i) => (
+              <Card key={i} style={{ padding: 24 }}>
+                <div style={{ fontSize: 26, marginBottom: 10 }}>{s.icon}</div>
+                <h3 style={{ fontFamily: font.display, fontSize: 18, color: theme.navy, marginBottom: 8 }}>
+                  {s.title}
+                </h3>
+                <p style={{ fontSize: 14, color: theme.muted, lineHeight: 1.65 }}>{s.desc}</p>
+              </Card>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Beliefs */}
+      <section style={{ padding: '80px 0', background: theme.light }}>
         <Container>
           <SectionLabel>Our Beliefs</SectionLabel>
           <h2
@@ -115,8 +232,10 @@ export default function StoryPage() {
         </Container>
       </section>
 
-      {/* Section 3: How we teach */}
-      <section style={{ padding: '80px 0', background: theme.light }}>
+      <HowWeOperateSection />
+
+      {/* How we teach */}
+      <section style={{ padding: '80px 0' }}>
         <Container>
           <SectionLabel>Our Approach</SectionLabel>
           <h2
@@ -353,51 +472,17 @@ export default function StoryPage() {
           >
             Built by educators, not just engineers
           </h2>
-          <div style={{ textAlign: 'center', marginBottom: 40 }}>
+          <div style={{ textAlign: 'center' }}>
             {STORY_TEAM_BODY.map((p, i) => (
               <p
                 key={i}
                 style={{
                   ...editorial,
-                  marginBottom: i === STORY_TEAM_BODY.length - 1 ? 20 : 18,
+                  marginBottom: i === STORY_TEAM_BODY.length - 1 ? 0 : 18,
                 }}
               >
                 {p}
               </p>
-            ))}
-            <a
-              href={STORY_HIRING.href}
-              style={{
-                fontSize: 15,
-                fontWeight: 600,
-                color: theme.teal,
-                textDecoration: 'underline',
-                textUnderlineOffset: 4,
-              }}
-            >
-              {STORY_HIRING.label}
-            </a>
-          </div>
-        </Container>
-        <Container>
-          <div className="story-team-grid">
-            {TEAM_PLACEHOLDER_ROLES.map((role) => (
-              <Card
-                key={role}
-                style={{
-                  padding: 24,
-                  textAlign: 'center',
-                  minHeight: 140,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}
-              >
-                <p style={{ fontFamily: font.display, fontSize: 17, color: theme.navy, marginBottom: 8 }}>
-                  {role}
-                </p>
-                <p style={{ fontSize: 13, color: theme.muted }}>Photo and bio coming soon</p>
-              </Card>
             ))}
           </div>
         </Container>
@@ -408,7 +493,7 @@ export default function StoryPage() {
         headline="Want to see if we're the right fit for your family?"
         subtext="Book a free 30 minute discovery call. No pitch, no pressure, just an honest conversation about your child and what they need."
         primaryLabel="Book Free Discovery Call"
-        primaryHref={DISCOVERY_CALL_FORM_URL}
+        primaryHref={DISCOVERY_CALL_URL}
         secondaryLabel="Explore Learning Paths"
         secondaryTo="/learning-paths"
       />

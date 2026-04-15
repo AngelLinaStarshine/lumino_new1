@@ -32,7 +32,7 @@ export default function ProPage() {
           </h1>
           <p
             className="fade-up delay-1"
-            style={{ fontSize: 18, opacity: 0.8, lineHeight: 1.7 }}
+            style={{ fontSize: 18, color: '#e2e8f0', lineHeight: 1.7 }}
           >
             Structured professional development designed for real classrooms and workplaces. No
             jargon. No fluff. Just practical learning you can use the next day.

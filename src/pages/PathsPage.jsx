@@ -1,17 +1,38 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, SectionLabel, Card, Button } from '../components';
-import { COURSES, AGE_GROUPS, DISCOVERY_CALL_FORM_URL } from '../data/siteData';
+import ComingSoonModal from '../components/ComingSoonModal';
+import {
+  COURSES,
+  AGE_GROUPS,
+  DISCOVERY_CALL_URL,
+  AI_ETHICS_INTRO,
+  AI_PRINCIPLES,
+  LEARNING_JOURNEY_STEPS,
+} from '../data/siteData';
 import { theme, font } from '../styles/theme';
 
-const JOURNEY = [
-  { name: 'Discovery call', sub: 'Free · Google Form', color: theme.teal },
-  { name: 'LuminoStart™', sub: '4 weeks', color: theme.navy },
-  { name: 'LuminoCore™', sub: '12 weeks', color: theme.navy },
-  { name: 'LuminoPath™', sub: '3 to 12 months', color: theme.accent },
-];
+function journeyCtaUrl(urlKey) {
+  if (urlKey === 'discovery_call') return DISCOVERY_CALL_URL;
+  if (urlKey === 'tuition') return '/tuition';
+  return null;
+}
+
+function enrollQuery(params) {
+  const sp = new URLSearchParams();
+  if (params.age) sp.set('age', params.age);
+  if (params.subject) sp.set('subject', params.subject);
+  const q = sp.toString();
+  return q ? `/enroll?${q}` : '/enroll';
+}
 
 export default function PathsPage() {
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const navigate = useNavigate();
+  const [journeyModalIndex, setJourneyModalIndex] = useState(null);
+  const journeyModalStep =
+    journeyModalIndex !== null ? LEARNING_JOURNEY_STEPS[journeyModalIndex] : null;
+  const journeyModalCtaHref =
+    journeyModalStep?.cta ? journeyCtaUrl(journeyModalStep.cta.urlKey) : null;
 
   return (
     <>
@@ -68,11 +89,18 @@ export default function PathsPage() {
               <Card
                 key={c.id}
                 hoverable
-                onClick={() =>
-                  setSelectedCourse(selectedCourse === c.id ? null : c.id)
-                }
+                role="button"
+                tabIndex={0}
+                aria-label={`Open enrollment for ${c.label}`}
+                onClick={() => navigate(enrollQuery({ subject: c.id }))}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    navigate(enrollQuery({ subject: c.id }));
+                  }
+                }}
                 style={{
-                  borderColor: selectedCourse === c.id ? c.color : theme.border,
+                  borderColor: theme.border,
                   borderWidth: 2,
                   textAlign: 'center',
                 }}
@@ -138,7 +166,22 @@ export default function PathsPage() {
             }}
           >
             {AGE_GROUPS.map((a, i) => (
-              <Card key={a.id} className={`fade-up delay-${i + 1}`}>
+              <Card
+                key={a.id}
+                className={`fade-up delay-${i + 1}`}
+                hoverable
+                role="button"
+                tabIndex={0}
+                aria-label={`Open enrollment for ${a.label}`}
+                onClick={() => navigate(enrollQuery({ age: a.id }))}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    navigate(enrollQuery({ age: a.id }));
+                  }
+                }}
+                style={{ scrollMarginTop: 96 }}
+              >
                 <div
                   style={{
                     display: 'flex',
@@ -181,78 +224,227 @@ export default function PathsPage() {
                 >
                   {a.desc}
                 </p>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }} onClick={(e) => e.stopPropagation()}>
                   {COURSES.map((c) => (
-                    <span
+                    <button
+                      type="button"
                       key={c.id}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(enrollQuery({ age: a.id, subject: c.id }));
+                      }}
                       style={{
-                        padding: '3px 10px',
+                        padding: '6px 12px',
                         borderRadius: 12,
-                        background: `${c.color}12`,
-                        fontSize: 12,
+                        border: 'none',
+                        cursor: 'pointer',
+                        background: `${c.color}18`,
+                        fontSize: 13,
                         color: c.color,
-                        fontWeight: 500,
+                        fontWeight: 600,
+                        fontFamily: 'inherit',
+                        textAlign: 'left',
                       }}
                     >
                       {c.label}
-                    </span>
+                    </button>
                   ))}
                 </div>
               </Card>
             ))}
           </div>
 
-          {/* Journey Map */}
-          <div
-            style={{
-              background: theme.light,
-              borderRadius: 20,
-              padding: 48,
-              textAlign: 'center',
-            }}
-          >
+          {/* Journey timeline */}
+          <div className="paths-journey-wrap">
             <h2
               style={{
                 fontFamily: font.display,
                 fontSize: 28,
                 color: theme.navy,
-                marginBottom: 32,
+                marginBottom: 10,
+                textAlign: 'center',
               }}
             >
               The learning journey
             </h2>
-            <div
+            <p
               style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 16,
-                flexWrap: 'wrap',
+                fontSize: 15,
+                color: theme.muted,
+                textAlign: 'center',
+                maxWidth: 520,
+                margin: '0 auto 28px',
+                lineHeight: 1.55,
               }}
             >
-              {JOURNEY.map((s, i) => (
-                <div
-                  key={i}
-                  style={{ display: 'flex', alignItems: 'center', gap: 16 }}
-                >
-                  <div
-                    style={{
-                      background: s.color,
-                      color: '#fff',
-                      borderRadius: 12,
-                      padding: '16px 24px',
-                      minWidth: 140,
-                    }}
+              Tap any step for a fuller explanation. Steps follow the same order families experience
+              after the discovery call.
+            </p>
+            <div className="paths-journey-track" role="list">
+              {LEARNING_JOURNEY_STEPS.map((s, i) => (
+                <div key={s.id} className="paths-journey-node" role="listitem">
+                  <button
+                    type="button"
+                    className={`paths-journey-card paths-journey-card--${s.variant}`}
+                    onClick={() => setJourneyModalIndex(i)}
+                    aria-haspopup="dialog"
+                    aria-expanded={journeyModalIndex === i}
+                    aria-label={`${s.name}: more detail`}
                   >
-                    <div style={{ fontSize: 15, fontWeight: 600 }}>{s.name}</div>
-                    <div style={{ fontSize: 12, opacity: 0.8, marginTop: 2 }}>{s.sub}</div>
-                  </div>
-                  {i < JOURNEY.length - 1 && (
-                    <div style={{ color: theme.muted, fontSize: 20 }}>›</div>
+                    <p className="paths-journey-card__title">{s.name}</p>
+                    <p className="paths-journey-card__sub">{s.sub}</p>
+                    <span className="paths-journey-card__hint">Learn more</span>
+                  </button>
+                  {i < LEARNING_JOURNEY_STEPS.length - 1 && (
+                    <span className="paths-journey-connector" aria-hidden>
+                      ›
+                    </span>
                   )}
                 </div>
               ))}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <ComingSoonModal
+        open={journeyModalIndex !== null}
+        onClose={() => setJourneyModalIndex(null)}
+        title={journeyModalStep?.name ?? ''}
+        wide
+        closeLabel="Close"
+      >
+        {journeyModalStep ? (
+          <>
+            <p
+              style={{
+                fontSize: 13,
+                fontWeight: 700,
+                color: theme.teal,
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase',
+                margin: '0 0 14px',
+              }}
+            >
+              {journeyModalStep.sub}
+            </p>
+            {journeyModalStep.body.map((para, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: 16,
+                  color: theme.muted,
+                  lineHeight: 1.65,
+                  margin: i === journeyModalStep.body.length - 1 ? 0 : 14,
+                }}
+              >
+                {para}
+              </p>
+            ))}
+            {journeyModalStep.cta && journeyModalCtaHref ? (
+              <div
+                style={{
+                  marginTop: 22,
+                  paddingTop: 18,
+                  borderTop: `1px solid ${theme.border}`,
+                }}
+              >
+                {journeyModalStep.cta.urlKey === 'discovery_call' ? (
+                  <a
+                    href={journeyModalCtaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-block',
+                      fontSize: 16,
+                      fontWeight: 700,
+                      color: theme.teal,
+                      textDecoration: 'underline',
+                      textUnderlineOffset: 3,
+                    }}
+                  >
+                    {journeyModalStep.cta.label} ↗
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setJourneyModalIndex(null);
+                      navigate(journeyModalCtaHref);
+                    }}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: 0,
+                      cursor: 'pointer',
+                      fontFamily: font.body,
+                      fontSize: 16,
+                      fontWeight: 700,
+                      color: theme.teal,
+                      textDecoration: 'underline',
+                      textUnderlineOffset: 3,
+                    }}
+                  >
+                    {journeyModalStep.cta.label}
+                  </button>
+                )}
+              </div>
+            ) : null}
+          </>
+        ) : null}
+      </ComingSoonModal>
+
+      {/* Our position on AI: after programs / journey */}
+      <section style={{ padding: '80px 0', background: theme.warm }}>
+        <Container>
+          <SectionLabel>Our Position on AI</SectionLabel>
+          <h2
+            style={{
+              fontFamily: font.display,
+              fontSize: 34,
+              color: theme.navy,
+              marginBottom: 24,
+              lineHeight: 1.25,
+            }}
+          >
+            We teach AI. We also teach when not to use it.
+          </h2>
+          <div
+            style={{
+              background: theme.card,
+              borderRadius: 16,
+              padding: '32px 36px',
+              border: `1px solid ${theme.border}`,
+              marginBottom: 40,
+            }}
+          >
+            {AI_ETHICS_INTRO.map((para, i) => (
+              <p
+                key={i}
+                style={{
+                  fontSize: 17,
+                  color: theme.text,
+                  lineHeight: 1.75,
+                  marginBottom: i === AI_ETHICS_INTRO.length - 1 ? 0 : 16,
+                }}
+              >
+                {para}
+              </p>
+            ))}
+          </div>
+          <div
+            className="paths-ai-principles grid-3"
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}
+          >
+            {AI_PRINCIPLES.map((block, i) => (
+              <Card key={i} style={{ padding: 24 }}>
+                <div style={{ fontSize: 28, marginBottom: 12 }}>{block.icon}</div>
+                <h3 style={{ fontFamily: font.display, fontSize: 18, color: theme.navy, marginBottom: 10 }}>
+                  {block.title}
+                </h3>
+                <p style={{ fontSize: 14, color: theme.muted, lineHeight: 1.6 }}>{block.desc}</p>
+              </Card>
+            ))}
           </div>
         </Container>
       </section>
@@ -275,12 +467,9 @@ export default function PathsPage() {
             tuition, or go straight to enrollment when you are ready.
           </p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button href={DISCOVERY_CALL_FORM_URL}>Book Free Discovery Call</Button>
+            <Button href={DISCOVERY_CALL_URL}>Book Free Discovery Call</Button>
             <Button variant="secondary" to="/tuition">
               Plans & Tuition
-            </Button>
-            <Button variant="secondary" to="/luminopro">
-              LuminoPro (schools & teams)
             </Button>
             <Button variant="secondary" to="/enroll">
               Enroll Your Child

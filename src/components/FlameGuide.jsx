@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { DISCOVERY_CALL_FORM_URL, SOCIAL_LINKS } from '../data/siteData';
+import { DISCOVERY_CALL_URL, SOCIAL_LINKS } from '../data/siteData';
 import SocialIcon from './SocialIcon';
 import flameMascot from '../assets/flame-mascot.png';
 
@@ -34,6 +34,10 @@ const PAGE_GUIDE = {
     headline: 'Enroll',
     body: 'Choose an age band and subject to open the right form or a Calendly consultation when a form is not live yet.',
   },
+  '/my-space': {
+    headline: 'My space',
+    body: 'Family sign-in for enrolled students. Accounts are issued by LuminoLearn—there is no sign-up on this site.',
+  },
 };
 
 function guideForPath(pathname) {
@@ -48,7 +52,7 @@ function guideForPath(pathname) {
 const WA_HREF = SOCIAL_LINKS.find((s) => s.id === 'whatsapp')?.href ?? 'https://wa.me/14374241380';
 
 function nextId() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  return `${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
 }
 
 export default function FlameGuide() {
@@ -71,7 +75,7 @@ export default function FlameGuide() {
       { key: 'enroll', label: 'Enroll', to: '/enroll' },
       { key: 'story', label: 'Our story', to: '/our-story' },
       { key: 'book', label: 'Book', to: '/book' },
-      { key: 'call', label: 'Discovery call', href: DISCOVERY_CALL_FORM_URL },
+      { key: 'call', label: 'Discovery call', href: DISCOVERY_CALL_URL },
     ],
     []
   );
@@ -164,9 +168,9 @@ export default function FlameGuide() {
       window.setTimeout(() => setOpen(false), 400);
       return;
     }
-    if (/discovery|intake|^call\b|form/.test(q)) {
-      window.open(DISCOVERY_CALL_FORM_URL, '_blank', 'noopener,noreferrer');
-      pushBot('Opened the free discovery call form in a new tab.');
+    if (/discovery|intake|^call\b/.test(q)) {
+      window.open(DISCOVERY_CALL_URL, '_blank', 'noopener,noreferrer');
+      pushBot('Opened Calendly to book your free discovery call.');
       return;
     }
     if (/whatsapp|\bwa\b|text us/.test(q)) {

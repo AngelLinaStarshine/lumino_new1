@@ -7,7 +7,8 @@ export const theme = {
   brandMint: '#7dcfb6',
   brandLilac: '#d9b8f3',
   brandOrange: '#f97316',
-  teal: '#2d9b84',
+  /** Teal aligned with CSS --color-teal: AA contrast vs white (UI) and vs bg (body text) */
+  teal: '#115e59',
   mint: '#a7f5ed',
   lilac: '#ccb5f9',
   warm: '#fff1e6',
@@ -16,7 +17,8 @@ export const theme = {
   coral: '#ff6f00',
   rose: '#ff4081',
   text: '#111827',
-  muted: '#475569',
+  /** Secondary text: ~7:1 on bg for WCAG 2 AA normal copy */
+  muted: '#3f4f63',
   light: '#fff9f2',
   border: 'rgba(17, 24, 39, 0.08)',
   success: '#047857',

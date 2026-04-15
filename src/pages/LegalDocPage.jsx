@@ -16,7 +16,7 @@ export function LegalDocPage({ source }) {
             alignItems: 'center',
             gap: 8,
             fontSize: 14,
-            color: 'var(--violet-500)',
+            color: 'var(--color-navy-light)',
             textDecoration: 'none',
             marginBottom: 32,
             fontWeight: 600,

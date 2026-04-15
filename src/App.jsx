@@ -11,6 +11,8 @@ import {
   EnrollPage,
   PrivacyPage,
   TermsPage,
+  LuminoQPage,
+  MySpacePage,
 } from './pages';
 function AppLayout({ children }) {
   return (
@@ -96,6 +98,22 @@ export default function App() {
         element={
           <AppLayout>
             <TermsPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/lumino-q"
+        element={
+          <AppLayout>
+            <LuminoQPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/my-space"
+        element={
+          <AppLayout>
+            <MySpacePage />
           </AppLayout>
         }
       />

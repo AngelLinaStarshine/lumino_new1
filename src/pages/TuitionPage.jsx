@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container, SectionLabel, Card, CtaBanner } from '../components';
-import { PLANS, PAYMENT_OPTIONS, DISCOVERY_CALL_FORM_URL } from '../data/siteData';
+import { Container, SectionLabel, Card, CtaBanner, StepIndicator } from '../components';
+import { PLANS, PAYMENT_OPTIONS, DISCOVERY_CALL_URL, HOW_IT_WORKS } from '../data/siteData';
 import { theme, font } from '../styles/theme';
 
 export default function TuitionPage() {
@@ -60,8 +60,8 @@ export default function TuitionPage() {
                       padding: '4px 14px',
                       borderRadius: 20,
                       background: plan.badgeColor,
-                      color: '#fff',
-                      fontSize: 12,
+                      color: plan.badgeFg ?? '#fff',
+                      fontSize: 14,
                       fontWeight: 600,
                     }}
                   >
@@ -270,8 +270,37 @@ export default function TuitionPage() {
         </Container>
       </section>
 
+      {/* Getting started: same steps as former home section */}
+      <section style={{ padding: '80px 0', background: theme.light }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <SectionLabel>Getting Started</SectionLabel>
+            <h2 style={{ fontFamily: font.display, fontSize: 34, color: theme.navy, lineHeight: 1.2 }}>
+              From first call to first class: no confusion, no pressure
+            </h2>
+          </div>
+          <StepIndicator steps={HOW_IT_WORKS} columns={4} />
+          <div
+            style={{
+              marginTop: 40,
+              background: theme.card,
+              border: `1px solid ${theme.border}`,
+              borderRadius: 12,
+              padding: '18px 22px',
+              fontSize: 15,
+              color: theme.navy,
+              lineHeight: 1.6,
+            }}
+          >
+            <span style={{ marginRight: 8 }}>ℹ️</span>
+            Accounts are set up by our team after enrollment. You don&apos;t create an account
+            yourself. We handle the setup so your child&apos;s first experience is smooth and personal.
+          </div>
+        </Container>
+      </section>
+
       <CtaBanner
-        primaryHref={DISCOVERY_CALL_FORM_URL}
+        primaryHref={DISCOVERY_CALL_URL}
         primaryLabel="Book Free Discovery Call"
         secondaryLabel="Explore Learning Paths"
         secondaryTo="/learning-paths"

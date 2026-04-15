@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from './Container';
 import { theme } from '../styles/theme';
-import { CONTACT, DISCOVERY_CALL_FORM_URL, SOCIAL_LINKS } from '../data/siteData';
+import { CONTACT, DISCOVERY_CALL_URL, SOCIAL_LINKS } from '../data/siteData';
 import SocialIcon from './SocialIcon';
 
 export default function Footer() {
@@ -68,13 +68,14 @@ export default function Footer() {
           <div>
             <div style={headingStyle}>Get Started</div>
             <a
-              href={DISCOVERY_CALL_FORM_URL}
+              href={DISCOVERY_CALL_URL}
               target="_blank"
               rel="noopener noreferrer"
               style={{ ...linkStyle, display: 'block', textDecoration: 'none' }}
             >
-              Book Free Session
+              Free discovery call (Calendly)
             </a>
+            <FooterLink to="/my-space">My space</FooterLink>
             <FooterLink to="/enroll">Enroll Your Child</FooterLink>
           </div>
         </div>

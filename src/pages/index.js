@@ -7,3 +7,5 @@ export { default as BookPage } from './BookPage';
 export { default as EnrollPage } from './EnrollPage';
 export { default as PrivacyPage } from './PrivacyPage';
 export { default as TermsPage } from './TermsPage';
+export { default as LuminoQPage } from './LuminoQPage';
+export { default as MySpacePage } from './MySpacePage';

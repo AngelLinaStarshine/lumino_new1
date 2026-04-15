@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Container from './Container';
-import Button from './Button';
 import { theme, font } from '../styles/theme';
-import { DISCOVERY_CALL_FORM_URL } from '../data/siteData';
+import { LUMINO_Q_META } from '../data/siteData';
+import ComingSoonModal from './ComingSoonModal';
 import luminolearnLogo from '../assets/luminolearn-logo.png';
 
 const NAV_LINKS = [
@@ -12,11 +12,14 @@ const NAV_LINKS = [
   { path: '/learning-paths', label: 'Learning Paths' },
   { path: '/tuition', label: 'Plans & Tuition' },
   { path: '/luminopro', label: 'LuminoPro' },
+  { path: '/my-space', label: 'My space' },
+  { path: LUMINO_Q_META.path, label: LUMINO_Q_META.navLabel, comingSoon: true },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [luminoQOpen, setLuminoQOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,6 +32,14 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
+
+  const goNav = (link) => {
+    if (link.comingSoon) {
+      setLuminoQOpen(true);
+      return;
+    }
+    navigate(link.path);
+  };
 
   return (
     <nav
@@ -71,17 +82,22 @@ export default function Navbar() {
         </div>
 
         {/* Desktop Links */}
-        <div className="hide-mobile" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+        <div
+          className="hide-mobile nav-desktop-links"
+          style={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', justifyContent: 'flex-end' }}
+        >
           {NAV_LINKS.map((link) => {
-            const active = location.pathname === link.path;
+            const active = !link.comingSoon && location.pathname === link.path;
             return (
               <button
                 key={link.path}
-                onClick={() => navigate(link.path)}
+                type="button"
+                onClick={() => goNav(link)}
+                className="nav-link-btn"
                 style={{
                   background: 'none',
                   border: 'none',
-                  padding: '9px 14px',
+                  padding: '9px 12px',
                   fontSize: 16,
                   fontWeight: active ? 600 : 400,
                   color: active ? theme.navy : theme.muted,
@@ -110,13 +126,6 @@ export default function Navbar() {
               </button>
             );
           })}
-          <Button
-            variant="warm"
-            href={DISCOVERY_CALL_FORM_URL}
-            style={{ padding: '11px 22px', fontSize: 16, marginLeft: 8 }}
-          >
-            Book Free Session
-          </Button>
         </div>
 
         {/* Mobile Hamburger */}
@@ -154,7 +163,8 @@ export default function Navbar() {
           {NAV_LINKS.map((link) => (
             <button
               key={link.path}
-              onClick={() => navigate(link.path)}
+              type="button"
+              onClick={() => goNav(link)}
               style={{
                 display: 'block',
                 width: '100%',
@@ -163,7 +173,7 @@ export default function Navbar() {
                 border: 'none',
                 padding: '14px 0',
                 fontSize: 17,
-                fontWeight: location.pathname === link.path ? 600 : 400,
+                fontWeight: !link.comingSoon && location.pathname === link.path ? 600 : 400,
                 color: theme.navy,
                 cursor: 'pointer',
                 fontFamily: font.body,
@@ -173,11 +183,15 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-          <Button variant="warm" href={DISCOVERY_CALL_FORM_URL} fullWidth style={{ marginTop: 16, fontSize: 16 }}>
-            Book Free Session
-          </Button>
         </div>
       )}
+
+      <ComingSoonModal
+        open={luminoQOpen}
+        onClose={() => setLuminoQOpen(false)}
+        title={LUMINO_Q_META.title}
+        message={LUMINO_Q_META.comingSoonMessage}
+      />
     </nav>
   );
 }

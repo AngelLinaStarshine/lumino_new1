@@ -45,7 +45,7 @@ export default function Button({ children, variant = 'primary', to, href, onClic
     gap: 8,
     padding: '14px 28px',
     borderRadius: 12,
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: 700,
     fontFamily: font.body,
     cursor: 'pointer',

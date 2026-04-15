@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { theme } from '../styles/theme';
 
-export default function Card({ children, style, onClick, hoverable, className }) {
+export default function Card({ children, style, onClick, hoverable, className, ...rest }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -10,6 +10,7 @@ export default function Card({ children, style, onClick, hoverable, className })
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={className}
+      {...rest}
       style={{
         background: theme.card,
         borderRadius: 18,
