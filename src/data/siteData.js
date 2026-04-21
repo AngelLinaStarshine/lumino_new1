@@ -179,7 +179,7 @@ export const LEARNING_JOURNEY_STEPS = [
     sub: '4 weeks · placement',
     variant: 'indigo',
     body: [
-      'Your child attends four guided sessions so we can assess level, learning style, and pace—not just grade.',
+      'Your child attends four guided sessions so we can assess level, learning style, and pace, not just grade.',
       'You receive a written placement report and a personalized learning plan. Pricing for this step is on Plans & Tuition.',
     ],
     cta: { label: 'View LuminoStart™ on Plans & Tuition', urlKey: 'tuition' },
@@ -200,7 +200,7 @@ export const LEARNING_JOURNEY_STEPS = [
     sub: '3 to 12 months · bundles',
     variant: 'sunrise',
     body: [
-      'LuminoPath™ bundles multiple LuminoCore™ cycles with priority scheduling, ongoing personalization, and regular progress reports—built for families who want continuity and value.',
+      'LuminoPath™ bundles multiple LuminoCore™ cycles with priority scheduling, ongoing personalization, and regular progress reports, built for families who want continuity and value.',
     ],
     cta: { label: 'Compare LuminoPath™ bundles', urlKey: 'tuition' },
   },
@@ -218,8 +218,8 @@ export const PRINCIPLES = [
     title: 'Know the Student Before Teaching the Subject',
     paragraphs: [
       "Before we teach a single concept, we learn who we're teaching.",
-      'Every student who enters LuminoLearn begins with a 4-week discovery phase (LuminoStart™) — not to test what they know, but to understand how they think. We observe how they approach a new problem: do they dive in or hesitate? Do they check their work or rush to finish? Do they ask questions freely or wait to be called on? Do they light up with logic puzzles or come alive during creative tasks?',
-      "This isn't a placement test. It's a portrait. By the end of four weeks, we know their skill level, yes — but we also know their confidence patterns, their pace preferences, their response to challenge, and what kind of encouragement actually reaches them.",
+      'Every student who enters LuminoLearn begins with a 4 week discovery phase (LuminoStart™), not to test what they know, but to understand how they think. We observe how they approach a new problem: do they dive in or hesitate? Do they check their work or rush to finish? Do they ask questions freely or wait to be called on? Do they light up with logic puzzles or come alive during creative tasks?',
+      "This isn't a placement test. It's a portrait. By the end of four weeks, we know their skill level, yes, but we also know their confidence patterns, their pace preferences, their response to challenge, and what kind of encouragement actually reaches them.",
     ],
     closing:
       'We teach subjects. But we teach them to a specific person. That distinction shapes everything.',
@@ -230,9 +230,9 @@ export const PRINCIPLES = [
     shortLabel: 'Calm, clear structure',
     title: 'Structure That Supports, Not Restricts',
     paragraphs: [
-      "Children don't thrive in chaos. They also don't thrive in rigidity. The structure we build sits between those extremes — predictable enough to feel safe, flexible enough to respond to each learner.",
-      "Every LuminoCore™ cycle follows a defined 12-week arc: clear weekly objectives, consistent session rhythms, progressive skill building, and a culminating project. Students always know what they're working on, what's coming next, and what \"done well\" looks like. There are no surprises, no ambiguity, no \"we'll see how it goes.\"",
-      'But within that structure, there is room. A student who masters a concept early moves to a deeper application, not a worksheet of the same thing. A student who needs more time gets it — without falling behind, because the path was designed with that flexibility built in.',
+      "Children don't thrive in chaos. They also don't thrive in rigidity. The structure we build sits between those extremes: predictable enough to feel safe, flexible enough to respond to each learner.",
+      "Every LuminoCore™ cycle follows a defined 12 week arc: clear weekly objectives, consistent session rhythms, progressive skill building, and a culminating project. Students always know what they're working on, what's coming next, and what \"done well\" looks like. There are no surprises, no ambiguity, no \"we'll see how it goes.\"",
+      'But within that structure, there is room. A student who masters a concept early moves to a deeper application, not a worksheet of the same thing. A student who needs more time gets it, without falling behind, because the path was designed with that flexibility built in.',
     ],
     closing:
       'Calm structure means a child can focus on learning instead of wondering what\'s expected of them.',
@@ -245,23 +245,23 @@ export const PRINCIPLES = [
     paragraphs: [
       "Any tutoring service can help a child pass a test. We're building something deeper.",
       "When a student solves a math problem at LuminoLearn, we don't just check whether the answer is correct. We ask: did they understand why the method works? Could they explain it to someone else? Would they recognize when to use it in a different context? Could they spot the error if the answer were wrong?",
-      "In Language, we don't just teach essay structure — we teach students to organize their thinking before they write, to revise with purpose, and to distinguish between what sounds good and what actually says something. In Computer Science, we don't teach syntax — we teach problem decomposition, logical reasoning, and the discipline of testing your own assumptions.",
+      "In Language, we don't just teach essay structure, we teach students to organize their thinking before they write, to revise with purpose, and to distinguish between what sounds good and what actually says something. In Computer Science, we don't teach syntax, we teach problem decomposition, logical reasoning, and the discipline of testing your own assumptions.",
     ],
     closing:
-      "We are developing independent thinkers who trust their own reasoning — students who don't need to ask \"is this right?\" because they've learned how to evaluate their own work. That capacity transfers far beyond any subject.",
+      "We are developing independent thinkers who trust their own reasoning, students who don't need to ask \"is this right?\" because they've learned how to evaluate their own work. That capacity transfers far beyond any subject.",
   },
   {
     id: 'tech-serves',
     icon: '⚖️',
     shortLabel: 'Ethical, intentional tech',
-    title: 'Technology Serves Learning — Never the Reverse',
+    title: 'Technology Serves Learning. Never the Reverse',
     paragraphs: [
       'We teach Computer Science. We teach AI concepts. And we are deeply skeptical of how most EdTech uses technology on children.',
       "At LuminoLearn, technology has a bounded role. Our platform shows students what they're working on, what's due, and what they've completed. It gives parents clear progress summaries. It gives teachers data to inform their instruction. That's it. There are no social feeds, no engagement streaks, no badges designed to trigger dopamine responses, no features built to maximize screen time.",
-      "We teach artificial intelligence as a subject — how models are trained, what they can and cannot do, where bias enters, and why critical evaluation of AI output is a skill every young person needs. But we teach it the way you'd teach any powerful tool: with respect for what it can do and honesty about what it shouldn't replace.",
+      "We teach artificial intelligence as a subject: how models are trained, what they can and cannot do, where bias enters, and why critical evaluation of AI output is a skill every young person needs. But we teach it the way you'd teach any powerful tool: with respect for what it can do and honesty about what it shouldn't replace.",
     ],
     closing:
-      'Our position is simple. AI is something students should understand, not something they should depend on. The ability to think clearly when the machine is wrong — that is the skill that will matter most.',
+      'Our position is simple. AI is something students should understand, not something they should depend on. The ability to think clearly when the machine is wrong: that is the skill that will matter most.',
   },
   {
     id: 'parents-partners',
@@ -269,9 +269,9 @@ export const PRINCIPLES = [
     shortLabel: 'Parents see everything',
     title: 'Parents Are Partners, Not Spectators',
     paragraphs: [
-      "Most parents we meet share the same frustration: they don't really know what's happening in their child's education. Report cards arrive twice a year. Parent-teacher conferences last ten minutes. And the rest of the time, \"How was school?\" gets answered with \"Fine.\"",
-      'We operate differently. After every session, your child\'s teacher writes a brief observation — what was covered, how your child engaged, what clicked, and what needs more time. You see these notes. Every four weeks, you receive a written progress summary: skills mastered, areas developing, recommendations for home support, and the plan for the next cycle.',
-      "If something isn't working — if your child is struggling with a concept, losing motivation, or needs a different approach — we tell you directly. We don't wait for a scheduled review. We don't soften it with vague reassurances. We tell you what we're seeing, what we think is happening, and what we recommend trying next.",
+      "Most parents we meet share the same frustration: they don't really know what's happening in their child's education. Report cards arrive twice a year. Parent teacher conferences last ten minutes. And the rest of the time, \"How was school?\" gets answered with \"Fine.\"",
+      'We operate differently. After every session, your child\'s teacher writes a brief observation: what was covered, how your child engaged, what clicked, and what needs more time. You see these notes. Every four weeks, you receive a written progress summary: skills mastered, areas developing, recommendations for home support, and the plan for the next cycle.',
+      "If something isn't working, if your child is struggling with a concept, losing motivation, or needs a different approach, we tell you directly. We don't wait for a scheduled review. We don't soften it with vague reassurances. We tell you what we're seeing, what we think is happening, and what we recommend trying next.",
     ],
     closing:
       "You chose to invest in your child's education. You deserve to see exactly what that investment is producing.",
@@ -283,8 +283,8 @@ export const PRINCIPLES = [
     title: 'Character and Confidence Alongside Knowledge',
     paragraphs: [
       "A child who knows algebra but is afraid to try hard problems hasn't really learned algebra. A student who writes well but won't share their work hasn't found their voice. Knowledge without confidence is incomplete.",
-      "At LuminoLearn, we pay attention to the person developing alongside the skills. Our teachers notice when a student starts volunteering answers who used to stay quiet. They notice when a student starts checking their own work without being asked. They notice when a child moves from \"I can't do this\" to \"I haven't figured this out yet\" — and they name that shift, because recognizing your own growth is part of learning.",
-      "We don't grade character. But we cultivate it — through consistent expectations, honest feedback, genuine praise for genuine effort, and an environment where struggle is treated as a normal and valuable part of getting better at something.",
+      "At LuminoLearn, we pay attention to the person developing alongside the skills. Our teachers notice when a student starts volunteering answers who used to stay quiet. They notice when a student starts checking their own work without being asked. They notice when a child moves from \"I can't do this\" to \"I haven't figured this out yet\", and they name that shift, because recognizing your own growth is part of learning.",
+      "We don't grade character. But we cultivate it through consistent expectations, honest feedback, genuine praise for genuine effort, and an environment where struggle is treated as a normal and valuable part of getting better at something.",
     ],
     closing:
       'Our goal is not to produce students who perform well. It\'s to develop young people who know how to learn, trust their own capacity, and carry that confidence into every classroom, conversation, and challenge they encounter after us.',
@@ -421,24 +421,24 @@ export const AI_PRINCIPLES = [
   },
 ];
 
-/** Our Story → How we operate → "How we personalize" tab (teacher-led process). */
+/** Our Story / How we operate / "How we personalize" tab (teacher led process). */
 export const PERSONALIZATION_STEPS = [
   {
     id: 'observe',
     step: 1,
-    shortLabel: 'Observe (Week 1–2)',
-    title: 'Observe — Weeks 1–2 of LuminoStart™',
+    shortLabel: 'Observe (Week 1 to 2)',
+    title: 'Observe: Weeks 1 to 2 of LuminoStart™',
     paragraphsBefore: [
       "We don't start with a test. We start by watching and listening.",
-      'During the first two weeks of LuminoStart™, your child participates in guided sessions where our teacher works with them across the subject — not to score them, but to understand them.',
+      'During the first two weeks of LuminoStart™, your child participates in guided sessions where our teacher works with them across the subject, not to score them, but to understand them.',
     ],
     arrowLabel: 'We observe:',
     arrows: [
       'How they approach an unfamiliar problem (dive in? hesitate? ask for help? try to find a pattern?)',
       'How they respond to being wrong (shut down? get curious? try again immediately?)',
       'Where their confidence sits relative to their actual ability (some students know more than they think; others think they know more than they do)',
-      'What pace feels natural — not too easy, not overwhelming',
-      'What kind of instruction lands (visual? verbal? hands-on? example-driven?)',
+      'What pace feels natural, not too easy, not overwhelming',
+      'What kind of instruction lands (visual? verbal? hands on? example driven?)',
     ],
     paragraphsAfter: [
       'This observation period gives us something no placement test can: a real picture of how your child learns, not just what they currently know.',
@@ -447,80 +447,80 @@ export const PERSONALIZATION_STEPS = [
   {
     id: 'map',
     step: 2,
-    shortLabel: 'Map (Week 2–3)',
-    title: 'Map — Weeks 2–3 of LuminoStart™',
+    shortLabel: 'Map (Week 2 to 3)',
+    title: 'Map: Weeks 2 to 3 of LuminoStart™',
     paragraphsBefore: [
-      'By the middle of LuminoStart™, we begin building your child\'s learning profile — a structured assessment of where they are and what they need.',
+      'By the middle of LuminoStart™, we begin building your child\'s learning profile: a structured assessment of where they are and what they need.',
     ],
     arrowLabel: 'The learning profile includes:',
     arrows: [
-      'Skill-level mapping: Which concepts are solid, which are developing, which have gaps. Not by grade — by actual demonstrated understanding.',
-      'Confidence profile: Where your child feels strong and where they hesitate. Confidence gaps often matter more than skill gaps — a student who can do the work but doesn\'t believe they can will underperform until the belief changes.',
+      'Skill level mapping: Which concepts are solid, which are developing, which have gaps. Not by grade, by actual demonstrated understanding.',
+      'Confidence profile: Where your child feels strong and where they hesitate. Confidence gaps often matter more than skill gaps. A student who can do the work but doesn\'t believe they can will underperform until the belief changes.',
       'Pace calibration: How quickly they absorb new material, how much repetition they need for retention, how they handle increasing complexity.',
       'Learning style indicators: Do they learn better from explanation first, or from trying and failing first? Do they prefer structured steps or open-ended exploration?',
     ],
     paragraphsAfter: [
-      'We share this profile with you — in clear language, not jargon. You will understand not just what level your child is at, but how they learn best and what kind of support will help them grow fastest.',
+      'We share this profile with you in clear language, not jargon. You will understand not just what level your child is at, but how they learn best and what kind of support will help them grow fastest.',
     ],
   },
   {
     id: 'place',
     step: 3,
-    shortLabel: 'Place (Week 3–4)',
-    title: 'Place — Weeks 3–4 of LuminoStart™',
+    shortLabel: 'Place (Week 3 to 4)',
+    title: 'Place: Weeks 3 to 4 of LuminoStart™',
     paragraphsBefore: [
       'With the learning profile complete, we match your child to the right small group.',
-      'Groups at LuminoLearn have a maximum of 6 students. But it\'s not just about size — it\'s about composition. We place students together based on:',
+      'Groups at LuminoLearn have a maximum of 6 students. But it\'s not just about size, it\'s about composition. We place students together based on:',
     ],
     arrowLabel: null,
     arrows: [
-      'Skill level (not grade): A strong 11-year-old may be grouped with a 12-year-old working at the same level. A 14-year-old with gaps may work with a smaller, foundational group to rebuild confidence before advancing.',
+      'Skill level (not grade): A strong 11 year old may be grouped with a 12 year old working at the same level. A 14 year old with gaps may work with a smaller, foundational group to rebuild confidence before advancing.',
       'Pace compatibility: Students in the same group should be able to move through material at a similar rhythm, so no one waits and no one drowns.',
       'Learning style alignment: Where possible, we group students who respond to similar instructional approaches, so the teacher can optimize their delivery.',
     ],
     paragraphsAfter: [
-      'At the end of LuminoStart™, you receive a written placement report that explains where your child was placed, why, and what their learning path looks like for the first LuminoCore™ cycle. If anything doesn\'t feel right — if you have questions, concerns, or context we should know — we adjust. This is a conversation, not a verdict.',
+      'At the end of LuminoStart™, you receive a written placement report that explains where your child was placed, why, and what their learning path looks like for the first LuminoCore™ cycle. If anything doesn\'t feel right, if you have questions, concerns, or context we should know, we adjust. This is a conversation, not a verdict.',
     ],
   },
   {
     id: 'teach-adapt',
     step: 4,
     shortLabel: 'Teach & adapt (ongoing)',
-    title: 'Teach and Adapt — Every LuminoCore™ Cycle',
+    title: 'Teach and Adapt: Every LuminoCore™ Cycle',
     paragraphsBefore: [
       "Once your child begins LuminoCore™, personalization doesn't stop. It accelerates.",
-      'Each 12-week cycle has defined learning objectives, but how each student moves through them is responsive. The teacher tracks mastery at the individual level — not just "did the class cover this topic?" but "does this specific student own this concept?"',
+      'Each 12-week cycle has defined learning objectives, but how each student moves through them is responsive. The teacher tracks mastery at the individual level, not just "did the class cover this topic?" but "does this specific student own this concept?"',
     ],
     arrowLabel: 'Every 4 weeks, the teacher conducts a structured review:',
     arrows: [
       'Which objectives has this student mastered? Which are developing?',
-      'Is the current pace right — too fast, too slow, or just right?',
+      'Is the current pace right: too fast, too slow, or just right?',
       'Has their confidence shifted? Are they taking more risks, asking more questions, showing more independence?',
       'Does the group placement still fit, or should we consider adjustment?',
     ],
     paragraphsAfter: [
       'Based on this review, the teacher may accelerate a student who\'s ready for deeper challenge, slow down and reinforce a concept that hasn\'t solidified, adjust instructional approach, or recommend a group change if the fit has shifted.',
-      'This is what personalization actually looks like: not software automatically choosing the next worksheet, but a teacher who knows your child making professional judgments about what they need this week — and adapting accordingly.',
+      'This is what personalization actually looks like: not software automatically choosing the next worksheet, but a teacher who knows your child making professional judgments about what they need this week, and adapting accordingly.',
     ],
   },
   {
     id: 'report-reflect',
     step: 5,
     shortLabel: 'Report & reflect (every cycle)',
-    title: 'Report and Reflect — End of Every Cycle',
+    title: 'Report and Reflect: End of Every Cycle',
     paragraphsBefore: [
       'At the end of each 12-week LuminoCore™ cycle, you receive a comprehensive progress report. Not a grade. A portrait of growth.',
     ],
     arrowLabel: 'The report includes:',
     arrows: [
       'Skills mastered: Specific competencies your child now demonstrates with confidence.',
-      'Skills developing: Areas where progress is real but mastery isn\'t complete yet — with a clear plan for how we\'ll continue building.',
-      'Character and confidence observations: How your child has grown as a learner — their independence, their willingness to engage with difficulty, their ability to self-assess.',
-      'Teacher narrative: Your child\'s teacher writes a personal summary — what they\'ve noticed, what impressed them, and what they recommend for the next cycle.',
-      'Next-cycle roadmap: What your child will work on next, why, and what the learning objectives are.',
+      'Skills developing: Areas where progress is real but mastery isn\'t complete yet, with a clear plan for how we\'ll continue building.',
+      'Character and confidence observations: How your child has grown as a learner: their independence, their willingness to engage with difficulty, their ability to self-assess.',
+      'Teacher narrative: Your child\'s teacher writes a personal summary: what they\'ve noticed, what impressed them, and what they recommend for the next cycle.',
+      'Next cycle roadmap: What your child will work on next, why, and what the learning objectives are.',
     ],
     paragraphsAfter: [
-      'We also invite a brief parent conversation — 15 minutes to review the report, answer questions, and hear from you. You know your child in ways we don\'t. Your observations about what\'s happening at home, how they talk about learning, whether they\'re engaging differently — that context makes our instruction better.',
+      'We also invite a brief parent conversation (about 15 minutes) to review the report, answer questions, and hear from you. You know your child in ways we don\'t. Your observations about what\'s happening at home, how they talk about learning, whether they\'re engaging differently: that context makes our instruction better.',
       'The cycle ends. The learning continues. And the path forward is always clear.',
     ],
   },
@@ -732,7 +732,7 @@ export const PRO_STEPS = [
 
 export const CONTACT = {
   email: 'lumino@luminolearn.org',
-  phone: '+1 (437) 424 1380',
+  phone: '+1 (437) 424-1380',
 };
 
 /** Footer / social (opens in new tab) */

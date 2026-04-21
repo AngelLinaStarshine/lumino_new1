@@ -61,10 +61,10 @@ function OperateStepDetail({ item }) {
 }
 
 const SUBHEAD_PRINCIPLES =
-  "Education isn't just about transferring knowledge. It's about developing a person — their reasoning, their confidence, their capacity to learn independently. These six principles shape every decision we make, from how we design a lesson to how we talk to a parent about their child's progress.";
+  "Education isn't just about transferring knowledge. It's about developing a person: their reasoning, their confidence, their capacity to learn independently. These six principles shape every decision we make, from how we design a lesson to how we talk to a parent about their child's progress.";
 
 const SUBHEAD_PERSONALIZE =
-  '"Personalized" is the most overused word in education. Here, it means something specific: a defined process that maps each student as an individual learner and builds a path around what we find — not a generic syllabus assigned by age.';
+  '"Personalized" is the most overused word in education. Here, it means something specific: a defined process that maps each student as an individual learner and builds a path around what we find, not a generic syllabus assigned by age.';
 
 export default function HowWeOperateSection() {
   const narrow = useNarrowLayout(900);
@@ -103,7 +103,7 @@ export default function HowWeOperateSection() {
             <span className="home-interact-hint__pulse home-interact-hint__pulse--warm" aria-hidden />
             <span>
               <strong>Try it:</strong> choose <em>What Guides Us</em> or <em>How We Personalize</em>, then
-              select a principle or step — the detail panel updates beside the list on larger screens, and
+              select a principle or step; the detail panel updates beside the list on larger screens, and
               expands in place on smaller ones.
             </span>
           </p>

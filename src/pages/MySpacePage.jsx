@@ -61,7 +61,7 @@ export default function MySpacePage() {
     ev.preventDefault();
     setError('');
     if (!configured) {
-      setError('Sign-in is not set up yet. Please contact LuminoLearn.');
+      setError('Sign in is not set up yet. Please contact LuminoLearn.');
       return;
     }
     const key = email.trim().toLowerCase();
@@ -90,7 +90,7 @@ export default function MySpacePage() {
             My space
           </h1>
           <p style={{ fontSize: 17, color: theme.muted, lineHeight: 1.7, marginBottom: 24 }}>
-            Family accounts are created by LuminoLearn—we do not offer public sign-up on this site.
+            Family accounts are created by LuminoLearn. We do not offer public sign up on this site.
             If you need access, please reach out to us after enrollment.
           </p>
           <Link

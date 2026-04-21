@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Container from './Container';
+import ComingSoonModal from './ComingSoonModal';
 import { theme, font } from '../styles/theme';
 import { LUMINO_Q_META } from '../data/siteData';
-import ComingSoonModal from './ComingSoonModal';
 import luminolearnLogo from '../assets/luminolearn-logo.png';
 
-const NAV_LINKS = [
-  { path: '/', label: 'Home' },
-  { path: '/our-story', label: 'Our Story' },
+const MAIN_NAV = [
   { path: '/learning-paths', label: 'Learning Paths' },
   { path: '/tuition', label: 'Plans & Tuition' },
+  { path: '/our-story', label: 'Our Story' },
   { path: '/luminopro', label: 'LuminoPro' },
-  { path: '/my-space', label: 'My space' },
   { path: LUMINO_Q_META.path, label: LUMINO_Q_META.navLabel, comingSoon: true },
 ];
 
@@ -41,6 +39,22 @@ export default function Navbar() {
     navigate(link.path);
   };
 
+  const linkBtnStyle = (active) => ({
+    background: 'none',
+    border: 'none',
+    padding: '9px 10px',
+    fontSize: 16,
+    fontWeight: active ? 600 : 400,
+    color: active ? theme.navy : theme.muted,
+    cursor: 'pointer',
+    fontFamily: font.body,
+    borderRadius: 8,
+    transition: 'all 0.2s',
+    position: 'relative',
+  });
+
+  const logInActive = location.pathname === '/my-space';
+
   return (
     <nav
       style={{
@@ -60,33 +74,43 @@ export default function Navbar() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          height: 76,
+          gap: 10,
+          minHeight: 76,
         }}
       >
-        {/* Official circular emblem + wordmark PNG */}
         <div
           className="nav-brand-hit"
           onClick={() => navigate('/')}
           onKeyDown={(e) => e.key === 'Enter' && navigate('/')}
           role="link"
           tabIndex={0}
-          aria-label="LuminoLearn home"
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          aria-label="LuminoLearn Academy home"
+          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}
         >
           <img
             src={luminolearnLogo}
-            alt="LuminoLearn Online Learning Academy"
+            alt="LuminoLearn Academy"
             decoding="async"
             className="nav-brand-logo"
           />
+          <span className="footer-brand-title nav-brand-wordmark hide-mobile" style={{ whiteSpace: 'nowrap' }}>
+            LuminoLearn Academy
+          </span>
         </div>
 
-        {/* Desktop Links */}
         <div
           className="hide-mobile nav-desktop-links"
-          style={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap', justifyContent: 'flex-end' }}
+          style={{
+            flex: 1,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 2,
+            minWidth: 0,
+          }}
         >
-          {NAV_LINKS.map((link) => {
+          {MAIN_NAV.map((link) => {
             const active = !link.comingSoon && location.pathname === link.path;
             return (
               <button
@@ -94,19 +118,7 @@ export default function Navbar() {
                 type="button"
                 onClick={() => goNav(link)}
                 className="nav-link-btn"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  padding: '9px 12px',
-                  fontSize: 16,
-                  fontWeight: active ? 600 : 400,
-                  color: active ? theme.navy : theme.muted,
-                  cursor: 'pointer',
-                  fontFamily: font.body,
-                  borderRadius: 8,
-                  transition: 'all 0.2s',
-                  position: 'relative',
-                }}
+                style={linkBtnStyle(active)}
               >
                 {link.label}
                 {active && (
@@ -128,29 +140,77 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          type="button"
-          className="show-mobile nav-menu-toggle"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-expanded={mobileOpen}
-          aria-controls="nav-mobile-panel"
-          aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          style={{
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: 8,
-            fontSize: 24,
-            color: theme.navy,
-            lineHeight: 1,
-          }}
+        <div
+          className="hide-mobile"
+          style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}
         >
-          {mobileOpen ? '✕' : '☰'}
-        </button>
+          <button
+            type="button"
+            onClick={() => navigate('/my-space')}
+            className="nav-link-btn"
+            style={{
+              ...linkBtnStyle(logInActive),
+              fontSize: 16,
+              color: logInActive ? theme.navy : theme.muted,
+            }}
+          >
+            Log In
+            {logInActive && (
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 2,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: 20,
+                  height: 2,
+                  background: theme.teal,
+                  borderRadius: 1,
+                }}
+              />
+            )}
+          </button>
+        </div>
+
+        <div className="show-mobile" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10 }}>
+          <button
+            type="button"
+            onClick={() => navigate('/my-space')}
+            style={{
+              background: 'none',
+              border: 'none',
+              padding: '8px 6px',
+              fontSize: 16,
+              fontWeight: 600,
+              color: theme.navy,
+              cursor: 'pointer',
+              fontFamily: font.body,
+            }}
+          >
+            Log In
+          </button>
+          <button
+            type="button"
+            className="nav-menu-toggle"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="nav-mobile-panel"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              padding: 8,
+              fontSize: 24,
+              color: theme.navy,
+              lineHeight: 1,
+            }}
+          >
+            {mobileOpen ? '✕' : '☰'}
+          </button>
+        </div>
       </Container>
 
-      {/* Mobile Menu */}
       {mobileOpen && (
         <div
           id="nav-mobile-panel"
@@ -160,7 +220,7 @@ export default function Navbar() {
             padding: '16px 24px 24px',
           }}
         >
-          {NAV_LINKS.map((link) => (
+          {MAIN_NAV.map((link) => (
             <button
               key={link.path}
               type="button"
@@ -172,7 +232,7 @@ export default function Navbar() {
                 background: 'none',
                 border: 'none',
                 padding: '14px 0',
-                fontSize: 17,
+                fontSize: 18,
                 fontWeight: !link.comingSoon && location.pathname === link.path ? 600 : 400,
                 color: theme.navy,
                 cursor: 'pointer',

@@ -36,7 +36,7 @@ const PAGE_GUIDE = {
   },
   '/my-space': {
     headline: 'My space',
-    body: 'Family sign-in for enrolled students. Accounts are issued by LuminoLearn—there is no sign-up on this site.',
+    body: 'Family sign in for enrolled students. Accounts are issued by LuminoLearn. There is no sign up on this site.',
   },
 };
 

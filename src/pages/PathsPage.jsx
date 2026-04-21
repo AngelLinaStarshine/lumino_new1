@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Container, SectionLabel, Card, Button } from '../components';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Container, SectionLabel, Card, Button, PageAmbient } from '../components';
 import ComingSoonModal from '../components/ComingSoonModal';
 import {
   COURSES,
@@ -26,25 +26,48 @@ function enrollQuery(params) {
   return q ? `/enroll?${q}` : '/enroll';
 }
 
+/** Hash targets from home page curriculum links (`#mathematics`, `#language`, `#cs`). */
+function courseSectionId(courseId) {
+  if (courseId === 'math') return 'mathematics';
+  return courseId;
+}
+
 export default function PathsPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [journeyModalIndex, setJourneyModalIndex] = useState(null);
   const journeyModalStep =
     journeyModalIndex !== null ? LEARNING_JOURNEY_STEPS[journeyModalIndex] : null;
   const journeyModalCtaHref =
     journeyModalStep?.cta ? journeyCtaUrl(journeyModalStep.cta.urlKey) : null;
 
+  useEffect(() => {
+    const id = location.hash?.replace(/^#/, '');
+    if (!id) return undefined;
+    const timer = window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 120);
+    return () => window.clearTimeout(timer);
+  }, [location.pathname, location.hash]);
+
   return (
-    <>
+    <div className="home-page inner-ambient-page paths-page">
+      <PageAmbient />
+      <>
       {/* Hero */}
-      <section style={{ paddingTop: 140, paddingBottom: 60, background: theme.light }}>
-        <Container narrow style={{ textAlign: 'center' }}>
+      <section
+        style={{
+          paddingTop: 'clamp(112px, 12vh, 148px)',
+          paddingBottom: 60,
+          background: `linear-gradient(180deg, rgba(253, 250, 240, 0.42) 0%, rgba(253, 250, 240, 0.78) 28%, ${theme.light} 55%, ${theme.light} 100%)`,
+        }}
+      >
+        <Container narrow style={{ textAlign: 'center', width: '100%' }}>
           <SectionLabel>Learning Paths</SectionLabel>
           <h1
-            className="fade-up"
+            className="fade-up inner-ambient-page__hero-title"
             style={{
               fontFamily: font.display,
-              fontSize: 44,
               color: theme.navy,
               marginBottom: 16,
             }}
@@ -52,8 +75,8 @@ export default function PathsPage() {
             Find the right path for your child
           </h1>
           <p
-            className="fade-up delay-1"
-            style={{ fontSize: 17, color: theme.muted, lineHeight: 1.7 }}
+            className="fade-up delay-1 inner-ambient-page__hero-lead"
+            style={{ color: theme.muted, lineHeight: 1.72 }}
           >
             Same focus as our home page: Mathematics, Language, and Computer Science for ages 9 to
             17, with small groups and placement by ability. Every family starts with a free discovery
@@ -68,7 +91,7 @@ export default function PathsPage() {
           <h2
             style={{
               fontFamily: font.display,
-              fontSize: 28,
+              fontSize: 30,
               color: theme.navy,
               marginBottom: 32,
               textAlign: 'center',
@@ -86,50 +109,51 @@ export default function PathsPage() {
             }}
           >
             {COURSES.map((c) => (
-              <Card
-                key={c.id}
-                hoverable
-                role="button"
-                tabIndex={0}
-                aria-label={`Open enrollment for ${c.label}`}
-                onClick={() => navigate(enrollQuery({ subject: c.id }))}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    navigate(enrollQuery({ subject: c.id }));
-                  }
-                }}
-                style={{
-                  borderColor: theme.border,
-                  borderWidth: 2,
-                  textAlign: 'center',
-                }}
-              >
-                <div style={{ fontSize: 44, marginBottom: 12 }}>{c.icon}</div>
-                <div
+              <div key={c.id} id={courseSectionId(c.id)} style={{ scrollMarginTop: 96 }}>
+                <Card
+                  hoverable
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Open enrollment for ${c.label}`}
+                  onClick={() => navigate(enrollQuery({ subject: c.id }))}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      navigate(enrollQuery({ subject: c.id }));
+                    }
+                  }}
                   style={{
-                    fontSize: 12,
-                    fontWeight: 600,
-                    color: c.color,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.06em',
-                    marginBottom: 4,
+                    borderColor: theme.border,
+                    borderWidth: 2,
+                    textAlign: 'center',
                   }}
                 >
-                  {c.tagline}
-                </div>
-                <h3
-                  style={{
-                    fontFamily: font.display,
-                    fontSize: 22,
-                    color: theme.navy,
-                    marginBottom: 8,
-                  }}
-                >
-                  {c.label}
-                </h3>
-                <p style={{ fontSize: 14, color: theme.muted, lineHeight: 1.6 }}>{c.desc}</p>
-              </Card>
+                  <div style={{ fontSize: 48, marginBottom: 12 }}>{c.icon}</div>
+                  <div
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 600,
+                      color: c.color,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.06em',
+                      marginBottom: 4,
+                    }}
+                  >
+                    {c.tagline}
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: font.display,
+                      fontSize: 24,
+                      color: theme.navy,
+                      marginBottom: 8,
+                    }}
+                  >
+                    {c.label}
+                  </h3>
+                  <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.62 }}>{c.desc}</p>
+                </Card>
+              </div>
             ))}
           </div>
 
@@ -137,7 +161,7 @@ export default function PathsPage() {
           <h2
             style={{
               fontFamily: font.display,
-              fontSize: 28,
+              fontSize: 30,
               color: theme.navy,
               marginBottom: 8,
               textAlign: 'center',
@@ -147,7 +171,7 @@ export default function PathsPage() {
           </h2>
           <p
             style={{
-              fontSize: 15,
+              fontSize: 16,
               color: theme.muted,
               textAlign: 'center',
               marginBottom: 32,
@@ -192,7 +216,7 @@ export default function PathsPage() {
                 >
                   <span
                     style={{
-                      fontSize: 13,
+                      fontSize: 14,
                       fontWeight: 600,
                       color: theme.teal,
                       textTransform: 'uppercase',
@@ -206,7 +230,7 @@ export default function PathsPage() {
                       padding: '4px 12px',
                       borderRadius: 20,
                       background: theme.light,
-                      fontSize: 14,
+                      fontSize: 15,
                       fontWeight: 600,
                       color: theme.navy,
                     }}
@@ -216,9 +240,9 @@ export default function PathsPage() {
                 </div>
                 <p
                   style={{
-                    fontSize: 15,
+                    fontSize: 16,
                     color: theme.muted,
-                    lineHeight: 1.6,
+                    lineHeight: 1.62,
                     marginBottom: 16,
                   }}
                 >
@@ -239,7 +263,7 @@ export default function PathsPage() {
                         border: 'none',
                         cursor: 'pointer',
                         background: `${c.color}18`,
-                        fontSize: 13,
+                        fontSize: 14,
                         color: c.color,
                         fontWeight: 600,
                         fontFamily: 'inherit',
@@ -259,7 +283,7 @@ export default function PathsPage() {
             <h2
               style={{
                 fontFamily: font.display,
-                fontSize: 28,
+                fontSize: 30,
                 color: theme.navy,
                 marginBottom: 10,
                 textAlign: 'center',
@@ -269,12 +293,12 @@ export default function PathsPage() {
             </h2>
             <p
               style={{
-                fontSize: 15,
+                fontSize: 16,
                 color: theme.muted,
                 textAlign: 'center',
-                maxWidth: 520,
+                maxWidth: 560,
                 margin: '0 auto 28px',
-                lineHeight: 1.55,
+                lineHeight: 1.58,
               }}
             >
               Tap any step for a fuller explanation. Steps follow the same order families experience
@@ -318,7 +342,7 @@ export default function PathsPage() {
           <>
             <p
               style={{
-                fontSize: 13,
+                fontSize: 14,
                 fontWeight: 700,
                 color: theme.teal,
                 letterSpacing: '0.04em',
@@ -332,9 +356,9 @@ export default function PathsPage() {
               <p
                 key={i}
                 style={{
-                  fontSize: 16,
+                  fontSize: 17,
                   color: theme.muted,
-                  lineHeight: 1.65,
+                  lineHeight: 1.68,
                   margin: i === journeyModalStep.body.length - 1 ? 0 : 14,
                 }}
               >
@@ -356,7 +380,7 @@ export default function PathsPage() {
                     rel="noopener noreferrer"
                     style={{
                       display: 'inline-block',
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: 700,
                       color: theme.teal,
                       textDecoration: 'underline',
@@ -378,7 +402,7 @@ export default function PathsPage() {
                       padding: 0,
                       cursor: 'pointer',
                       fontFamily: font.body,
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: 700,
                       color: theme.teal,
                       textDecoration: 'underline',
@@ -401,7 +425,7 @@ export default function PathsPage() {
           <h2
             style={{
               fontFamily: font.display,
-              fontSize: 34,
+              fontSize: 36,
               color: theme.navy,
               marginBottom: 24,
               lineHeight: 1.25,
@@ -422,9 +446,9 @@ export default function PathsPage() {
               <p
                 key={i}
                 style={{
-                  fontSize: 17,
+                  fontSize: 18,
                   color: theme.text,
-                  lineHeight: 1.75,
+                  lineHeight: 1.76,
                   marginBottom: i === AI_ETHICS_INTRO.length - 1 ? 0 : 16,
                 }}
               >
@@ -438,11 +462,11 @@ export default function PathsPage() {
           >
             {AI_PRINCIPLES.map((block, i) => (
               <Card key={i} style={{ padding: 24 }}>
-                <div style={{ fontSize: 28, marginBottom: 12 }}>{block.icon}</div>
-                <h3 style={{ fontFamily: font.display, fontSize: 18, color: theme.navy, marginBottom: 10 }}>
+                <div style={{ fontSize: 30, marginBottom: 12 }}>{block.icon}</div>
+                <h3 style={{ fontFamily: font.display, fontSize: 19, color: theme.navy, marginBottom: 10 }}>
                   {block.title}
                 </h3>
-                <p style={{ fontSize: 14, color: theme.muted, lineHeight: 1.6 }}>{block.desc}</p>
+                <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.62 }}>{block.desc}</p>
               </Card>
             ))}
           </div>
@@ -455,14 +479,14 @@ export default function PathsPage() {
           <h2
             style={{
               fontFamily: font.display,
-              fontSize: 28,
+              fontSize: 30,
               color: theme.navy,
               marginBottom: 12,
             }}
           >
             Ready to find the right fit?
           </h2>
-          <p style={{ fontSize: 16, color: theme.muted, marginBottom: 32 }}>
+          <p style={{ fontSize: 17, color: theme.muted, marginBottom: 32, lineHeight: 1.65 }}>
             Start with a free discovery call (same link as the home page). Then review plans and
             tuition, or go straight to enrollment when you are ready.
           </p>
@@ -478,5 +502,6 @@ export default function PathsPage() {
         </Container>
       </section>
     </>
+    </div>
   );
 }

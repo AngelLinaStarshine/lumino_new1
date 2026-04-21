@@ -1,20 +1,27 @@
 import React from 'react';
-import { Container, SectionLabel, Card, CtaBanner, StepIndicator } from '../components';
+import { Container, SectionLabel, Card, CtaBanner, StepIndicator, PageAmbient } from '../components';
 import { PLANS, PAYMENT_OPTIONS, DISCOVERY_CALL_URL, HOW_IT_WORKS } from '../data/siteData';
 import { theme, font } from '../styles/theme';
 
 export default function TuitionPage() {
   return (
-    <>
+    <div className="home-page inner-ambient-page">
+      <PageAmbient />
+      <>
       {/* Hero */}
-      <section style={{ paddingTop: 140, paddingBottom: 60, background: theme.light }}>
-        <Container narrow style={{ textAlign: 'center' }}>
+      <section
+        style={{
+          paddingTop: 'clamp(112px, 12vh, 148px)',
+          paddingBottom: 60,
+          background: `linear-gradient(180deg, rgba(253, 250, 240, 0.42) 0%, rgba(253, 250, 240, 0.78) 28%, ${theme.light} 55%, ${theme.light} 100%)`,
+        }}
+      >
+        <Container narrow style={{ textAlign: 'center', width: '100%' }}>
           <SectionLabel>Plans & Tuition</SectionLabel>
           <h1
-            className="fade-up"
+            className="fade-up inner-ambient-page__hero-title"
             style={{
               fontFamily: font.display,
-              fontSize: 44,
               color: theme.navy,
               marginBottom: 16,
             }}
@@ -22,8 +29,8 @@ export default function TuitionPage() {
             Simple, transparent pricing
           </h1>
           <p
-            className="fade-up delay-1"
-            style={{ fontSize: 17, color: theme.muted, lineHeight: 1.7 }}
+            className="fade-up delay-1 inner-ambient-page__hero-lead"
+            style={{ color: theme.muted, lineHeight: 1.72 }}
           >
             These are the same programs described on the home page and Learning Paths: student
             programs for ages 9 to 17. Everyone begins with LuminoStart™, then continues into
@@ -308,5 +315,6 @@ export default function TuitionPage() {
         tertiaryTo="/luminopro"
       />
     </>
+    </div>
   );
 }

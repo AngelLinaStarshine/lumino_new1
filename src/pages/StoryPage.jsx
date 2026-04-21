@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Container, SectionLabel, Card, CtaBanner } from '../components';
+import { Container, SectionLabel, Card, CtaBanner, PageAmbient } from '../components';
 import HowWeOperateSection from '../components/HowWeOperateSection';
 import {
   STORY_HERO_PARAGRAPHS,
@@ -37,19 +37,25 @@ export default function StoryPage() {
   }, [location.pathname, location.hash]);
 
   return (
-    <>
+    <div className="home-page inner-ambient-page">
+      <PageAmbient />
+      <>
       {/* Section 1: Hero */}
-      <section style={{ paddingTop: 140, paddingBottom: 80, background: theme.warm }}>
-        <Container narrow>
+      <section
+        style={{
+          paddingTop: 'clamp(112px, 12vh, 148px)',
+          paddingBottom: 80,
+          background: `linear-gradient(180deg, rgba(253, 250, 240, 0.38) 0%, rgba(255, 241, 230, 0.82) 32%, ${theme.warm} 58%, ${theme.warm} 100%)`,
+        }}
+      >
+        <Container narrow style={{ textAlign: 'center', width: '100%' }}>
           <SectionLabel>Our Story</SectionLabel>
           <h1
-            className="fade-up hero-title"
+            className="fade-up inner-ambient-page__hero-title"
             style={{
               fontFamily: font.display,
-              fontSize: 44,
               color: theme.navy,
               marginBottom: 28,
-              lineHeight: 1.15,
             }}
           >
             We didn&apos;t start with a business plan.
@@ -498,5 +504,6 @@ export default function StoryPage() {
         secondaryTo="/learning-paths"
       />
     </>
+    </div>
   );
 }
