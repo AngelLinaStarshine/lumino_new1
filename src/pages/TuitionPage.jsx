@@ -1,0 +1,319 @@
+import React from 'react';
+import { Container, SectionLabel, Card, CtaBanner, StepIndicator, PageAmbient } from '../components';
+import { PLANS, PAYMENT_OPTIONS, DISCOVERY_CALL_URL, HOW_IT_WORKS } from '../data/siteData';
+import { theme, font } from '../styles/theme';
+
+export default function TuitionPage() {
+  return (
+    <div className="home-page inner-ambient-page">
+      <PageAmbient />
+      <>
+      {/* Hero */}
+      <section
+        style={{
+          paddingTop: 'clamp(112px, 12vh, 148px)',
+          paddingBottom: 60,
+          background: `linear-gradient(180deg, rgba(253, 250, 240, 0.42) 0%, rgba(253, 250, 240, 0.78) 28%, ${theme.light} 55%, ${theme.light} 100%)`,
+        }}
+      >
+        <Container narrow style={{ textAlign: 'center', width: '100%' }}>
+          <SectionLabel>Plans & Tuition</SectionLabel>
+          <h1
+            className="fade-up inner-ambient-page__hero-title"
+            style={{
+              fontFamily: font.display,
+              color: theme.navy,
+              marginBottom: 16,
+            }}
+          >
+            Simple, transparent pricing
+          </h1>
+          <p
+            className="fade-up delay-1 inner-ambient-page__hero-lead"
+            style={{ color: theme.muted, lineHeight: 1.72 }}
+          >
+            These are the same programs described on the home page and Learning Paths: student
+            programs for ages 9 to 17. Everyone begins with LuminoStart™, then continues into
+            LuminoCore™ or LuminoPath™. No hidden fees. No long term contracts.
+          </p>
+        </Container>
+      </section>
+
+      {/* Plans */}
+      <section style={{ padding: '64px 0' }}>
+        <Container>
+          <div
+            className="grid-3"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 24,
+              marginBottom: 56,
+            }}
+          >
+            {PLANS.map((plan, i) => (
+              <Card
+                key={i}
+                style={{
+                  position: 'relative',
+                  borderColor: plan.featured ? theme.teal : theme.border,
+                  borderWidth: plan.featured ? 2 : 1,
+                }}
+              >
+                {/* Badge */}
+                <div style={{ position: 'absolute', top: -12, left: 24 }}>
+                  <span
+                    style={{
+                      padding: '4px 14px',
+                      borderRadius: 20,
+                      background: plan.badgeColor,
+                      color: plan.badgeFg ?? '#fff',
+                      fontSize: 14,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {plan.badge}
+                  </span>
+                </div>
+
+                <div style={{ marginTop: 8 }}>
+                  <h3
+                    style={{
+                      fontFamily: font.display,
+                      fontSize: 24,
+                      color: theme.navy,
+                      marginBottom: 4,
+                    }}
+                  >
+                    {plan.name}
+                  </h3>
+                  <div style={{ fontSize: 14, color: theme.muted, marginBottom: 16 }}>
+                    {plan.duration}
+                  </div>
+
+                  {/* Price */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      gap: 4,
+                      marginBottom: 8,
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: font.display,
+                        fontSize: 32,
+                        color: theme.navy,
+                      }}
+                    >
+                      {plan.price}
+                    </span>
+                    <span style={{ fontSize: 14, color: theme.muted }}>
+                      {' '}
+                      CAD {plan.unit}
+                    </span>
+                  </div>
+
+                  <p
+                    style={{
+                      fontSize: 14,
+                      color: theme.muted,
+                      lineHeight: 1.6,
+                      marginBottom: 20,
+                      minHeight: 48,
+                    }}
+                  >
+                    {plan.desc}
+                  </p>
+
+                  {/* Features */}
+                  <div style={{ borderTop: `1px solid ${theme.border}`, paddingTop: 16 }}>
+                    {plan.features.map((f, j) => (
+                      <div
+                        key={j}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 8,
+                          marginBottom: 8,
+                        }}
+                      >
+                        <span style={{ color: theme.teal, fontSize: 14 }}>✓</span>
+                        <span style={{ fontSize: 14, color: theme.text }}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Subject pricing */}
+                  {plan.subjects && (
+                    <div
+                      style={{
+                        marginTop: 16,
+                        background: theme.light,
+                        borderRadius: 10,
+                        padding: 16,
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: theme.navy,
+                          marginBottom: 8,
+                        }}
+                      >
+                        Per subject:
+                      </div>
+                      {plan.subjects.map((s, j) => (
+                        <div
+                          key={j}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            fontSize: 14,
+                            color: theme.text,
+                            marginBottom: 4,
+                          }}
+                        >
+                          <span>{s.name}</span>
+                          <span style={{ fontWeight: 600 }}>{s.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Bundle pricing */}
+                  {plan.bundles && (
+                    <div
+                      style={{
+                        marginTop: 16,
+                        background: theme.light,
+                        borderRadius: 10,
+                        padding: 16,
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: theme.navy,
+                          marginBottom: 8,
+                        }}
+                      >
+                        Bundle options:
+                      </div>
+                      {plan.bundles.map((b, j) => (
+                        <div
+                          key={j}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            fontSize: 14,
+                            color: theme.text,
+                            marginBottom: 4,
+                          }}
+                        >
+                          <span>
+                            {b.months} months ({b.cycles} cycles)
+                          </span>
+                          <span style={{ fontWeight: 600 }}>{b.price}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Payment Options */}
+          <div
+            style={{
+              background: theme.light,
+              borderRadius: 16,
+              padding: 40,
+              textAlign: 'center',
+            }}
+          >
+            <h3
+              style={{
+                fontFamily: font.display,
+                fontSize: 24,
+                color: theme.navy,
+                marginBottom: 16,
+              }}
+            >
+              Flexible payment options
+            </h3>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: 24,
+                width: '100%',
+              }}
+            >
+              {PAYMENT_OPTIONS.map((p, i) => (
+                <div key={i}>
+                  <div style={{ fontSize: 28, marginBottom: 8 }}>{p.icon}</div>
+                  <h4
+                    style={{
+                      fontSize: 15,
+                      fontWeight: 600,
+                      color: theme.navy,
+                      marginBottom: 4,
+                    }}
+                  >
+                    {p.title}
+                  </h4>
+                  <p style={{ fontSize: 13, color: theme.muted, lineHeight: 1.5 }}>
+                    {p.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Getting started: same steps as former home section */}
+      <section style={{ padding: '80px 0', background: theme.light }}>
+        <Container>
+          <div style={{ textAlign: 'center', marginBottom: 48 }}>
+            <SectionLabel>Getting Started</SectionLabel>
+            <h2 style={{ fontFamily: font.display, fontSize: 34, color: theme.navy, lineHeight: 1.2 }}>
+              From first call to first class: no confusion, no pressure
+            </h2>
+          </div>
+          <StepIndicator steps={HOW_IT_WORKS} columns={4} />
+          <div
+            style={{
+              marginTop: 40,
+              background: theme.card,
+              border: `1px solid ${theme.border}`,
+              borderRadius: 12,
+              padding: '18px 22px',
+              fontSize: 15,
+              color: theme.navy,
+              lineHeight: 1.6,
+            }}
+          >
+            <span style={{ marginRight: 8 }}>ℹ️</span>
+            Accounts are set up by our team after enrollment. You don&apos;t create an account
+            yourself. We handle the setup so your child&apos;s first experience is smooth and personal.
+          </div>
+        </Container>
+      </section>
+
+      <CtaBanner
+        primaryHref={DISCOVERY_CALL_URL}
+        primaryLabel="Book Free Discovery Call"
+        secondaryLabel="Explore Learning Paths"
+        secondaryTo="/learning-paths"
+        tertiaryLabel=""
+      />
+    </>
+    </div>
+  );
+}
