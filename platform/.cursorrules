@@ -1,0 +1,443 @@
+# LuminoLearn — Cursor Instructions
+# Drop this file as `.cursorrules` in the project root.
+# Cursor reads it automatically on every prompt.
+
+## Project Overview
+
+LuminoLearn is a 3-role learning platform for students aged 9-17.
+Built for boutique online tutoring with small group classes.
+
+Stack:
+- Next.js 14 (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui components
+- Supabase (Postgres + Auth + Storage + Realtime)
+- Stripe (payments + customer portal)
+- Twilio (SMS notifications)
+- Resend (email notifications)
+- Zoom or Google Meet (live classes, embedded)
+
+---
+
+## Three User Roles
+
+**Student account**
+- Sees only enrolled courses (Number Ninjas, Word Wizards, Code Explorers)
+- Joins live class via embedded video link
+- Submits homework via file upload (Word, PDF, image) or Google Docs URL
+- Views personal schedule and progress chart
+- Receives SMS and email for new assignments and feedback
+
+**Parent account** (linked to student, passcode-gated)
+- Same login as student, separate passcode (4-6 digit) to switch view
+- Read-only progress reports per course
+- Full payment history with downloadable Stripe receipts
+- Manages SMS notification preferences
+- Cannot edit homework or join classes
+
+**Teacher account**
+- Sees roster of all assigned students
+- Creates lesson plans with structured chapters
+- Assigns homework with due dates, attachment requirements
+- Reviews submitted work, leaves written or audio feedback
+- Sees and edits the master schedule
+
+---
+
+## Lumino Curriculum Structure
+
+**Stages (placement by ability, not grade):**
+- Foundations (9-11)
+- Growth (12-14)
+- Mastery (15-17)
+
+**Subjects:**
+- Number Ninjas → Mathematics
+- Word Wizards → Language & Literacy
+- Code Explorers → Computer Science (includes AI ethics from age 12)
+
+**Learning Journey:**
+1. Discovery call (free, 30 min)
+2. LuminoStart™ (4-week placement assessment)
+3. LuminoCore™ (12-week certified cycle)
+4. LuminoPath™ (3-12 month bundles)
+
+---
+
+## Architecture Rules
+
+### Routing (Next.js App Router)
+- All routes are in `app/` directory
+- Each role has its own folder: `app/student/`, `app/parent/`, `app/teacher/`
+- Shared layouts in `app/(auth)/` for login flows
+- Never put role-specific logic in components — pass props from page level
+
+### State
+- Use Supabase Realtime for live notifications
+- Use React Server Components by default
+- Client components only when interaction is required (`'use client'` directive)
+- Never use localStorage for sensitive data — use Supabase session
+
+### Data
+- All site content lives in Supabase tables
+- Course content, lesson structures, and student data — never hard-coded
+- Use Supabase RLS (Row Level Security) policies for all tables
+- Students can only read their own enrollments
+- Parents can read their linked student's data
+- Teachers can read all assigned students
+
+---
+
+## Database Schema
+
+```
+profiles
+  id, role (student/parent/teacher), full_name, email, phone, avatar_url, created_at
+
+family_links
+  parent_id, student_id, passcode_hash, created_at
+
+courses
+  id, name (number_ninjas/word_wizards/code_explorers), stage (foundations/growth/mastery)
+
+lessons
+  id, course_id, week, title, chapters (jsonb), zoom_link
+
+enrollments
+  id, student_id, course_id, teacher_id, cycle (start/core/path), week_progress, status
+
+homework
+  id, lesson_id, instructions, due_date, attachment_types (jsonb array), max_score
+
+submissions
+  id, homework_id, student_id, file_url, google_doc_url, submitted_at, score, feedback, audio_feedback_url
+
+assessments
+  id, student_id, type (lumino_start/3_week/3_month), score, baseline_score, date
+
+payments
+  id, parent_id, student_id, amount_cents, currency, stripe_payment_id, status, invoice_url, paid_at, due_date
+
+notifications
+  id, user_id, type, channel (in_app/email/sms), message, link, read_at, sent_at
+
+notification_prefs
+  user_id, sms_homework, sms_class, sms_payment, sms_feedback, email_*, phone_verified, opted_in_at
+
+sms_log
+  id, user_id, trigger_event, message_body, twilio_sid, status, sent_at
+
+schedule_slots
+  id, course_id, teacher_id, day_of_week, start_time, end_time, recurring
+```
+
+---
+
+## Styling Rules
+
+### Brand Tokens
+Defined in `tailwind.config.ts` and `app/globals.css`:
+
+```
+Colors:
+  lumino-purple-50  #EEEDFE  (Math/Number Ninjas light)
+  lumino-purple-600 #534AB7  (Math primary)
+  lumino-purple-900 #26215C  (Math text on light)
+
+  lumino-amber-50   #FAEEDA  (Language/Word Wizards light)
+  lumino-amber-600  #BA7517  (Language primary)
+  lumino-amber-900  #412402
+
+  lumino-blue-50    #E6F1FB  (CS/Code Explorers light)
+  lumino-blue-600   #185FA5  (CS primary)
+  lumino-blue-900   #042C53
+
+  lumino-teal-600   #1D9E75  (success/completion)
+  lumino-coral-600  #993C1D  (alerts/urgent)
+
+Fonts:
+  --font-display: Inter (headings, UI)
+  --font-body:    Inter (body, labels)
+  --font-mono:    JetBrains Mono (code blocks in CS lessons)
+```
+
+### Always use Tailwind utility classes — never inline styles
+```tsx
+// CORRECT
+<div className="bg-lumino-purple-50 text-lumino-purple-900 p-4 rounded-lg">
+
+// WRONG
+<div style={{ background: '#EEEDFE', color: '#26215C', padding: 16 }}>
+```
+
+### Always use shadcn/ui components for forms, dialogs, buttons
+```bash
+npx shadcn-ui@latest add button card dialog input form select badge
+```
+
+### Typography scale
+- h1 = text-2xl font-medium
+- h2 = text-lg font-medium
+- h3 = text-base font-medium
+- body = text-sm
+- meta = text-xs text-muted-foreground
+
+### Accessibility (AAA standards)
+- All interactive elements need focus-visible ring
+- Contrast ratios must meet WCAG AA minimum
+- Every icon-only button needs `aria-label`
+- Forms use shadcn `<Form>` with proper field labels
+
+---
+
+## Component Guidelines
+
+### CourseCard
+Used on student dashboard. Receives the course object and renders the icon, title, lesson progress, and "Join class" CTA. Branded by course type (Math/Language/CS).
+
+### HomeworkRow
+List item for homework assignments. Shows status pill (Due soon / In progress / Submitted), course, due date, action button.
+
+### CycleProgressStrip
+Shows the 4-step LuminoLearn journey: Discovery → LuminoStart → LuminoCore → LuminoPath. Highlights current step.
+
+### ProgressChart
+Bar chart showing assessment scores from LuminoStart baseline through current. Uses recharts library.
+
+### FileUploadField
+Homework submission widget. Accepts .docx, .pdf, .png, .jpg. Also has "Paste Google Docs URL" alternative input. Uploads to Supabase Storage.
+
+### SmsPreferences
+Toggle panel for SMS opt-in. Separate switches for homework, class reminders, payment alerts, feedback. Includes CASL-compliant consent text.
+
+---
+
+## SMS Notifications (Twilio)
+
+All SMS sent via Twilio. Trigger events:
+
+| Event | Recipient | Trigger location |
+|---|---|---|
+| Homework assigned | Student + Parent | When teacher creates row in `homework` table |
+| Homework submitted | Parent + Teacher | When student creates row in `submissions` |
+| Feedback posted | Student + Parent | When teacher updates `submissions.feedback` |
+| Payment reminder (7 days) | Parent | Cron job: 7 days before `payments.due_date` |
+| Payment overdue | Parent | Cron job: 1 day after `payments.due_date` if status != paid |
+| Class starting (30 min) | Student | Cron job based on `schedule_slots` |
+| 3-month evaluation | Parent + Student | Cron job: 90 days after last `assessments` of type `3_month` |
+
+All SMS go through `lib/sms.ts` helper that:
+1. Checks `notification_prefs` for user's opt-in
+2. Sends via Twilio Programmable SMS API
+3. Logs result to `sms_log`
+4. Honours STOP keyword automatically (Twilio handles)
+
+CASL compliance:
+- Explicit opt-in checkbox during signup (unchecked by default)
+- Confirmation SMS on first opt-in
+- "Reply STOP to opt out" appended to every message
+- Unsubscribe toggle in Settings always available
+
+---
+
+## File Structure
+
+```
+luminolearn/
+├── .cursorrules              ← this file
+├── .env.local                ← Supabase, Stripe, Twilio, Resend keys
+├── .gitignore
+├── README.md
+├── next.config.js
+├── tailwind.config.ts
+├── tsconfig.json
+├── package.json
+├── middleware.ts             ← Auth + role-based route protection
+│
+├── app/
+│   ├── (auth)/
+│   │   ├── login/page.tsx
+│   │   ├── signup/page.tsx
+│   │   └── layout.tsx
+│   │
+│   ├── student/
+│   │   ├── layout.tsx        ← Student-only nav + role check
+│   │   ├── page.tsx          ← Dashboard
+│   │   ├── courses/page.tsx
+│   │   ├── homework/page.tsx
+│   │   ├── homework/[id]/page.tsx ← Submit homework
+│   │   ├── schedule/page.tsx
+│   │   ├── progress/page.tsx
+│   │   └── settings/page.tsx
+│   │
+│   ├── parent/
+│   │   ├── layout.tsx        ← Parent-only nav + passcode gate
+│   │   ├── page.tsx          ← Overview of all children
+│   │   ├── progress/[student_id]/page.tsx
+│   │   ├── payments/page.tsx
+│   │   └── settings/page.tsx ← SMS prefs
+│   │
+│   ├── teacher/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx          ← Dashboard
+│   │   ├── students/page.tsx ← Roster
+│   │   ├── lessons/page.tsx  ← Lesson plan builder
+│   │   ├── homework/page.tsx ← Assignment creator
+│   │   ├── feedback/page.tsx ← Review submissions
+│   │   └── schedule/page.tsx
+│   │
+│   ├── api/
+│   │   ├── sms/route.ts      ← Twilio webhook + send endpoint
+│   │   ├── stripe/webhook/route.ts
+│   │   ├── cron/payment-reminders/route.ts
+│   │   ├── cron/class-reminders/route.ts
+│   │   └── cron/evaluations/route.ts
+│   │
+│   ├── layout.tsx            ← Root layout (fonts, theme)
+│   ├── globals.css           ← Tailwind + brand tokens
+│   └── page.tsx              ← Landing or redirect to /login
+│
+├── components/
+│   ├── ui/                   ← shadcn/ui primitives (auto-generated)
+│   ├── student/
+│   │   ├── CourseCard.tsx
+│   │   ├── HomeworkRow.tsx
+│   │   ├── CycleProgressStrip.tsx
+│   │   ├── ProgressChart.tsx
+│   │   ├── FileUploadField.tsx
+│   │   └── ScheduleList.tsx
+│   ├── parent/
+│   │   ├── PasscodeGate.tsx
+│   │   ├── PaymentHistory.tsx
+│   │   └── SmsPreferences.tsx
+│   ├── teacher/
+│   │   ├── LessonBuilder.tsx
+│   │   ├── HomeworkAssigner.tsx
+│   │   ├── FeedbackPanel.tsx
+│   │   └── StudentRoster.tsx
+│   └── shared/
+│       ├── NavSidebar.tsx
+│       ├── Topbar.tsx
+│       ├── NotificationBell.tsx
+│       └── Avatar.tsx
+│
+├── lib/
+│   ├── supabase/
+│   │   ├── client.ts         ← Browser client
+│   │   ├── server.ts         ← Server client
+│   │   └── middleware.ts     ← Session refresh
+│   ├── sms.ts                ← Twilio helper
+│   ├── email.ts              ← Resend helper
+│   ├── stripe.ts             ← Stripe helper
+│   ├── utils.ts              ← cn() helper, formatters
+│   └── constants.ts          ← Subject types, stages, cycle names
+│
+├── types/
+│   ├── database.ts           ← Generated from Supabase
+│   ├── user.ts
+│   └── homework.ts
+│
+└── supabase/
+    ├── migrations/           ← SQL files for schema
+    ├── seed.sql              ← Sample data for dev
+    └── functions/            ← Edge functions for cron jobs
+```
+
+---
+
+## Path Aliases
+`@` maps to project root. Always use it:
+```ts
+import { Button } from '@/components/ui/button';
+import { createClient } from '@/lib/supabase/server';
+import type { Course } from '@/types/database';
+```
+
+---
+
+## Do Not
+- Do not install UI libraries other than shadcn/ui
+- Do not use localStorage or sessionStorage for sensitive data
+- Do not hard-code course content, lesson structures, or student data
+- Do not bypass Supabase RLS policies — server actions must respect them
+- Do not skip CASL consent for SMS — every opt-in must be explicit
+- Do not store passwords or passcodes in plain text — use Supabase Auth + bcrypt
+- Do not let students see other students' data
+- Do not let parents edit homework or join live classes
+- Do not commit `.env.local` to git
+- Do not use Pages Router — App Router only (Next.js 14+)
+
+---
+
+## Adding a New Course
+1. Add row to `courses` table with subject and stage
+2. Add icon and brand colours to `lib/constants.ts`
+3. Create lesson rows in `lessons` table
+4. Assign teacher and enroll students via Supabase Studio or admin UI
+
+## Adding a New Notification Trigger
+1. Add event type to `lib/sms.ts` `triggerSms()` function
+2. Add row to `notification_prefs` schema if new preference toggle needed
+3. Add SMS template to `lib/sms-templates.ts`
+4. Wire up trigger location (database trigger, server action, or cron)
+
+---
+
+## Environment Variables Required (.env.local)
+
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE_NUMBER=
+
+RESEND_API_KEY=
+
+NEXT_PUBLIC_APP_URL=https://luminolearn.app
+CRON_SECRET=                  ← For protecting cron endpoints
+```
+
+---
+
+## Common Patterns
+
+### Server-side data fetching (Student dashboard)
+```tsx
+// app/student/page.tsx
+import { createClient } from '@/lib/supabase/server';
+
+export default async function StudentDashboard() {
+  const supabase = createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const { data: enrollments } = await supabase
+    .from('enrollments')
+    .select('*, courses(*), lessons(*)')
+    .eq('student_id', user.id);
+
+  return <Dashboard enrollments={enrollments} />;
+}
+```
+
+### Triggering an SMS
+```ts
+import { triggerSms } from '@/lib/sms';
+
+await triggerSms({
+  userId: parentId,
+  event: 'homework_assigned',
+  data: { studentName, courseName, dueDate, link }
+});
+```
+
+### Uploading homework
+```ts
+const { data, error } = await supabase.storage
+  .from('homework-submissions')
+  .upload(`${studentId}/${homeworkId}/${file.name}`, file);
+```

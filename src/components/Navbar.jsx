@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Container from './Container';
 import { theme, font } from '../styles/theme';
+import { LOGIN_PATH } from '../lib/platformUrl';
 import luminolearnLogo from '../assets/luminolearn-logo.png';
 
 const MAIN_NAV = [
@@ -44,7 +45,7 @@ export default function Navbar() {
     position: 'relative',
   });
 
-  const logInActive = location.pathname === '/my-space';
+  const logInActive = false;
 
   return (
     <nav
@@ -135,38 +136,23 @@ export default function Navbar() {
           className="hide-mobile"
           style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 8 }}
         >
-          <button
-            type="button"
-            onClick={() => navigate('/my-space')}
+          <a
+            href={LOGIN_PATH}
             className="nav-link-btn"
             style={{
               ...linkBtnStyle(logInActive),
               fontSize: 16,
-              color: logInActive ? theme.navy : theme.muted,
+              color: theme.muted,
+              textDecoration: 'none',
             }}
           >
             Log In
-            {logInActive && (
-              <div
-                style={{
-                  position: 'absolute',
-                  bottom: 2,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: 20,
-                  height: 2,
-                  background: theme.teal,
-                  borderRadius: 1,
-                }}
-              />
-            )}
-          </button>
+          </a>
         </div>
 
         <div className="show-mobile" style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: 10 }}>
-          <button
-            type="button"
-            onClick={() => navigate('/my-space')}
+          <a
+            href={LOGIN_PATH}
             style={{
               background: 'none',
               border: 'none',
@@ -176,10 +162,11 @@ export default function Navbar() {
               color: theme.navy,
               cursor: 'pointer',
               fontFamily: font.body,
+              textDecoration: 'none',
             }}
           >
             Log In
-          </button>
+          </a>
           <button
             type="button"
             className="nav-menu-toggle"

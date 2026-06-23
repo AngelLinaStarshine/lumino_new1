@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Container from './Container';
 import { theme } from '../styles/theme';
 import { CONTACT, DISCOVERY_CALL_URL, SOCIAL_LINKS } from '../data/siteData';
+import { LOGIN_PATH } from '../lib/platformUrl';
 import SocialIcon from './SocialIcon';
 
 export default function Footer() {
@@ -110,7 +111,9 @@ export default function Footer() {
               >
                 Talk to Us
               </a>
-              <FooterLink to="/my-space">Log In</FooterLink>
+              <a href={LOGIN_PATH} style={{ ...linkStyle, display: 'block', textDecoration: 'none' }}>
+                Log In
+              </a>
             </div>
           </div>
 

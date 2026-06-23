@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: #fdfaf0;
+    --color-card: rgba(255, 255, 255, 0.92);
+    --color-navy: #0f172a;
+    --color-teal: #115e59;
+    --color-warm: #fff1e6;
+    --color-accent: #ff9a3d;
+    --color-accent-yellow: #ffde59;
+    --color-text: #111827;
+    --color-muted: #3f4f63;
+    --color-border: rgba(17, 24, 39, 0.08);
+
+    --background: 43 67% 97%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 175 77% 22%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 40 100% 97%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 40 40% 96%;
+    --muted-foreground: 215 16% 35%;
+    --accent: 125 40% 92%;
+    --accent-foreground: 175 77% 22%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 175 77% 22%;
+    --radius: 0.75rem;
+  }
+}
+
+@keyframes body-gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes brand-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply text-foreground antialiased;
+    font-family: var(--font-body), system-ui, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+    background-image: linear-gradient(
+      125deg,
+      #fdfaf0 0%,
+      #fff9f2 35%,
+      #fff5e6 70%,
+      #fdfaf0 100%
+    );
+    background-size: 220% 220%;
+    animation: body-gradient-shift 20s ease infinite;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display), Georgia, serif;
+    color: var(--color-navy);
+  }
+}
+
+@layer components {
+  .brand-wordmark {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    background: linear-gradient(
+      95deg,
+      #5eead4 0%,
+      #7dcfb6 14%,
+      #a78bfa 36%,
+      #fbbf24 58%,
+      #fb923c 78%,
+      #f472b6 100%
+    );
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: brand-gradient 18s ease-in-out infinite;
+  }
+
+  .platform-card {
+    @apply rounded-xl border bg-white/90 shadow-sm;
+    border-color: var(--color-border);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+  }
+
+  .platform-sidebar {
+    @apply border-r min-h-screen flex flex-col p-4;
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(12px);
+    border-color: var(--color-border);
+  }
+
+  .nav-link-active {
+    background: rgba(125, 207, 182, 0.18);
+    color: var(--color-teal);
+    font-weight: 600;
+  }
+
+  .stage-pill {
+    @apply inline-block text-xs font-medium px-2.5 py-1 rounded-full;
+    background: rgba(125, 207, 182, 0.2);
+    color: var(--color-teal);
+  }
+
+  .auth-shell {
+    @apply min-h-screen flex items-center justify-center p-6;
+    background: linear-gradient(
+      125deg,
+      #fdfaf0 0%,
+      #e4f5f1 32%,
+      #f0e8f8 65%,
+      #fff4e0 100%
+    );
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    animation: none;
+    background-size: 100% 100%;
+  }
+  .brand-wordmark {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}

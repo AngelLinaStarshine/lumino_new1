@@ -7,3 +7,4 @@ export { default as EnrollPage } from './EnrollPage';
 export { default as PrivacyPage } from './PrivacyPage';
 export { default as TermsPage } from './TermsPage';
 export { default as MySpacePage } from './MySpacePage';
+export { default as LoginPage } from './LoginPage';

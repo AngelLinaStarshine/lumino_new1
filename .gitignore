@@ -1,2 +1,10 @@
 node_modules
 dist
+.env
+.env.local
+screenshots
+
+# Next.js platform
+platform/node_modules
+platform/.next
+platform/.env.local

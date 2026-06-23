@@ -11,6 +11,7 @@ import {
   PrivacyPage,
   TermsPage,
   MySpacePage,
+  LoginPage,
 } from './pages';
 function AppLayout({ children }) {
   return (
@@ -96,6 +97,14 @@ export default function App() {
         element={
           <AppLayout>
             <MySpacePage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <AppLayout>
+            <LoginPage />
           </AppLayout>
         }
       />

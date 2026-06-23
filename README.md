@@ -1,97 +1,110 @@
-# LuminoLearn Academy — Website
+# Luminolearn Inc. — Website & Platform
 
-A production-ready React website for LuminoLearn Academy, a K–12 STEM education platform serving Canadian families.
+This repo contains two apps:
+
+1. **Marketing website** (root) — Vite + React public site  
+2. **Learning platform** (`platform/`) — Next.js 14 app with Supabase
 
 ## Tech Stack
 
-- **React 18** — UI framework
-- **React Router 6** — Client-side routing
-- **Vite** — Build tool & dev server
-- **DM Serif Display + DM Sans** — Typography (Google Fonts)
+### Marketing site (`/`)
+- **React 18** + **React Router 6**
+- **Vite** — dev server on port **3000**
 
-## Project Structure
+### Learning platform (`/platform`)
+- **Next.js 14** (App Router) + TypeScript
+- **Supabase** — auth & database
+- **Stripe / Twilio / Resend** — optional (payments & notifications)
+- Dev server on port **3001**
 
-```
-luminolearn-website/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/          # Shared UI components
-│   │   ├── index.js         # Barrel export
-│   │   ├── Button.jsx       # Button with variants (primary, secondary, warm, ghost)
-│   │   ├── Card.jsx         # Card with optional hover effect
-│   │   ├── Container.jsx    # Max-width layout wrapper
-│   │   ├── CtaBanner.jsx    # Call-to-action banner section
-│   │   ├── Footer.jsx       # Site footer with nav links
-│   │   ├── Navbar.jsx       # Fixed navbar with scroll effect
-│   │   ├── SectionLabel.jsx # Uppercase label badge
-│   │   └── StepIndicator.jsx # Numbered step display
-│   ├── data/
-│   │   └── siteData.js      # All site content (courses, plans, features, etc.)
-│   ├── hooks/
-│   │   └── useScrollToTop.js # Scroll to top on route change
-│   ├── pages/               # Page components (one per route)
-│   │   ├── index.js         # Barrel export
-│   │   ├── HomePage.jsx     # Landing page
-│   │   ├── StoryPage.jsx    # Our Story
-│   │   ├── PathsPage.jsx    # Learning Paths (subjects + age groups)
-│   │   ├── TuitionPage.jsx  # Plans & Pricing
-│   │   ├── ProPage.jsx      # LuminoPro (professional development)
-│   │   ├── BookPage.jsx     # Book Free Session form
-│   │   └── EnrollPage.jsx   # Enrollment request form
-│   ├── styles/
-│   │   ├── global.css       # CSS reset, variables, animations, responsive
-│   │   └── theme.js         # JS theme constants (colors, fonts)
-│   ├── App.jsx              # Router + layout
-│   └── main.jsx             # Entry point
-├── index.html
-├── package.json
-├── vite.config.js
-└── README.md
-```
+---
 
-## Pages & Routes
+## Getting started
 
-| Route             | Page            | Purpose                                    |
-|-------------------|-----------------|--------------------------------------------|
-| `/`               | HomePage        | Landing — hero, subjects, how it works     |
-| `/our-story`      | StoryPage       | About, vision/mission/values               |
-| `/learning-paths` | PathsPage       | 3 subjects × 3 age groups, journey map     |
-| `/tuition`        | TuitionPage     | LuminoStart, LuminoCore, LuminoPath       |
-| `/luminopro`      | ProPage         | Professional development for educators     |
-| `/book`           | BookPage        | Free 30-min session request form           |
-| `/enroll`         | EnrollPage      | Full enrollment form (admin creates acct)  |
-
-## Getting Started
+### 1. Marketing website
 
 ```bash
-# Install dependencies
 npm install
-
-# Start dev server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+npm run dev          # http://localhost:3000
 ```
 
-## Key Design Decisions
+### 2. Learning platform
 
-- **No user account creation** — Accounts are admin-created after enrollment confirmation
-- **Free session as primary CTA** — Every page funnels to the free session booking form
-- **Enrollment form collects structured data** — Age group, subject, and program are required dropdowns
-- **Payment is handled offline** — E-Transfer, installments, and bursary discussed after form submission
-- **All content in `siteData.js`** — Easy to update without touching component code
+**Detailed steps:** see **[platform/SETUP.md](platform/SETUP.md)**
 
-## Customization
+Short version:
 
-All site content (courses, plans, pricing, features, contact info) lives in `src/data/siteData.js`. Update this file to change any text, pricing, or options without modifying component code.
+```bash
+cd platform
+npm install
+cp .env.local.example .env.local
+```
 
-Colors and fonts are defined in `src/styles/theme.js` and `src/styles/global.css` CSS variables.
+1. Create a [Supabase](https://supabase.com) project.
+2. Run migrations `0001` through `0004` in Supabase SQL Editor.
+3. Add Supabase keys + `ADMIN_SECRET` to `.env.local`.
+4. `npm run dev` → **http://localhost:3001**
+5. **http://localhost:3001/admin/login** — create accounts or invite links.
+
+From repo root:
+
+```bash
+npm run dev:platform
+```
+
+---
+
+## Account creation (admin only)
+
+Public signup is **off** by default. You control who gets access:
+
+| You do | User gets |
+|--------|-----------|
+| Admin → **Create account** | Email + password you choose |
+| Admin → **Generate invite** | One-time signup link |
+
+Configure in `platform/.env.local`:
+
+```env
+PUBLIC_SIGNUP_ENABLED=false
+ADMIN_SECRET=your-long-random-secret
+```
+
+---
+
+## Project structure
+
+```
+├── src/                    # Marketing site (Vite)
+│   └── lib/platformUrl.js  # Links → platform /login
+├── platform/               # Next.js learning app
+│   ├── SETUP.md            # ← Step-by-step setup guide
+│   ├── app/admin/          # Account management
+│   ├── app/(auth)/         # Login, invite-only signup
+│   ├── app/student/        # Student + family views
+│   ├── app/teacher/        # Teacher tools
+│   └── supabase/migrations/
+└── package.json
+```
+
+---
+
+## Platform routes
+
+| Route | Purpose |
+|-------|---------|
+| `/login` | Sign in |
+| `/signup` | Registration with invite code only |
+| `/admin` | Create users & invites (you) |
+| `/student` | Student dashboard |
+| `/student/family/unlock` | Parent passcode gate |
+| `/teacher` | Teacher dashboard |
+| `/preview/student` | Demo (no login) |
+
+Marketing **Log In** opens `/login` on the website (port 3000). Copy Supabase keys into root `.env` as `VITE_SUPABASE_*` and set `VITE_PLATFORM_URL=http://localhost:3001`.
+
+---
 
 ## License
 
-© 2025 LuminoLearn Academy. All rights reserved.
+© 2025 Luminolearn Inc. All rights reserved.
