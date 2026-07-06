@@ -50,7 +50,7 @@ export async function GET(request: Request) {
   }
 
   let emailsSent = 0;
-  let parentsChecked = 0;
+  let studentsChecked = 0;
 
   for (const slot of slots) {
     const course = (slot as any).course;
@@ -70,38 +70,29 @@ export async function GET(request: Request) {
       const studentId = (enr as any).student_id;
       const studentName = (enr as any).student?.full_name ?? 'your child';
       if (!studentId) continue;
+      studentsChecked++;
 
-      /* 3. Parents linked to this student */
-      const { data: links } = await admin
-        .from('family_links')
-        .select('parent_id')
-        .eq('student_id', studentId);
-
-      for (const link of links ?? []) {
-        const parentId = (link as any).parent_id;
-        if (!parentId) continue;
-        parentsChecked++;
-
-        const result = await sendEmail({
-          userId: parentId,
-          event: 'class_today',
-          context: {
-            studentName,
-            courseName,
-            teacherName,
-            classTime,
-            link: `${appUrl}/student/family`,
-          },
-        });
-        if (result.success) emailsSent++;
-      }
+      /* 3. Email the student's own account — this is the shared
+            family inbox (parent + student use the same email). */
+      const result = await sendEmail({
+        userId: studentId,
+        event: 'class_today',
+        context: {
+          studentName,
+          courseName,
+          teacherName,
+          classTime,
+          link: `${appUrl}/student/family`,
+        },
+      });
+      if (result.success) emailsSent++;
     }
   }
 
   return NextResponse.json({
     ok: true,
     classesToday: slots.length,
-    parentsChecked,
+    studentsChecked,
     emailsSent,
     checkedAt: new Date().toISOString(),
   });
