@@ -37,7 +37,10 @@ export async function GET(request: Request) {
     .from('schedule_slots')
     .select(`
       id,
+      day_of_week,
       start_time,
+      end_time,
+      zoom_link,
       course_id,
       teacher:profiles!schedule_slots_teacher_id_fkey(full_name),
       course:courses(id, name)
@@ -53,11 +56,10 @@ export async function GET(request: Request) {
   let studentsChecked = 0;
 
   for (const slot of slots) {
-    const course = (slot as any).course;
-    const teacher = (slot as any).teacher;
-    const courseName = course?.name ?? 'your class';
-    const teacherName = teacher?.full_name ?? '';
-    const classTime = fmtTime((slot as any).start_time);
+    const s = slot as any;
+    const courseName = s.course?.name ?? 'your class';
+    const teacherName = s.teacher?.full_name ?? '';
+    const classTime = fmtTime(s.start_time);
 
     /* 2. Students enrolled in this course */
     const { data: enrollments } = await admin
@@ -67,13 +69,13 @@ export async function GET(request: Request) {
       .eq('status', 'active');
 
     for (const enr of enrollments ?? []) {
-      const studentId = (enr as any).student_id;
-      const studentName = (enr as any).student?.full_name ?? 'your child';
+      const e = enr as any;
+      const studentId = e.student_id;
+      const studentName = e.student?.full_name ?? 'your child';
       if (!studentId) continue;
       studentsChecked++;
 
-      /* 3. Email the student's own account — this is the shared
-            family inbox (parent + student use the same email). */
+      /* 3. Email the student's own account (shared family inbox) */
       const result = await sendEmail({
         userId: studentId,
         event: 'class_today',
@@ -83,6 +85,10 @@ export async function GET(request: Request) {
           teacherName,
           classTime,
           link: `${appUrl}/student/family`,
+          dayOfWeek: s.day_of_week,
+          startTime: s.start_time,
+          endTime: s.end_time,
+          zoomLink: s.zoom_link ?? undefined,
         },
       });
       if (result.success) emailsSent++;
