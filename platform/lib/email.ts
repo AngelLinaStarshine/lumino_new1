@@ -1,13 +1,14 @@
 /* ─────────────────────────────────────────────────────────────
    LuminoLearn — Email Helper (Resend)
    Checks the recipient's email preference before sending.
-   Mirrors the structure of lib/sms.ts.
+   Resend is initialized lazily (inside the function) so the
+   production build does not fail when env vars are absent at
+   build time.
    ───────────────────────────────────────────────────────────── */
 
 import { Resend } from 'resend';
 import { createAdminClient } from '@/lib/supabase/admin';
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
 const FROM = process.env.RESEND_FROM_EMAIL ?? 'notifications@luminolearn.ca';
 
 /* ─── Email event types (subset we support today) ───────────── */
@@ -97,6 +98,12 @@ export async function sendEmail({
   event: EmailEvent;
   context: EmailContext;
 }): Promise<{ success: boolean; reason?: string }> {
+  // Lazily initialize Resend at call time (not module load), so a
+  // missing key never breaks the build — only this call.
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) return { success: false, reason: 'no_api_key' };
+  const resend = new Resend(apiKey);
+
   const admin = createAdminClient();
 
   /* 1. Look up the user's email + preferences */
