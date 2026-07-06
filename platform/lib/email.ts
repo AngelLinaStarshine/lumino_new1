@@ -133,15 +133,29 @@ export async function sendEmail({
   const { subject, html } = buildEmail(event, context);
 
   try {
-    await resend.emails.send({
+    // IMPORTANT: Resend returns { data, error } — it does NOT throw on
+    // API errors. We must inspect `error` explicitly, otherwise a
+    // rejected send would be falsely reported as success.
+    const { data, error } = await resend.emails.send({
       from: FROM,
       to: profile.email,
       subject,
       html,
     });
+
+    if (error) {
+      console.error('Resend returned error:', JSON.stringify(error));
+      return { success: false, reason: `resend_error: ${error.message ?? 'unknown'}` };
+    }
+
+    if (!data?.id) {
+      console.error('Resend returned no id and no error:', JSON.stringify({ data, error }));
+      return { success: false, reason: 'no_id_returned' };
+    }
+
     return { success: true };
-  } catch (error) {
-    console.error('Resend send failed:', error);
-    return { success: false, reason: 'send_failed' };
+  } catch (err) {
+    console.error('Resend send threw:', err);
+    return { success: false, reason: 'send_threw' };
   }
 }
