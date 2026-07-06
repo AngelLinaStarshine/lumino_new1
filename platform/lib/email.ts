@@ -129,19 +129,19 @@ function buildEmail(event: EmailEvent, ctx: EmailContext): { subject: string; ht
   switch (event) {
     case 'class_today':
       return {
-        subject: `Reminder: ${ctx.studentName} has ${ctx.courseName} today`,
+        subject: `${ctx.studentName} has a class today`,
         html: `
-          <div style="font-family:Arial,sans-serif;font-size:15px;color:#111;">
-            <p>Hi,</p>
-            <p><strong>${ctx.studentName}</strong> has a class today:</p>
+          <div style="font-family:Arial,sans-serif;font-size:15px;color:#111;line-height:1.6;">
+            <p>Hello dear parent,</p>
+            <p>This is a friendly reminder that <strong>${ctx.studentName}</strong> has a class today.</p>
             <p style="font-size:16px;">
-              <strong>${ctx.courseName}</strong><br/>
-              ${ctx.teacherName ? `with ${ctx.teacherName}<br/>` : ''}
-              Starts at <strong>${ctx.classTime}</strong>
+              <strong>${ctx.courseName}</strong> begins at <strong>${ctx.classTime}</strong>.
+              ${ctx.teacherName ? `<br/>Teacher: ${ctx.teacherName}` : ''}
             </p>
+            <p>Please help them log in a few minutes early so they are settled and ready to learn. We are looking forward to seeing them in class today.</p>
             ${buildCalendarButtons(ctx)}
             ${link}
-            <p style="color:#666;font-size:13px;">— LuminoLearn</p>
+            <p style="margin-top:16px;color:#444;">Warm wishes,<br/>The LuminoLearn Team</p>
           </div>`,
       };
 
@@ -154,7 +154,7 @@ function buildEmail(event: EmailEvent, ctx: EmailContext): { subject: string; ht
             <p>New homework has been assigned in <strong>${ctx.courseName}</strong>:</p>
             <p style="font-size:16px;"><strong>${ctx.homeworkTitle}</strong><br/>Due ${ctx.dueDate}</p>
             ${link}
-            <p style="color:#666;font-size:13px;">— LuminoLearn</p>
+            <p style="margin-top:16px;color:#444;">Warm wishes,<br/>The LuminoLearn Team</p>
           </div>`,
       };
 
@@ -167,7 +167,7 @@ function buildEmail(event: EmailEvent, ctx: EmailContext): { subject: string; ht
             <p>${ctx.teacherName ?? 'A teacher'} reviewed work in <strong>${ctx.courseName}</strong>.</p>
             ${ctx.score ? `<p>Score: <strong>${ctx.score}</strong></p>` : ''}
             ${link}
-            <p style="color:#666;font-size:13px;">— LuminoLearn</p>
+            <p style="margin-top:16px;color:#444;">Warm wishes,<br/>The LuminoLearn Team</p>
           </div>`,
       };
   }
