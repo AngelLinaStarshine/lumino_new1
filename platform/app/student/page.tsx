@@ -114,10 +114,17 @@ export default async function StudentDashboard() {
   const weeklyClasses = scheduleSlots.length;
   const assignmentsDue = homework?.length ?? 0;
 
-  /* Real week progress, from the furthest-along enrollment (fallback 0/12) */
+/* Real week progress, computed from course start dates (matches course cards). */
+  function weekFromStart(startDate: string | null | undefined): number {
+    if (!startDate) return 0;
+    const start = new Date(startDate + 'T00:00:00Z');
+    const days = Math.floor((Date.now() - start.getTime()) / (24 * 60 * 60 * 1000));
+    if (days < 0) return 0;
+    return Math.min(12, Math.floor(days / 7) + 1);
+  }
   const weekProgress = Math.max(
     0,
-    ...(enrollments ?? []).map((e: any) => e.week_progress ?? 0),
+    ...(enrollments ?? []).map((e: any) => weekFromStart(e.courses?.start_date)),
     0,
   );
 
