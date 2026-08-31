@@ -198,7 +198,8 @@ export default function PathsPage() {
             </Button>
           </div>
           <p className="home-hero-trust fade-up delay-3" role="note">
-            Not sure where your child fits? Our 20 minute consultation includes a free diagnostic.
+            Not sure where your child fits? Our free {CONSULTATION.duration} consultation{' '}
+            {CONSULTATION.heroNote}.
           </p>
         </Container>
       </section>
@@ -314,7 +315,7 @@ export default function PathsPage() {
           <p style={{ ...bodyCopy, marginBottom: 28 }}>
             Levels are guided by age, but placement is based on an actual diagnostic, not a birthday. Some
             10 year olds are ready for Building; some 14 year olds are best served by strengthening their
-            Foundations first. Our free 20 minute consultation includes a diagnostic across the subjects
+            Foundations first. Our free {CONSULTATION.duration} consultation includes a diagnostic across the subjects
             you&apos;re considering, so we can place your child exactly where they&apos;ll grow fastest.
           </p>
           <Button to="/book">{CONSULTATION.cta}</Button>
@@ -396,8 +397,8 @@ export default function PathsPage() {
               marginRight: 'auto',
             }}
           >
-            Book a free 20 minute consultation. A real Canadian educator will run a short diagnostic and
-            recommend the path that fits your child.
+            Book a free {CONSULTATION.duration} consultation. A Canadian educator will run a short diagnostic and
+            recommend a path forward.
           </p>
           <Button variant="warm" to="/book">
             {CONSULTATION.cta}

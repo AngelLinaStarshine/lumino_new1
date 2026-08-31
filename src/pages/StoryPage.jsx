@@ -380,8 +380,8 @@ export default function StoryPage() {
               marginRight: 'auto',
             }}
           >
-            The best way to understand LuminoLearn is to talk to us. Book a free 20 minute consultation with a
-            real Canadian educator.
+            Talk with us about your child. Book a free {CONSULTATION.duration} consultation with a Canadian
+            educator.
           </p>
           <Button variant="warm" to="/book">
             {CONSULTATION.cta}
@@ -394,7 +394,7 @@ export default function StoryPage() {
               lineHeight: 1.55,
             }}
           >
-            No sales pressure. No obligation.
+            {CONSULTATION.noObligation}
           </p>
         </Container>
       </section>

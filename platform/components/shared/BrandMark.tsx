@@ -4,6 +4,8 @@ import { cn } from '@/lib/utils';
 interface BrandMarkProps {
   subtitle?: string;
   size?: 'sm' | 'md' | 'lg';
+  compact?: boolean;
+  inverted?: boolean;
   className?: string;
 }
 
@@ -13,8 +15,8 @@ const sizeMap = {
   lg: { logo: 48, title: 'text-xl' },
 };
 
-export function BrandMark({ subtitle, size = 'md', className }: BrandMarkProps) {
-  const { logo, title } = sizeMap[size];
+export function BrandMark({ subtitle, size = 'md', compact, inverted, className }: BrandMarkProps) {
+  const { logo, title } = sizeMap[compact ? 'sm' : size];
 
   return (
     <div className={cn('flex items-center gap-2.5', className)}>
@@ -27,8 +29,14 @@ export function BrandMark({ subtitle, size = 'md', className }: BrandMarkProps) 
         priority
       />
       <div className="min-w-0">
-        <div className={cn('brand-wordmark leading-tight', title)}>Luminolearn Inc.</div>
-        {subtitle && <div className="text-xs text-muted-foreground truncate">{subtitle}</div>}
+        <div className={cn('brand-wordmark leading-tight', title, inverted && 'text-white')}>
+          Luminolearn Inc.
+        </div>
+        {subtitle && (
+          <div className={cn('text-xs truncate', inverted ? 'text-white/70' : 'text-muted-foreground')}>
+            {subtitle}
+          </div>
+        )}
       </div>
     </div>
   );

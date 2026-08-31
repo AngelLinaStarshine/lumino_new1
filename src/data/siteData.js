@@ -129,7 +129,7 @@ export const HOW_IT_WORKS = [
     step: '1',
     tabLabel: 'Consultation',
     title: 'Free 15 minute consultation',
-    desc: "We learn about your child, their interests, strengths, and what you're hoping for. We answer every question honestly. If LuminoLearn isn't the right fit, we'll tell you.",
+    desc: "A conversation about your child's strengths, goals, and where structured support might help. We answer your questions honestly.",
   },
   {
     step: '2',
@@ -156,11 +156,11 @@ export const LEARNING_JOURNEY_STEPS = [
   {
     id: 'discovery',
     name: 'Free consultation',
-    sub: 'Complimentary · 20 min',
+    sub: 'Complimentary · 15 min',
     variant: 'mint',
     body: [
-      "We learn about your child, their interests, strengths, and what you're hoping for. We answer every question honestly. If LuminoLearn isn't the right fit, we'll tell you.",
-      'There is no charge for this consultation and no obligation to enroll.',
+      "A conversation about your child's strengths, goals, and where they might benefit from structured support.",
+      "We answer your questions and, if it's a good fit, suggest a path forward. No charge. No obligation to enroll.",
     ],
     cta: { label: 'Book a free consultation', urlKey: 'discovery_call' },
   },
@@ -766,6 +766,21 @@ export const CONSULTATION = {
   ctaLong: 'Book a free 15 minute consultation',
   scheduleCta: 'Schedule on Calendly',
   duration: '15 minutes',
+  durationShort: '15 min',
+  intro:
+    "It's a conversation about your child: their strengths, goals, and where they might benefit from structured support. We'll answer your questions and, if it's a good fit, suggest a path forward.",
+  expectations: [
+    '15 minute video or phone call with a Canadian educator',
+    "Your child's level and goals across subjects",
+    'Short diagnostic: Foundations, Building, or Depth',
+    'Format options: online, in person, or small group',
+    'No obligation to enroll',
+  ],
+  heroNote:
+    'includes a diagnostic across the subjects you\'re considering',
+  ctaBannerSubtext:
+    "A 15 minute conversation about your child's strengths, goals, and where structured support might help.",
+  noObligation: 'No obligation to enroll.',
 };
 
 /**

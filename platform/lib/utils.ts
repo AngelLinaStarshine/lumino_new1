@@ -36,6 +36,27 @@ export function getInitials(name: string) {
     .toUpperCase();
 }
 
+export function joinRow<T>(row: unknown): T | null {
+  if (!row) return null;
+  if (Array.isArray(row)) return (row[0] as T) ?? null;
+  return row as T;
+}
+export function fmtClassTime(scheduledAt: string) {
+  return new Date(scheduledAt).toLocaleString('en-CA', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  });
+}
+
+export function canJoinClass(scheduledAt: string): boolean {
+  const start = new Date(scheduledAt).getTime();
+  const now = Date.now();
+  return now >= start - 10 * 60 * 1000;
+}
+
 /* Calculate days until a due date */
 export function daysUntil(date: Date | string) {
   const d = typeof date === 'string' ? new Date(date) : date;

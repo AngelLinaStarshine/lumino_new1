@@ -12,16 +12,31 @@ export interface CreateAccountInput {
   familyPasscode?: string;
   familyPasscodeHash?: string | null;
   smsOptIn?: boolean;
+  dateOfBirth?: string;
+  accountStatus?: 'active' | 'pending_parent_verification' | 'suspended';
 }
 
 export async function createAccount(input: CreateAccountInput) {
-  const { role, fullName, email, phone, password, familyPasscode, familyPasscodeHash, smsOptIn } = input;
+  const {
+    role,
+    fullName,
+    email,
+    phone,
+    password,
+    familyPasscode,
+    familyPasscodeHash,
+    smsOptIn,
+    dateOfBirth,
+    accountStatus = 'active',
+  } = input;
 
-  if (!['student', 'teacher', 'admin'].includes(role)) {
+  const effectiveRole = role === 'parent' ? 'parent' : role;
+
+  if (!['student', 'teacher', 'admin', 'parent'].includes(role)) {
     return { ok: false as const, error: 'Invalid role' };
   }
 
-  if (role === 'student' && !familyPasscodeHash && (!familyPasscode || !/^\d{4,6}$/.test(familyPasscode))) {
+  if (effectiveRole === 'student' && !familyPasscodeHash && (!familyPasscode || !/^\d{4,6}$/.test(familyPasscode))) {
     return { ok: false as const, error: 'Family passcode must be 4–6 digits' };
   }
 
@@ -31,7 +46,7 @@ export async function createAccount(input: CreateAccountInput) {
     email: email.trim().toLowerCase(),
     password,
     email_confirm: true,
-    user_metadata: { full_name: fullName, role },
+    user_metadata: { full_name: fullName, role: effectiveRole },
   });
 
   if (authError || !authData.user) {
@@ -40,12 +55,17 @@ export async function createAccount(input: CreateAccountInput) {
 
   const userId = authData.user.id;
 
+  const firstName = fullName.trim().split(/\s+/)[0] ?? fullName;
+
   const { error: profileError } = await admin.from('profiles').insert({
     id: userId,
-    role,
+    role: effectiveRole,
     full_name: fullName,
+    first_name: firstName,
     email: email.trim().toLowerCase(),
     phone: phone ?? null,
+    date_of_birth: dateOfBirth ?? null,
+    account_status: accountStatus,
   });
 
   if (profileError) {
@@ -63,7 +83,7 @@ export async function createAccount(input: CreateAccountInput) {
     opted_in_at: smsOptIn ? new Date().toISOString() : null,
   });
 
-  if (role === 'student') {
+  if (effectiveRole === 'student') {
     const passcode_hash =
       familyPasscodeHash ?? (familyPasscode ? await bcrypt.hash(familyPasscode, 10) : null);
     if (passcode_hash) {
@@ -75,5 +95,5 @@ export async function createAccount(input: CreateAccountInput) {
     }
   }
 
-  return { ok: true as const, userId, email: email.trim().toLowerCase(), role };
+  return { ok: true as const, userId, email: email.trim().toLowerCase(), role: effectiveRole };
 }

@@ -1,175 +1,137 @@
-/* ─────────────────────────────────────────────────────────────
-   Student Dashboard
-   /app/student/page.tsx
-   ───────────────────────────────────────────────────────────── */
-
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { Topbar }              from '@/components/shared/Topbar';
-import { CycleProgressStrip }  from '@/components/student/CycleProgressStrip';
-import { CourseCard }          from '@/components/student/CourseCard';
-import { HomeworkRow }         from '@/components/student/HomeworkRow';
-import { ScheduleList }        from '@/components/student/ScheduleList';
-import { ProgressChart }       from '@/components/student/ProgressChart';
-import { StatCard }            from '@/components/shared/StatCard';
-import { STAGES, type StageKey } from '@/lib/constants';
-
-const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-function fmtTime(t: string | null): string {
-  if (!t) return '';
-  const [hStr, mStr] = t.split(':');
-  let h = parseInt(hStr, 10);
-  const m = mStr ?? '00';
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  h = h % 12;
-  if (h === 0) h = 12;
-  return `${h}:${m} ${ampm}`;
-}
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ProgressBar } from '@/components/ui/progress';
+import { CURRICULUM_SUBJECTS, firstName } from '@/lib/curriculum';
+import { canJoinClass, fmtClassTime } from '@/lib/utils';
+import { getStudentContext } from '@/lib/student/queries';
 
 export default async function StudentDashboard() {
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) redirect('/login');
 
-  /* Fetch student profile */
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-
-  if (!profile || profile.role !== 'student') redirect('/');
-
-  /* Fetch enrollments with course info */
-  const { data: enrollments } = await supabase
-    .from('enrollments')
-    .select(`
-      *,
-      courses(*),
-      teacher:profiles!enrollments_teacher_id_fkey(full_name)
-    `)
-    .eq('student_id', user.id);
-
-  /* Fetch upcoming homework */
-  const { data: homework } = await supabase
-    .from('homework')
-    .select(`
-      *,
-      lessons(course_id, courses(subject, name)),
-      submissions(id, status, score, submitted_at)
-    `)
-    .order('due_date', { ascending: true })
-    .limit(5);
-
-  /* Fetch assessments for progress chart */
-  const { data: assessments } = await supabase
-    .from('assessments')
-    .select('*')
-    .eq('student_id', user.id)
-    .order('taken_at', { ascending: true });
-
-  /* Fetch this student's real weekly schedule.
-     Chain: enrollments (student → course) → schedule_slots (course → day/time). */
-  const courseIds = (enrollments ?? [])
-    .map((e: any) => e.course_id)
-    .filter(Boolean);
-
-  let scheduleSlots: {
-    day: string;
-    time: string;
-    course: string;
-    teacher: string;
-    dow: number;
-    start: string;
-  }[] = [];
-
-  if (courseIds.length > 0) {
-    const { data: slots } = await supabase
-      .from('schedule_slots')
-      .select(`
-        day_of_week,
-        start_time,
-        course:courses(name),
-        teacher:profiles!schedule_slots_teacher_id_fkey(full_name)
-      `)
-      .in('course_id', courseIds)
-      .eq('active', true);
-
-    scheduleSlots = (slots ?? []).map((s: any) => ({
-      day: DAY_NAMES[s.day_of_week] ?? '',
-      time: fmtTime(s.start_time),
-      course: s.course?.name ?? 'Class',
-      teacher: s.teacher?.full_name ?? 'Teacher TBD',
-      dow: s.day_of_week,
-      start: s.start_time,
-    }));
-
-    // Sort by day of week, then time
-    scheduleSlots.sort((a, b) => (a.dow - b.dow) || a.start.localeCompare(b.start));
-  }
-
-  /* Real stats */
-  const activeCourses = enrollments?.length ?? 0;
-  const weeklyClasses = scheduleSlots.length;
-  const assignmentsDue = homework?.length ?? 0;
-
-/* Real week progress, computed from course start dates (matches course cards). */
-  function weekFromStart(startDate: string | null | undefined): number {
-    if (!startDate) return 0;
-    const start = new Date(startDate + 'T00:00:00Z');
-    const days = Math.floor((Date.now() - start.getTime()) / (24 * 60 * 60 * 1000));
-    if (days < 0) return 0;
-    return Math.min(12, Math.floor(days / 7) + 1);
-  }
-  const weekProgress = Math.max(
-    0,
-    ...(enrollments ?? []).map((e: any) => weekFromStart(e.courses?.start_date)),
-    0,
-  );
-
-  const stageKey = (profile.stage ?? 'growth') as StageKey;
-  const stage = STAGES[stageKey];
+  const { profile, enrolments, assignments, nextClass, notes } = await getStudentContext(user.id);
+  const name = firstName(profile?.first_name ?? profile?.full_name ?? 'Student');
 
   return (
-    <main className="space-y-6 p-6 max-w-6xl mx-auto">
-      <Topbar
-        greeting={`Welcome back, ${profile.full_name.split(' ')[0]}`}
-        subtitle={`${activeCourses} active courses · ${assignmentsDue} assignment${assignmentsDue === 1 ? '' : 's'} to review`}
-        stagePill={`${stage.name} stage · ages ${stage.ageRange}`}
-        avatar={profile.avatar_url}
-        name={profile.full_name}
-      />
+    <div className="p-4 md:p-8 max-w-3xl mx-auto space-y-8">
+      <header>
+        <h1 className="text-2xl md:text-3xl font-display">Welcome back, {name}</h1>
+        <p className="text-muted-foreground mt-1">Here is what is on your plate today.</p>
+      </header>
 
-      <CycleProgressStrip currentStep="lumino_core" weekProgress={weekProgress} totalWeeks={12} />
-
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <StatCard label="Active subjects"  value={activeCourses}  icon="books"  sub="Enrolled courses" />
-        <StatCard label="Weekly classes"   value={weeklyClasses}  icon="clock"  sub="Scheduled sessions" />
-        <StatCard label="Assignments"      value={assignmentsDue} icon="target" sub="To review" />
-        <StatCard label="Week"             value={weekProgress}   icon="flame"  sub="of 12" />
-      </div>
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Your next live class</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {nextClass ? (
+            <>
+              <p className="text-sm text-muted-foreground">{fmtClassTime(nextClass.scheduled_at)}</p>
+              <div className="flex flex-wrap gap-2 items-center">
+                <Badge>{nextClass.subjects?.name ?? 'Class'}</Badge>
+                <Badge variant="outline">{nextClass.format?.replace('_', ' ')}</Badge>
+              </div>
+              <p className="text-sm">
+                With {(nextClass.educator as { full_name?: string })?.full_name ?? 'your educator'}
+              </p>
+              {nextClass.join_url ? (
+                canJoinClass(nextClass.scheduled_at) ? (
+                  <Button asChild size="lg" className="min-h-12">
+                    <a href={nextClass.join_url} target="_blank" rel="noopener noreferrer">
+                      Join class
+                    </a>
+                  </Button>
+                ) : (
+                  <Button size="lg" className="min-h-12" disabled>
+                    Join class (opens 10 min before)
+                  </Button>
+                )
+              ) : (
+                <Button size="lg" disabled className="min-h-12">
+                  Join link coming soon
+                </Button>
+              )}
+            </>
+          ) : (
+            <p className="text-muted-foreground">No upcoming classes scheduled yet.</p>
+          )}
+        </CardContent>
+      </Card>
 
       <section>
-        <h2 className="text-base font-medium mb-3">My pathway</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {enrollments?.map(enrollment => (
-            <CourseCard key={enrollment.id} enrollment={enrollment} />
-          ))}
+        <h2 className="text-xl font-display mb-4">Today&apos;s practice</h2>
+        <div className="space-y-3">
+          {assignments.length ? (
+            assignments.map((task) => (
+              <Card key={task.id} className="hover:shadow-card transition-shadow">
+                <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-4">
+                  <div className="flex-1">
+                    <Badge className="mb-2">{task.subject}</Badge>
+                    <p className="font-medium">{task.title}</p>
+                    <p className="text-sm text-muted-foreground">About {task.minutes} min</p>
+                  </div>
+                  <Button asChild size="lg" className="min-h-12 shrink-0">
+                    <Link href={`/student/practice/${task.taskId}`}>Start</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <Card>
+              <CardContent className="p-6 text-muted-foreground">No practice assigned for today. Check back soon!</CardContent>
+            </Card>
+          )}
         </div>
       </section>
 
       <section>
-        <h2 className="text-base font-medium mb-3">Homework &amp; assignments</h2>
-        <div className="border rounded-lg overflow-hidden">
-          {homework?.map(hw => <HomeworkRow key={hw.id} homework={hw} />)}
+        <h2 className="text-xl font-display mb-4">Your progress</h2>
+        <div className="space-y-4">
+          {enrolments.length ? (
+            enrolments.map((e) => {
+              const meta = CURRICULUM_SUBJECTS[e.subjectSlug as keyof typeof CURRICULUM_SUBJECTS];
+              return (
+                <div key={e.id} className="rounded-xl border border-black/10 bg-white/90 p-4">
+                  <div className="flex justify-between text-sm mb-2">
+                    <span className="font-medium">{e.subjectName}</span>
+                    <span className="text-muted-foreground">{e.tierLabel}</span>
+                  </div>
+                  <ProgressBar value={e.mastery_pct ?? 0} indicatorClassName={meta?.barColor} />
+                  <p className="text-xs text-muted-foreground mt-1">{e.mastery_pct ?? 0}% mastery in this tier</p>
+                </div>
+              );
+            })
+          ) : (
+            <p className="text-muted-foreground text-sm">Your educator will enroll you in subjects soon.</p>
+          )}
         </div>
       </section>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <ScheduleList slots={scheduleSlots.map(s => ({ day: s.day, time: s.time, course: s.course, teacher: s.teacher }))} />
-        <ProgressChart assessments={assessments ?? []} />
-      </div>
-    </main>
+      <section>
+        <h2 className="text-xl font-display mb-4">Recent notes from your educator</h2>
+        <div className="space-y-2">
+          {notes.length ? (
+            notes.map((n, i) => (
+              <Card key={i}>
+                <CardContent className="p-4 text-sm">
+                  <p>{n.body}</p>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    {(n.educator as { full_name?: string })?.full_name} ·{' '}
+                    {new Date(n.created_at).toLocaleDateString('en-CA')}
+                  </p>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            <p className="text-muted-foreground text-sm">No notes yet.</p>
+          )}
+        </div>
+      </section>
+    </div>
   );
 }

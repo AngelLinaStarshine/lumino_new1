@@ -235,3 +235,37 @@ export async function sendEmail({
     return { success: false, reason: 'send_threw' };
   }
 }
+
+export async function sendParentConsentEmail({
+  to,
+  studentName,
+  verifyUrl,
+}: {
+  to: string;
+  studentName: string;
+  verifyUrl: string;
+}): Promise<{ success: boolean }> {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.info('[email] Parent consent (no RESEND_API_KEY):', verifyUrl);
+    return { success: true };
+  }
+  const resend = new Resend(apiKey);
+  try {
+    await resend.emails.send({
+      from: FROM,
+      to,
+      subject: `Approve ${studentName}'s LuminoLearn account`,
+      html: `
+        <div style="font-family:Arial,sans-serif;font-size:15px;color:#111;line-height:1.6;">
+          <p>Hello,</p>
+          <p><strong>${studentName}</strong> signed up for LuminoLearn. Because they are under 13, we need your approval before their account activates.</p>
+          <p><a href="${verifyUrl}" style="display:inline-block;padding:10px 16px;background:#115e59;color:#fff;text-decoration:none;border-radius:8px;">Verify and activate account</a></p>
+          <p style="color:#444;margin-top:16px;">If you did not expect this email, you can ignore it.</p>
+        </div>`,
+    });
+    return { success: true };
+  } catch {
+    return { success: false };
+  }
+}

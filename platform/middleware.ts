@@ -1,6 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
    Auth + role-based route protection
-   Runs on every request before page loads
    ───────────────────────────────────────────────────────────── */
 
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
@@ -29,19 +28,46 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  const { data: { user } } = await supabase.auth.getUser();
   const { pathname } = request.nextUrl;
 
-  /* Admin routes use ADMIN_SECRET / admin role — not student/teacher session */
-  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
+  /* Legacy educator paths */
+  if (pathname.startsWith('/teacher')) {
+    const url = request.nextUrl.clone();
+    url.pathname = pathname.replace(/^\/teacher/, '/educator');
+    return NextResponse.redirect(url);
+  }
+
+  /* Health is public */
+  if (pathname === '/api/health' || pathname === '/health') {
     return response;
   }
 
-  /* Public routes */
-  const publicPaths = ['/login', '/signup', '/', '/preview', '/auth/callback', '/api/stripe/webhook', '/api/auth/signup', '/api/auth/signup-config', '/admin/login', '/api/admin/session'];
+  /* Admin login + session API are public */
+  if (pathname.startsWith('/admin/login') || pathname.startsWith('/api/admin/session')) {
+    return response;
+  }
+
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
+    if (!user) return NextResponse.redirect(new URL('/admin/login', request.url));
+    const { data: profile } = await supabase.from('profiles').select('role').eq('id', user.id).single();
+    if (profile?.role !== 'admin') {
+      if (profile?.role === 'teacher') {
+        return new NextResponse('Forbidden', { status: 403 });
+      }
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    return response;
+  }
+
+  const publicPaths = [
+    '/login', '/signup', '/', '/preview', '/auth/callback', '/auth/parent-consent',
+    '/forgot-password', '/api/stripe/webhook', '/api/auth/signup', '/api/auth/signup-config',
+    '/api/auth/signin', '/api/auth/parent-consent', '/admin/login', '/api/admin/session',
+  ];
   if (publicPaths.some((p) => pathname.startsWith(p))) return response;
 
-  /* Cron routes — verify secret */
   if (pathname.startsWith('/api/cron/')) {
     const auth = request.headers.get('authorization');
     if (auth !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -50,39 +76,43 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  /* Require auth for everything else */
   if (!user) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  /* Role-based protection */
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role')
+    .select('role, account_status')
     .eq('id', user.id)
     .single();
 
   if (!profile) return NextResponse.redirect(new URL('/login', request.url));
 
-  if (profile.role === 'parent') {
+  if (profile.account_status === 'pending_parent_verification' && !pathname.startsWith('/auth/')) {
+    return NextResponse.redirect(new URL('/login?pending=parent', request.url));
+  }
+
+  const role = profile.role;
+  const dashboard = role === 'teacher' ? '/educator' : `/${role}`;
+
+  if (pathname.startsWith('/student') && role !== 'student') {
+    return NextResponse.redirect(new URL(dashboard, request.url));
+  }
+
+  if (pathname.startsWith('/educator')) {
+    if (role === 'admin') return response;
+    if (role !== 'teacher') {
+      if (role === 'student') return NextResponse.redirect(new URL('/student', request.url));
+      return NextResponse.redirect(new URL(dashboard, request.url));
+    }
+  }
+
+  if (role === 'parent' && !pathname.startsWith('/student/family')) {
     return NextResponse.redirect(new URL('/student/family/unlock', request.url));
   }
 
   if (pathname.startsWith('/parent')) {
-    if (pathname.startsWith('/parent/payments')) {
-      return NextResponse.redirect(new URL('/student/family/payments', request.url));
-    }
-    if (pathname.startsWith('/parent/settings')) {
-      return NextResponse.redirect(new URL('/student/family/settings', request.url));
-    }
     return NextResponse.redirect(new URL('/student/family/unlock', request.url));
-  }
-
-  if (pathname.startsWith('/student') && profile.role !== 'student') {
-    return NextResponse.redirect(new URL(`/${profile.role}`, request.url));
-  }
-  if (pathname.startsWith('/teacher') && profile.role !== 'teacher' && profile.role !== 'admin') {
-    return NextResponse.redirect(new URL(`/${profile.role}`, request.url));
   }
 
   return response;

@@ -14,7 +14,7 @@ export default function BookPage() {
   usePageMeta({
     title: 'Book a Consultation — LuminoLearn',
     description:
-      'Book a free consultation with a real Canadian educator. Discuss your child\'s level, goals, and the right path through AI, Cybersecurity, and Math + Physics.',
+      'Book a free 15 minute consultation with a Canadian educator. Discuss your child\'s level, goals, and whether structured support is a good fit.',
     path: '/book',
   });
 
@@ -51,9 +51,7 @@ export default function BookPage() {
                 marginBottom: 32,
               }}
             >
-              This is not a sales pitch. It&apos;s a conversation about your child: their strengths,
-              goals, and where they might benefit from structured support. We&apos;ll answer your
-              questions and, if it&apos;s a good fit, suggest a path forward.
+              {CONSULTATION.intro}
             </p>
 
             <div
@@ -74,13 +72,7 @@ export default function BookPage() {
               >
                 What to expect
               </h2>
-              {[
-                '20 minute video or phone call with a Canadian educator',
-                "Learn about your child's level and goals across subjects",
-                'Short diagnostic to recommend Foundations, Building, or Depth',
-                'Honest guidance on format: online, in person, or small group',
-                'No pressure to enroll',
-              ].map((item) => (
+              {CONSULTATION.expectations.map((item) => (
                 <div key={item} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
                   <span style={{ color: theme.teal }} aria-hidden>
                     ✓
@@ -110,8 +102,8 @@ export default function BookPage() {
               Pick a time on Calendly
             </h2>
             <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.7, marginBottom: 28 }}>
-              Choose a slot that works for you. You&apos;ll get a confirmation email with the video or
-              phone details.
+              Choose a time that works. You&apos;ll get a confirmation email with video or phone
+              details.
             </p>
             <Button fullWidth href={CALENDLY_BOOKING_URL} style={{ marginBottom: 16 }}>
               {CONSULTATION.scheduleCta}
@@ -119,7 +111,7 @@ export default function BookPage() {
             <p
               style={{ fontSize: 13, color: theme.muted, textAlign: 'center', marginBottom: 24 }}
             >
-              Opens in a new tab. No commitment.
+              Opens in a new tab.
             </p>
             <div
               style={{

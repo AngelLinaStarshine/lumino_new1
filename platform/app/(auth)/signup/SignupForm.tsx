@@ -8,15 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { isUnder13 } from '@/lib/curriculum';
 import type { UserRole } from '@/types/database';
 
 const ROLES: { id: UserRole; label: string; description: string }[] = [
-  {
-    id: 'student',
-    label: 'Student / Family',
-    description: 'One login for the learner. Parents unlock extra review with a passcode.',
-  },
-  { id: 'teacher', label: 'Teacher', description: 'Manage students, lessons, and assignments' },
+  { id: 'student', label: 'Student', description: 'Learn, practice, and join live classes.' },
+  { id: 'parent', label: 'Parent', description: 'Review progress and messages (linked to your child).' },
+  { id: 'teacher', label: 'Educator', description: 'Roster, assignments, and class delivery.' },
+  { id: 'admin', label: 'Admin', description: 'Platform administration (invite-only).' },
 ];
 
 export default function SignupForm() {
@@ -30,12 +29,15 @@ export default function SignupForm() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [parentEmail, setParentEmail] = useState('');
   const [familyPasscode, setFamilyPasscode] = useState('');
   const [smsOptIn, setSmsOptIn] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const inviteOnly = configLoaded && !publicSignup;
+  const needsParentEmail = role === 'student' && dateOfBirth && isUnder13(dateOfBirth);
 
   useEffect(() => {
     const fromUrl = searchParams.get('invite');
@@ -64,7 +66,9 @@ export default function SignupForm() {
         email,
         phone: phone || null,
         password,
-        familyPasscode: familyPasscode || undefined,
+        dateOfBirth: role === 'student' ? dateOfBirth : undefined,
+        parentEmail: needsParentEmail ? parentEmail : undefined,
+        familyPasscode: role === 'student' ? familyPasscode : undefined,
         smsOptIn,
         inviteCode: inviteOnly ? inviteCode : undefined,
       }),
@@ -74,6 +78,11 @@ export default function SignupForm() {
     if (!res.ok) {
       setError(data.error ?? 'Signup failed');
       setLoading(false);
+      return;
+    }
+
+    if (data.pendingParentVerification) {
+      router.push('/login?pending=parent');
       return;
     }
 
@@ -95,7 +104,7 @@ export default function SignupForm() {
         <CardDescription>
           {inviteOnly
             ? 'Enter the invite code from Luminolearn to set up your account.'
-            : 'Students get one family login. Parents use the same sign-in, then enter a passcode for payments and progress review.'}
+            : 'Choose your role and create your LuminoLearn account.'}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -111,24 +120,20 @@ export default function SignupForm() {
                 className="font-mono tracking-wider"
                 required
               />
-              <p className="text-xs text-muted-foreground">
-                Don&apos;t have a code? Contact your Luminolearn coordinator — accounts are created by
-                invitation only.
-              </p>
             </div>
           )}
 
           {publicSignup && (
             <div className="space-y-2">
               <Label>I am a…</Label>
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {ROLES.map((r) => (
                   <button
                     key={r.id}
                     type="button"
                     onClick={() => setRole(r.id)}
                     className={cn(
-                      'text-left border rounded-lg p-3 transition-colors',
+                      'text-left border rounded-lg p-3 transition-colors min-h-12',
                       role === r.id
                         ? 'border-brand-teal bg-brand-mint/20 shadow-sm'
                         : 'border-black/10 hover:border-brand-teal/40 bg-white/60'
@@ -152,10 +157,28 @@ export default function SignupForm() {
             <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phone">Family phone (optional, for SMS)</Label>
-            <Input id="phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+1…" />
-          </div>
+          {role === 'student' && (
+            <div className="space-y-2">
+              <Label htmlFor="dob">Date of birth</Label>
+              <Input id="dob" type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
+            </div>
+          )}
+
+          {needsParentEmail && (
+            <div className="space-y-2 rounded-xl border border-brand-teal/30 bg-brand-mint/10 p-4">
+              <Label htmlFor="parentEmail">Parent or guardian email</Label>
+              <Input
+                id="parentEmail"
+                type="email"
+                value={parentEmail}
+                onChange={(e) => setParentEmail(e.target.value)}
+                required
+              />
+              <p className="text-xs text-muted-foreground">
+                Required for students under 13. We will email your parent to verify before your account activates.
+              </p>
+            </div>
+          )}
 
           <div className="space-y-2">
             <Label htmlFor="password">Password</Label>
@@ -169,43 +192,23 @@ export default function SignupForm() {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="familyPasscode">
-              Family passcode (4–6 digits)
-              {inviteOnly && ' — optional if set on your invite'}
-            </Label>
-            <Input
-              id="familyPasscode"
-              type="password"
-              inputMode="numeric"
-              pattern="[0-9]{4,6}"
-              value={familyPasscode}
-              onChange={(e) => setFamilyPasscode(e.target.value.replace(/\D/g, ''))}
-              placeholder="Parents enter this after signing in"
-              required={publicSignup && role === 'student'}
-            />
-            <p className="text-xs text-muted-foreground">
-              Share this passcode with parents so they can unlock payment and progress review on
-              this account.
-            </p>
-          </div>
-
-          <label className="flex items-start gap-2 text-xs text-muted-foreground">
-            <input
-              type="checkbox"
-              checked={smsOptIn}
-              onChange={(e) => setSmsOptIn(e.target.checked)}
-              className="mt-0.5"
-            />
-            <span>
-              I agree to receive SMS notifications from Luminolearn about homework, classes, and
-              payments. Message and data rates may apply. Reply STOP to opt out.
-            </span>
-          </label>
+          {role === 'student' && (
+            <div className="space-y-2">
+              <Label htmlFor="familyPasscode">Family passcode (4–6 digits)</Label>
+              <Input
+                id="familyPasscode"
+                type="password"
+                inputMode="numeric"
+                value={familyPasscode}
+                onChange={(e) => setFamilyPasscode(e.target.value.replace(/\D/g, ''))}
+                required={publicSignup}
+              />
+            </div>
+          )}
 
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Button type="submit" className="w-full" disabled={loading}>
+          <Button type="submit" className="w-full min-h-12" disabled={loading}>
             {loading ? 'Creating account…' : 'Create account'}
           </Button>
         </form>

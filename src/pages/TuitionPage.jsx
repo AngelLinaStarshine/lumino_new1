@@ -88,7 +88,7 @@ const HOW_IT_STARTS = [
   {
     num: '1',
     title: 'Book a free consultation',
-    body: 'A 20 minute conversation with a real Canadian educator. No sales pressure, no obligation.',
+    body: `A ${CONSULTATION.duration} conversation with a Canadian educator about your child's level, goals, and format options.`,
   },
   {
     num: '2',
@@ -403,8 +403,8 @@ export default function TuitionPage() {
               marginRight: 'auto',
             }}
           >
-            Book a free 20 minute consultation. A real Canadian educator will help you choose the format that
-            fits your child, and answer any questions you have.
+            Book a free {CONSULTATION.duration} consultation. A Canadian educator will discuss format
+            options and answer your questions.
           </p>
           <Button variant="warm" to="/book">
             {CONSULTATION.cta}
@@ -417,7 +417,7 @@ export default function TuitionPage() {
               lineHeight: 1.55,
             }}
           >
-            Consultations are conducted by real Canadian educators. No sales pressure. No obligation.
+            {CONSULTATION.noObligation}
           </p>
         </Container>
       </section>

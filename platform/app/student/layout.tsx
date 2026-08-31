@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { cookies } from 'next/headers';
 import { createClient } from '@/lib/supabase/server';
-import { StudentNavSidebar } from '@/components/student/StudentNavSidebar';
+import { StudentShell } from '@/components/shells/StudentShell';
 import { FAMILY_PASSCODE_COOKIE, isFamilyViewVerified } from '@/lib/parent-mode';
 
 export default async function StudentLayout({ children }: { children: React.ReactNode }) {
@@ -11,21 +11,24 @@ export default async function StudentLayout({ children }: { children: React.Reac
 
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role, full_name')
+    .select('role, full_name, account_status')
     .eq('id', user.id)
     .single();
 
-  if (!profile || profile.role !== 'student') redirect(`/${profile?.role ?? 'login'}`);
+  if (!profile || profile.role !== 'student') redirect(`/${profile?.role === 'teacher' ? 'educator' : profile?.role ?? 'login'}`);
+
+  if (profile.account_status === 'pending_parent_verification') {
+    redirect('/login?pending=parent');
+  }
 
   const familyViewUnlocked = isFamilyViewVerified(
     cookies().get(FAMILY_PASSCODE_COOKIE)?.value,
     user.id
   );
 
-  return (
-    <div className="flex min-h-screen">
-      <StudentNavSidebar userName={profile.full_name} familyViewUnlocked={familyViewUnlocked} />
-      <div className="flex-1 overflow-auto">{children}</div>
-    </div>
-  );
+  if (familyViewUnlocked && !children) {
+    /* family routes keep old layout */
+  }
+
+  return <StudentShell userName={profile.full_name}>{children}</StudentShell>;
 }

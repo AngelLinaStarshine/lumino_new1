@@ -148,3 +148,21 @@
     background-size: 100% 100%;
   }
 }
+
+html.high-contrast {
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-muted: #1a1a1a;
+  --color-border: #000000;
+}
+
+html.high-contrast body {
+  background: #ffffff;
+  background-image: none;
+  color: #000000;
+}
+
+html.high-contrast .platform-sidebar {
+  background: #ffffff;
+  border-color: #000000;
+}

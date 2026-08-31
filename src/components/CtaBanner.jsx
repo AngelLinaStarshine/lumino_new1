@@ -6,8 +6,7 @@ import { DISCOVERY_CALL_URL, CONSULTATION } from '../data/siteData';
 
 const LIGHT_DEFAULTS = {
   headline: 'Ready to see if LuminoLearn is right for your family?',
-  subtext:
-    "Book a free 15 minute consultation. No commitment: just a conversation about your child's learning.",
+  subtext: CONSULTATION.ctaBannerSubtext,
   primaryLabel: CONSULTATION.ctaLong,
   primaryHref: DISCOVERY_CALL_URL,
   secondaryLabel: 'Explore Learning Paths',

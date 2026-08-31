@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { GraduationCap, Users } from 'lucide-react';
@@ -55,7 +56,7 @@ export default function LoginPage() {
         setLoading(false);
         return;
       }
-      router.push(role === 'admin' ? '/admin' : '/teacher');
+      router.push(role === 'admin' ? '/admin' : role === 'teacher' ? '/educator' : '/student');
       router.refresh();
       return;
     }
@@ -197,7 +198,12 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
+            <div className="flex justify-between items-center">
+              <Label htmlFor="password">Password</Label>
+              <Link href="/forgot-password" className="text-xs text-brand-teal hover:underline">
+                Forgot password?
+              </Link>
+            </div>
             <Input
               id="password"
               type="password"
