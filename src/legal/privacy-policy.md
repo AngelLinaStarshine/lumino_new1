@@ -37,7 +37,7 @@ We collect only the personal information that is necessary to provide our educat
 
 ### 3.1 Information Provided by Parents
 
-When you book a discovery call, submit an enrollment request, or communicate with us, we may collect:
+When you book a free consultation, submit an enrollment request, or communicate with us, we may collect:
 
 * Parent or guardian full name
 * Email address
@@ -95,7 +95,7 @@ We use personal information only for the following purposes, which are identifie
 
 ### 4.2 Communication with Families
 
-* Scheduling discovery calls and sessions
+* Scheduling consultations and sessions
 * Sending progress updates and teacher feedback to Parents
 * Responding to inquiries and support requests
 * Sending essential service notifications (schedule changes, program updates)
@@ -149,7 +149,7 @@ We use a limited number of third party service providers to support our operatio
 | Service | Provider | Purpose | Data Processed |
 |---------|----------|---------|----------------|
 | Learning platform | Google Classroom | Lesson delivery, assignments | Student name, class materials, submissions |
-| Forms | Google Forms | Discovery call and enrollment requests | Parent and Student contact information |
+| Forms | Google Forms | Consultation and enrollment requests | Parent and Student contact information |
 | Email | Google Workspace | Communication with families | Email content, contact details |
 | Hosting | Render | Website hosting | Anonymized technical data |
 | Payment | Interac transfer (via banks) | Tuition payments | No payment data is stored by LuminoLearn |
@@ -177,7 +177,7 @@ Personal information is stored on servers located in Canada or the United States
 We retain personal information only as long as necessary to fulfill the purposes for which it was collected:
 
 * **Active Students:** Information is retained for the duration of enrollment plus 2 years after the Student's last active program.
-* **Inactive inquiries:** Contact information from discovery call requests is retained for 12 months, then deleted.
+* **Inactive inquiries:** Contact information from consultation requests is retained for 12 months, then deleted.
 * **Learning records:** Assessment results, progress reports, and certificates are retained for 5 years after the Student's last program, to support future re enrollment or reference requests.
 * **Financial records:** Payment records are retained for 7 years as required by Canadian tax law.
 

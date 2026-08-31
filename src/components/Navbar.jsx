@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Container from './Container';
+import NavBrand from './NavBrand';
 import { theme, font } from '../styles/theme';
 import { LOGIN_PATH } from '../lib/platformUrl';
-import luminolearnLogo from '../assets/luminolearn-logo.png';
 
 const MAIN_NAV = [
   { path: '/learning-paths', label: 'Learning Paths' },
-  { path: '/tuition', label: 'Plans & Tuition' },
+  { path: '/technology', label: 'Technology' },
+  { path: '/how-we-teach', label: 'How We Teach' },
   { path: '/our-story', label: 'Our Story' },
 ];
 
@@ -70,25 +71,7 @@ export default function Navbar() {
           minHeight: 76,
         }}
       >
-        <div
-          className="nav-brand-hit"
-          onClick={() => navigate('/')}
-          onKeyDown={(e) => e.key === 'Enter' && navigate('/')}
-          role="link"
-          tabIndex={0}
-          aria-label="Luminolearn Inc. home"
-          style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10, minWidth: 0 }}
-        >
-          <img
-            src={luminolearnLogo}
-            alt="Luminolearn Inc."
-            decoding="async"
-            className="nav-brand-logo"
-          />
-          <span className="footer-brand-title nav-brand-wordmark hide-mobile" style={{ whiteSpace: 'nowrap' }}>
-            Luminolearn Inc.
-          </span>
-        </div>
+        <NavBrand />
 
         <div
           className="hide-mobile nav-desktop-links"

@@ -8,3 +8,6 @@ export { default as PrivacyPage } from './PrivacyPage';
 export { default as TermsPage } from './TermsPage';
 export { default as MySpacePage } from './MySpacePage';
 export { default as LoginPage } from './LoginPage';
+export { default as SchoolsPage } from './SchoolsPage';
+export { default as TechnologyPage } from './TechnologyPage';
+export { default as ContactPage } from './ContactPage';

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Container, SectionLabel, Card, Button } from '../components';
-import { AGE_GROUPS, COURSES, getEnrollmentLink } from '../data/siteData';
+import { Container, SectionLabel, Card, Button, RelatedLinks } from '../components';
+import { AGE_GROUPS, COURSES, getEnrollmentLink, CONSULTATION } from '../data/siteData';
 import { theme, font } from '../styles/theme';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const AGE_INDEX = { junior: 0, middle: 1, senior: 2 };
 const VALID_AGES = new Set(AGE_GROUPS.map((a) => a.id));
@@ -20,6 +21,13 @@ export default function EnrollPage() {
   const subjectParam = VALID_SUBJECTS.has(searchParams.get('subject') || '')
     ? searchParams.get('subject')
     : null;
+
+  usePageMeta({
+    title: 'Enroll — LuminoLearn',
+    description:
+      'Begin enrollment for AI, Cybersecurity, or Math + Physics. New families start with a free consultation and diagnostic placement.',
+    path: '/enroll',
+  });
 
   useEffect(() => {
     if (!ageParam && !subjectParam) return;
@@ -55,7 +63,7 @@ export default function EnrollPage() {
   return (
     <section id="enroll-section" style={{ paddingTop: 140, paddingBottom: 80, scrollMarginTop: 96 }}>
       <Container>
-        <div style={{ textAlign: 'center', marginBottom: 48, width: '100%' }}>
+        <div style={{ textAlign: 'center', marginBottom: 40, width: '100%' }}>
           <SectionLabel>Enroll</SectionLabel>
           <h1
             style={{
@@ -67,11 +75,11 @@ export default function EnrollPage() {
           >
             Enroll your child
           </h1>
-          <p style={{ fontSize: 17, color: theme.muted, lineHeight: 1.7 }}>
-            Choose your child&apos;s age group, then open the registration form for the subject you
-            want. For age bands where a dedicated form is not listed yet, you&apos;ll start with a
-            complimentary consultation on Calendly and we&apos;ll guide you from there.
+          <p style={{ fontSize: 17, color: theme.muted, lineHeight: 1.7, maxWidth: 640, margin: '0 auto 24px' }}>
+            New families begin with a free consultation and diagnostic. Choose your child&apos;s age band and
+            subject below to open a registration form where available, or book a consultation to get started.
           </p>
+          <Button to="/book">{CONSULTATION.cta}</Button>
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
@@ -79,56 +87,57 @@ export default function EnrollPage() {
             <Card
               key={age.id}
               id={`enroll-age-${age.id}`}
-              style={{ padding: 28, scrollMarginTop: 96 }}
+              hoverable={false}
+              style={{
+                scrollMarginTop: 96,
+                borderColor: ageParam === age.id && !subjectParam ? theme.teal : theme.border,
+                borderWidth: ageParam === age.id && !subjectParam ? 2 : 1,
+              }}
             >
               <div
                 style={{
                   display: 'flex',
                   flexWrap: 'wrap',
-                  alignItems: 'baseline',
                   justifyContent: 'space-between',
+                  alignItems: 'center',
                   gap: 12,
                   marginBottom: 20,
                 }}
               >
                 <div>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      fontWeight: 700,
+                      color: theme.teal,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {age.tag}
+                  </span>
                   <h2
                     style={{
                       fontFamily: font.display,
-                      fontSize: 26,
+                      fontSize: 'clamp(1.35rem, 2.5vw, 1.65rem)',
                       color: theme.navy,
-                      marginBottom: 6,
+                      marginTop: 4,
                     }}
                   >
                     {age.label}
                   </h2>
-                  <p style={{ fontSize: 14, fontWeight: 600, color: theme.teal, marginBottom: 4 }}>
-                    {age.tag}
-                  </p>
-                  <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.6 }}>
-                    {age.desc}
-                  </p>
                 </div>
+                <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.6, margin: 0, maxWidth: 420 }}>
+                  {age.desc}
+                </p>
               </div>
-
-              <p
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: theme.navy,
-                  marginBottom: 14,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                }}
-              >
-                Registration links by subject
-              </p>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {COURSES.map((course) => {
                   const link = getEnrollmentLink(age.id, course.id);
-                  const track = courseTrackLabel(course, age.id);
                   const highlighted = rowIsHighlighted(age.id, course.id);
+                  const track = courseTrackLabel(course, age.id);
+
                   return (
                     <div
                       key={course.id}
@@ -138,36 +147,28 @@ export default function EnrollPage() {
                         flexWrap: 'wrap',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        gap: 16,
-                        padding: '16px 18px',
-                        borderRadius: 14,
-                        border: highlighted
-                          ? `2px solid ${theme.teal}`
-                          : `1px solid ${theme.border}`,
-                        background: highlighted ? 'rgba(17, 94, 89, 0.08)' : theme.light,
+                        gap: 12,
+                        padding: '14px 16px',
+                        borderRadius: 12,
+                        background: highlighted ? 'rgba(125, 207, 182, 0.12)' : theme.light,
+                        border: `1px solid ${highlighted ? theme.teal : theme.border}`,
                         scrollMarginTop: 96,
                       }}
                     >
-                      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, minWidth: 0 }}>
-                        <span style={{ fontSize: 28, lineHeight: 1 }}>{course.icon}</span>
-                        <div>
-                          <div style={{ fontWeight: 700, color: theme.navy, fontSize: 16 }}>
-                            {course.label}
-                          </div>
-                          {track ? (
-                            <div style={{ fontSize: 14, color: theme.muted, marginTop: 4 }}>
-                              {track}
-                              {!link.isForm && (
-                                <span style={{ display: 'block', fontSize: 12, marginTop: 6 }}>
-                                  Form coming soon: book a call and we&apos;ll place you in the right
-                                  level.
-                                </span>
-                              )}
-                            </div>
-                          ) : null}
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ fontSize: 22, marginBottom: 4 }} aria-hidden>
+                          {course.icon}
                         </div>
+                        <div style={{ fontWeight: 600, color: theme.navy, fontSize: 16 }}>{course.label}</div>
+                        {track ? (
+                          <div style={{ fontSize: 13, color: course.color, fontWeight: 600 }}>{track} level</div>
+                        ) : null}
                       </div>
-                      <Button href={link.href} variant={link.isForm ? 'primary' : 'warm'}>
+                      <Button
+                        href={link.href}
+                        variant={link.isForm ? 'primary' : 'secondary'}
+                        style={{ flexShrink: 0 }}
+                      >
                         {link.label}
                       </Button>
                     </div>
@@ -178,21 +179,13 @@ export default function EnrollPage() {
           ))}
         </div>
 
-        <p
-          style={{
-            fontSize: 14,
-            color: theme.muted,
-            textAlign: 'center',
-            marginTop: 40,
-            lineHeight: 1.65,
-          }}
-        >
-          Accounts are created by our team after enrollment is confirmed. Questions? Email{' '}
-          <a href="mailto:lumino@luminolearn.org" style={{ color: theme.teal, fontWeight: 600 }}>
-            lumino@luminolearn.org
-          </a>
-          .
-        </p>
+        <RelatedLinks
+          links={[
+            { to: '/learning-paths', label: 'Learning paths' },
+            { to: '/how-we-teach', label: 'How we teach' },
+            { to: '/book', label: 'Book a consultation' },
+          ]}
+        />
       </Container>
     </section>
   );

@@ -170,7 +170,7 @@ export default function LoginPage() {
       }
 
       if (passcode.length < 4) {
-        setError('Family passcode must be 4–6 digits.');
+        setError('Family passcode must be 4 to 6 digits.');
         setLoading(false);
         return;
       }
@@ -297,7 +297,7 @@ export default function LoginPage() {
                   maxLength={6}
                   value={passcode}
                   onChange={(ev) => setPasscode(ev.target.value.replace(/\D/g, ''))}
-                  placeholder="4–6 digits — leave blank for student"
+                  placeholder="4 to 6 digits, leave blank for student"
                   style={inputStyle}
                 />
                 <p style={{ fontSize: 12, color: theme.muted, margin: '8px 0 0', lineHeight: 1.45 }}>

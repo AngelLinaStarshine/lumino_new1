@@ -6,6 +6,8 @@ export { default as StepIndicator } from './StepIndicator';
 export { default as Navbar } from './Navbar';
 export { default as FlameGuide } from './FlameGuide';
 export { default as Footer } from './Footer';
+export { default as FooterTrustBlock, HERO_TRUST_STRIP } from './FooterTrustBlock';
 export { default as PageAmbient } from './PageAmbient';
 export { default as CtaBanner } from './CtaBanner';
+export { default as RelatedLinks } from './RelatedLinks';
 export { SmoothScrollProvider, useLenis } from './SmoothScrollProvider';

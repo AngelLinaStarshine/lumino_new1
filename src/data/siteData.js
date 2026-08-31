@@ -1,30 +1,30 @@
 export const COURSES = [
   {
-    id: 'math',
-    label: 'Mathematics',
-    icon: '🧮',
-    tagline: 'Number Ninjas',
-    desc: 'From counting to calculus: strong foundations through logic, structure, and engaging challenges.',
+    id: 'ai',
+    label: 'Artificial Intelligence',
+    icon: '🤖',
+    tagline: 'AI literacy',
+    desc: 'How machine learning works, responsible use, and building with AI in Python.',
     color: '#2A7B6F',
-    ageLabels: ['Problem Solvers', 'Analytical Thinkers', 'Innovators'],
+    ageLabels: ['Foundations', 'Building', 'Depth'],
   },
   {
-    id: 'language',
-    label: 'Language & Literacy',
-    icon: '📖',
-    tagline: 'Word Wizards',
-    desc: 'Confident readers, expressive writers, and thoughtful communicators, built through story and structure.',
-    color: '#8B6914',
-    ageLabels: ["Writer's Workshop", 'Critical Creators', 'Academic Mastery'],
-  },
-  {
-    id: 'cs',
-    label: 'Computer Science',
-    icon: '💻',
-    tagline: 'Code Explorers',
-    desc: 'From first lines of code to real world projects: digital fluency and future ready thinking.',
+    id: 'cyber',
+    label: 'Cybersecurity',
+    icon: '🛡️',
+    tagline: 'Digital defence',
+    desc: 'Encryption, threat modelling, and age appropriate post quantum cryptography.',
     color: '#4A5899',
-    ageLabels: ['Project Coders', 'Future Makers', 'Innovation Track'],
+    ageLabels: ['Foundations', 'Building', 'Depth'],
+  },
+  {
+    id: 'math-physics',
+    label: 'Math + Physics',
+    icon: '⚛️',
+    tagline: 'Integrated STEM',
+    desc: 'Mathematics taught alongside the physics that gives it meaning, from algebra to calculus.',
+    color: '#8B6914',
+    ageLabels: ['Foundations', 'Building', 'Depth'],
   },
 ];
 
@@ -33,19 +33,19 @@ export const AGE_GROUPS = [
     id: 'junior',
     label: 'Ages 9 to 11',
     tag: 'Foundations',
-    desc: 'Building strong basics with curiosity and care',
+    desc: 'Building intuition, vocabulary, and confidence across subjects',
   },
   {
     id: 'middle',
     label: 'Ages 12 to 14',
-    tag: 'Growth',
-    desc: 'Deepening skills with structure and challenge',
+    tag: 'Building',
+    desc: 'First serious skills, projects, and structured problem solving',
   },
   {
     id: 'senior',
     label: 'Ages 15 to 17',
-    tag: 'Mastery',
-    desc: 'Advanced pathways with real world application',
+    tag: 'Depth',
+    desc: 'Advanced work, contest grade rigour, and university preparation',
   },
 ];
 
@@ -127,8 +127,8 @@ export const FEATURES = [
 export const HOW_IT_WORKS = [
   {
     step: '1',
-    tabLabel: 'Discovery call',
-    title: 'Book a Free Discovery Call (30 minutes)',
+    tabLabel: 'Consultation',
+    title: 'Free 15 minute consultation',
     desc: "We learn about your child, their interests, strengths, and what you're hoping for. We answer every question honestly. If LuminoLearn isn't the right fit, we'll tell you.",
   },
   {
@@ -151,49 +151,49 @@ export const HOW_IT_WORKS = [
   },
 ];
 
-/** Learning Paths page: timeline cards + modal copy (`cta.urlKey`: `discovery_call` | `tuition`, resolved in PathsPage) */
+/** Learning Paths page: timeline cards + modal copy (`cta.urlKey`: `discovery_call` | `formats`, resolved in PathsPage) */
 export const LEARNING_JOURNEY_STEPS = [
   {
     id: 'discovery',
-    name: 'Discovery call',
-    sub: 'Free · 30 min on Calendly',
+    name: 'Free consultation',
+    sub: 'Complimentary · 20 min',
     variant: 'mint',
     body: [
       "We learn about your child, their interests, strengths, and what you're hoping for. We answer every question honestly. If LuminoLearn isn't the right fit, we'll tell you.",
-      'Book a time that works for you on Calendly. There is no charge for this call and no obligation to enroll.',
+      'There is no charge for this consultation and no obligation to enroll.',
     ],
-    cta: { label: 'Book your free call', urlKey: 'discovery_call' },
+    cta: { label: 'Book a free consultation', urlKey: 'discovery_call' },
   },
   {
-    id: 'luminostart',
-    name: 'LuminoStart™',
-    sub: '4 weeks · placement',
+    id: 'diagnostic',
+    name: 'Diagnostic and placement',
+    sub: 'Across subjects you choose',
     variant: 'indigo',
     body: [
-      'Your child attends four guided sessions so we can assess level, learning style, and pace, not just grade.',
-      'You receive a written placement report and a personalized learning plan. Pricing for this step is on Plans & Tuition.',
+      'We assess your child\'s current level across AI, Cybersecurity, and/or Math + Physics, not just grade level.',
+      'You receive a written placement recommendation and a suggested path through Foundations, Building, or Depth.',
     ],
-    cta: { label: 'View LuminoStart™ on Plans & Tuition', urlKey: 'tuition' },
+    cta: { label: 'See our curriculum', urlKey: 'formats' },
   },
   {
-    id: 'luminocore',
-    name: 'LuminoCore™',
-    sub: '12 weeks · certified cycle',
+    id: 'format',
+    name: 'Choose a format',
+    sub: 'Online · in person · small group',
     variant: 'emerald',
     body: [
-      'Your child joins a small group matched by ability. Expect two sessions per week, guided projects, teacher feedback, and a certificate when the cycle ends.',
+      'Every path can be taught one on one online, one on one in person in the GTA / York Region, or in a small group of up to six students matched by level.',
     ],
-    cta: { label: 'View LuminoCore™ pricing', urlKey: 'tuition' },
+    cta: { label: 'See how we teach', urlKey: 'formats' },
   },
   {
-    id: 'luminopath',
-    name: 'LuminoPath™',
-    sub: '3 to 12 months · bundles',
+    id: 'start',
+    name: 'Start learning',
+    sub: 'With a Canadian educator',
     variant: 'sunrise',
     body: [
-      'LuminoPath™ bundles multiple LuminoCore™ cycles with priority scheduling, ongoing personalization, and regular progress reports, built for families who want continuity and value.',
+      'Your child begins with a Canadian educator matched to their level, with adaptive practice on the LuminoLearn platform between classes.',
     ],
-    cta: { label: 'Compare LuminoPath™ bundles', urlKey: 'tuition' },
+    cta: { label: 'Book a free consultation', urlKey: 'discovery_call' },
   },
 ];
 
@@ -730,12 +730,12 @@ export const CONTACT = {
 export const SOCIAL_LINKS = [
   {
     id: 'linkedin',
-    href: 'https://www.linkedin.com/company/lumino-learn-academy/posts/?feedView=all',
+    href: 'https://www.linkedin.com/in/lumino-learn',
     label: 'LinkedIn',
   },
   {
     id: 'facebook',
-    href: 'https://www.facebook.com/luminolearn.academy',
+    href: 'https://www.facebook.com/share/1Au3wgzoaP/',
     label: 'Facebook',
   },
   {
@@ -745,7 +745,7 @@ export const SOCIAL_LINKS = [
   },
   {
     id: 'instagram',
-    href: 'https://www.instagram.com/luminolearn.academy?igsh=b2w5MGdiaHZuemNn&utm_source=qr',
+    href: 'https://www.instagram.com/luminolearn_inc?igsi=MWZiazZyNWxndmJ3ag==',
     label: 'Instagram',
   },
 ];
@@ -754,10 +754,19 @@ export const CALENDLY_BOOKING_URL =
   (typeof import.meta.env.VITE_CALENDLY_URL === 'string' && import.meta.env.VITE_CALENDLY_URL.trim()) ||
   'https://calendly.com/lumino-luminolearn/new-meeting-1';
 
-/** Free discovery call scheduling (Calendly). Override with VITE_DISCOVERY_CALL_URL if it differs from general Calendly. */
+/** Free consultation scheduling (Calendly). Override with VITE_DISCOVERY_CALL_URL if it differs. */
 export const DISCOVERY_CALL_URL =
   (typeof import.meta.env.VITE_DISCOVERY_CALL_URL === 'string' && import.meta.env.VITE_DISCOVERY_CALL_URL.trim()) ||
   CALENDLY_BOOKING_URL;
+
+/** User facing name for the complimentary Calendly booking (not a class). */
+export const CONSULTATION = {
+  name: 'Free 15 minute consultation',
+  cta: 'Book a free consultation',
+  ctaLong: 'Book a free 15 minute consultation',
+  scheduleCta: 'Schedule on Calendly',
+  duration: '15 minutes',
+};
 
 /**
  * Google Form URLs by age band + subject (from learning path intake).
@@ -765,19 +774,19 @@ export const DISCOVERY_CALL_URL =
  */
 export const ENROLLMENT_FORMS = {
   junior: {
-    math: 'https://forms.gle/txh4xWL3PuJpJpTr6',
-    language: 'https://forms.gle/TVbemtprDtK9Zixw9',
-    cs: 'https://forms.gle/AdkicVongWKAfSdt5',
+    ai: null,
+    cyber: 'https://forms.gle/AdkicVongWKAfSdt5',
+    'math-physics': 'https://forms.gle/txh4xWL3PuJpJpTr6',
   },
   middle: {
-    math: null,
-    language: null,
-    cs: null,
+    ai: null,
+    cyber: null,
+    'math-physics': null,
   },
   senior: {
-    math: null,
-    language: null,
-    cs: null,
+    ai: null,
+    cyber: null,
+    'math-physics': null,
   },
 };
 
@@ -791,3 +800,35 @@ export function getEnrollmentLink(ageGroupId, courseId) {
     label: 'Complimentary consultation',
   };
 }
+
+/** Our Story page: team grid placeholders (replace with real bios when ready). */
+export const STORY_TEAM = [
+  {
+    id: 'founder',
+    name: '[Founder Name]',
+    role: '[Role]',
+    bio: '[One-line biography]',
+    photo: null,
+  },
+  {
+    id: 'educator',
+    name: '[Educator Name]',
+    role: '[Role]',
+    bio: '[One-line biography]',
+    photo: null,
+  },
+  {
+    id: 'engineer',
+    name: '[Engineer Name]',
+    role: '[Role]',
+    bio: '[One-line biography]',
+    photo: null,
+  },
+  {
+    id: 'research',
+    name: '[Research Lead Name]',
+    role: '[Role]',
+    bio: '[One-line biography]',
+    photo: null,
+  },
+];

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar, Footer, FlameGuide, SmoothScrollProvider } from './components';
 import {
   HomePage,
@@ -12,6 +12,9 @@ import {
   TermsPage,
   MySpacePage,
   LoginPage,
+  SchoolsPage,
+  TechnologyPage,
+  ContactPage,
 } from './pages';
 function AppLayout({ children }) {
   return (
@@ -53,18 +56,44 @@ export default function App() {
         }
       />
       <Route
-        path="/tuition"
+        path="/how-we-teach"
         element={
           <AppLayout>
             <TuitionPage />
           </AppLayout>
         }
       />
+      <Route path="/tuition" element={<Navigate to="/how-we-teach" replace />} />
+      <Route path="/pricing" element={<Navigate to="/how-we-teach" replace />} />
       <Route
         path="/book"
         element={
           <AppLayout>
             <BookPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/schools"
+        element={
+          <AppLayout>
+            <SchoolsPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/technology"
+        element={
+          <AppLayout>
+            <TechnologyPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <AppLayout>
+            <ContactPage />
           </AppLayout>
         }
       />

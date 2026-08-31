@@ -22,7 +22,7 @@ Luminolearn Inc. provides structured educational programs in Mathematics, Langua
 * **LuminoStart™:** A 4 week assessment and placement program that evaluates a Student's current level, learning style, and pace, resulting in a personalized learning plan and placement recommendation.
 * **LuminoCore™:** A 12 week certified learning program with two sessions per week, including guided instruction, personalized practice, projects, teacher feedback, and a certificate of completion.
 * **LuminoPath™:** Extended learning bundles of multiple LuminoCore™ cycles (6, 9, or 12 months), offering ongoing personalization, priority scheduling, and regular progress reports.
-* **Free Discovery Calls:** Complimentary 30 minute consultations to discuss a child's learning needs and program fit.
+* **Free consultations:** Complimentary 15 minute consultations to discuss a child's learning needs and program fit.
 * **Learning Platform:** A secure online environment where Students access lesson materials, assignments, and progress information, managed by LuminoLearn staff.
 
 ***
@@ -45,9 +45,9 @@ Our Services are currently available to families in Ontario, Canada. Online serv
 
 ## 4. Enrollment Process
 
-### 4.1 Discovery Call
+### 4.1 Free consultation
 
-Families are encouraged to begin with a free discovery call. This is a 30 minute conversation to discuss your child's needs and determine whether LuminoLearn is a good fit. There is no obligation to enroll.
+Families are encouraged to begin with a free 15 minute consultation. This is a conversation to discuss your child's needs and determine whether LuminoLearn is a good fit. There is no obligation to enroll.
 
 ### 4.2 Enrollment Request
 

@@ -2,18 +2,18 @@ import React from 'react';
 import Container from './Container';
 import Button from './Button';
 import { theme, font } from '../styles/theme';
-import { DISCOVERY_CALL_URL } from '../data/siteData';
+import { DISCOVERY_CALL_URL, CONSULTATION } from '../data/siteData';
 
 const LIGHT_DEFAULTS = {
   headline: 'Ready to see if LuminoLearn is right for your family?',
   subtext:
-    "Book a free 30 minute session. No commitment: just a conversation about your child's learning.",
-  primaryLabel: 'Book Free Discovery Call',
+    "Book a free 15 minute consultation. No commitment: just a conversation about your child's learning.",
+  primaryLabel: CONSULTATION.ctaLong,
   primaryHref: DISCOVERY_CALL_URL,
   secondaryLabel: 'Explore Learning Paths',
   secondaryTo: '/learning-paths',
-  tertiaryLabel: 'Plans & Tuition',
-  tertiaryTo: '/tuition',
+  tertiaryLabel: 'How We Teach',
+  tertiaryTo: '/how-we-teach',
 };
 
 export default function CtaBanner({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { DISCOVERY_CALL_URL, SOCIAL_LINKS } from '../data/siteData';
+import { DISCOVERY_CALL_URL, CONSULTATION, SOCIAL_LINKS } from '../data/siteData';
 import SocialIcon from './SocialIcon';
 import flameMascot from '../assets/flame-mascot.png';
 
@@ -12,24 +12,58 @@ const PAGE_GUIDE = {
   },
   '/our-story': {
     headline: 'Our story',
-    body: 'Read how LuminoLearn started, what we believe, and how small groups and real teachers shape every class.',
+    body:
+      'Why LuminoLearn exists, what we believe, and how to get involved as a family, school, educator, or research partner.',
   },
   '/learning-paths': {
     headline: 'Learning paths',
-    body: 'Browse math, language, and CS tracks by age. When you are ready, open Enroll for registration links.',
+    body:
+      'Browse AI, Cybersecurity, and Math + Physics across Foundations, Building, and Depth. Book a consultation for placement.',
+  },
+  '/how-we-teach': {
+    headline: 'How we teach',
+    body:
+      'Explore one on one online, one on one in person, and small group formats. Book a free consultation to find the right fit. No prices on this page.',
   },
   '/tuition': {
-    headline: 'Plans & tuition',
-    body: 'Compare LuminoStart™, LuminoCore™, and LuminoPath™. Book a discovery call if you want help choosing.',
+    headline: 'How we teach',
+    body:
+      'Explore learning formats and book a free consultation to find the right fit for your child.',
   },
   '/book': {
     headline: 'Book time',
-    body: 'Schedule with us here, or ask me for a free discovery call.',
+    body: 'Schedule with us here, or ask me for a free consultation.',
   },
   '/enroll': {
     headline: 'Enroll',
     body: 'Choose an age band and subject to open the right form or a Calendly consultation when a form is not live yet.',
   },
+  '/technology': {
+    headline: 'Technology',
+    body:
+      'The five layer privacy preserving architecture behind LuminoLearn. Federated learning, differential privacy, and post quantum readiness.',
+  },
+  '/schools': {
+    headline: 'Schools',
+    body: 'License AI, Cybersecurity, and Math + Physics for Canadian classrooms. Request a pilot or contact our team.',
+  },
+  '/contact': {
+    headline: 'Contact',
+    body: 'Research partnerships, school licensing, educator inquiries, and general questions.',
+  },
+  '/login': {
+    headline: 'Log in',
+    body: 'Sign in to the LuminoLearn platform. Accounts are issued by our team after enrollment.',
+  },
+  '/privacy': {
+    headline: 'Privacy',
+    body: 'How LuminoLearn handles student and family data. PIPEDA aligned, Canadian data residency.',
+  },
+  '/terms': {
+    headline: 'Terms',
+    body: 'Terms of service for LuminoLearn programs and platform use.',
+  },
+
   '/my-space': {
     headline: 'My space',
     body: 'Family sign in for enrolled students. Accounts are issued by LuminoLearn. There is no sign up on this site.',
@@ -37,10 +71,13 @@ const PAGE_GUIDE = {
 };
 
 function guideForPath(pathname) {
+  if (pathname === '/tuition' || pathname === '/pricing') {
+    return PAGE_GUIDE['/how-we-teach'];
+  }
   return (
     PAGE_GUIDE[pathname] ?? {
       headline: 'Guide',
-      body: 'Ask about paths, tuition, story, enrollment, or WhatsApp, or use the shortcuts below.',
+      body: 'Ask about paths, formats, technology, schools, story, or book a consultation using the shortcuts below.',
     }
   );
 }
@@ -67,11 +104,14 @@ export default function FlameGuide() {
     () => [
       { key: 'home', label: 'Home', to: '/' },
       { key: 'paths', label: 'Learning paths', to: '/learning-paths' },
-      { key: 'tuition', label: 'Tuition', to: '/tuition' },
+      { key: 'formats', label: 'How we teach', to: '/how-we-teach' },
+      { key: 'tech', label: 'Technology', to: '/technology' },
+      { key: 'schools', label: 'Schools', to: '/schools' },
+      { key: 'contact', label: 'Contact', to: '/contact' },
       { key: 'enroll', label: 'Enroll', to: '/enroll' },
       { key: 'story', label: 'Our story', to: '/our-story' },
       { key: 'book', label: 'Book', to: '/book' },
-      { key: 'call', label: 'Discovery call', href: DISCOVERY_CALL_URL },
+      { key: 'call', label: 'Free consultation', href: DISCOVERY_CALL_URL },
     ],
     []
   );
@@ -83,7 +123,7 @@ export default function FlameGuide() {
       {
         id: nextId(),
         role: 'bot',
-        text: 'Try typing help, paths, tuition, enroll, book, or WhatsApp, or tap a shortcut.',
+        text: 'Try typing help, paths, formats, technology, schools, book, or WhatsApp, or tap a shortcut.',
       },
     ]);
   }, [open, guide.headline, guide.body]);
@@ -121,22 +161,40 @@ export default function FlameGuide() {
     if (!q) return;
 
     if (/^hi$|^hello\b|^hey\b/.test(q)) {
-      pushBot("Hi! I'm Flame. Ask about paths, tuition, enrolling, or say “call” for a discovery call.");
+      pushBot("Hi! I'm Flame. Ask about paths, how we teach, enrolling, or say “call” for a free consultation.");
       return;
     }
     if (/help|^how\b/.test(q)) {
-      pushBot('You can type: paths, tuition, enroll, book, story, call, or whatsapp. Shortcuts below work too.');
+      pushBot('You can type: paths, formats, enroll, book, story, call, or whatsapp. Shortcuts below work too.');
       return;
     }
-    if (/path|course|subject|math|\bcs\b|computer|language/.test(q)) {
+    if (/tech|architecture|privacy|platform/.test(q)) {
+      navigate('/technology');
+      pushBot('Opening Technology.');
+      window.setTimeout(() => setOpen(false), 400);
+      return;
+    }
+    if (/school|district|license|pilot|classroom/.test(q)) {
+      navigate('/schools');
+      pushBot('Opening For schools.');
+      window.setTimeout(() => setOpen(false), 400);
+      return;
+    }
+    if (/contact|research|partner|funder|mitacs|nserc/.test(q)) {
+      navigate('/contact');
+      pushBot('Opening Contact.');
+      window.setTimeout(() => setOpen(false), 400);
+      return;
+    }
+    if (/path|course|subject|curriculum|ai|cyber|math|physics/.test(q)) {
       navigate('/learning-paths');
       pushBot('Taking you to Learning paths.');
       window.setTimeout(() => setOpen(false), 400);
       return;
     }
-    if (/tuition|price|cost|plan|pay/.test(q)) {
-      navigate('/tuition');
-      pushBot('Opening Plans & tuition.');
+    if (/tuition|price|cost|plan|pay|format|how we teach/.test(q)) {
+      navigate('/how-we-teach');
+      pushBot('Opening How we teach.');
       window.setTimeout(() => setOpen(false), 400);
       return;
     }
@@ -160,7 +218,7 @@ export default function FlameGuide() {
     }
     if (/discovery|intake|^call\b/.test(q)) {
       window.open(DISCOVERY_CALL_URL, '_blank', 'noopener,noreferrer');
-      pushBot('Opened Calendly to book your free discovery call.');
+      pushBot('Opened Calendly to book your free consultation.');
       return;
     }
     if (/whatsapp|\bwa\b|text us/.test(q)) {
@@ -175,7 +233,7 @@ export default function FlameGuide() {
       return;
     }
     pushBot(
-      "I'm Flame, your guide. Try “paths”, “tuition”, “enroll”, or use the orange shortcuts under the chat. I'm happy to nudge you in the right direction."
+      "I'm Flame, your guide. Try “paths”, “formats”, “enroll”, or use the orange shortcuts under the chat. I'm happy to nudge you in the right direction."
     );
   };
 

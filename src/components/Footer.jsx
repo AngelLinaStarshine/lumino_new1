@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Container from './Container';
 import { theme } from '../styles/theme';
-import { CONTACT, DISCOVERY_CALL_URL, SOCIAL_LINKS } from '../data/siteData';
+import { CONTACT, CONSULTATION, SOCIAL_LINKS } from '../data/siteData';
 import { LOGIN_PATH } from '../lib/platformUrl';
 import SocialIcon from './SocialIcon';
 
@@ -18,7 +18,18 @@ export default function Footer() {
   };
 
   const FooterLink = ({ to, children, style: extra }) => (
-    <div onClick={() => navigate(to)} style={{ ...linkStyle, ...extra }} role="presentation">
+    <div
+      onClick={() => navigate(to)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navigate(to);
+        }
+      }}
+      role="link"
+      tabIndex={0}
+      style={{ ...linkStyle, ...extra }}
+    >
       {children}
     </div>
   );
@@ -69,19 +80,6 @@ export default function Footer() {
               >
                 Personalized education, anywhere anytime.
               </p>
-              <p
-                style={{
-                  fontSize: 12,
-                  lineHeight: 1.6,
-                  color: 'rgba(15, 23, 42, 0.62)',
-                  fontWeight: 500,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  marginBottom: 20,
-                }}
-              >
-                Established 2025
-              </p>
               <div style={{ marginTop: 8, fontSize: 14, color: 'rgba(15, 23, 42, 0.85)' }}>
                 <div style={{ marginBottom: 6 }}>{CONTACT.email}</div>
                 <div>{CONTACT.phone}</div>
@@ -91,26 +89,23 @@ export default function Footer() {
             <div>
               <div style={headingStyle}>Learn</div>
               <FooterLink to="/learning-paths">Learning Paths</FooterLink>
-              <FooterLink to="/tuition">Plans & Tuition</FooterLink>
+              <FooterLink to="/how-we-teach">How We Teach</FooterLink>
+              <FooterLink to="/technology">Technology</FooterLink>
             </div>
 
             <div>
               <div style={headingStyle}>About</div>
               <FooterLink to="/our-story">Our Story</FooterLink>
+              <FooterLink to="/schools">For Schools</FooterLink>
+              <FooterLink to="/contact">Contact</FooterLink>
               <FooterLink to="/privacy">Privacy Policy</FooterLink>
               <FooterLink to="/terms">Terms of Service</FooterLink>
             </div>
 
             <div>
               <div style={headingStyle}>Start</div>
-              <a
-                href={DISCOVERY_CALL_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ ...linkStyle, display: 'block', textDecoration: 'none' }}
-              >
-                Talk to Us
-              </a>
+              <FooterLink to="/book">{CONSULTATION.cta}</FooterLink>
+              <FooterLink to="/enroll">Enroll</FooterLink>
               <a href={LOGIN_PATH} style={{ ...linkStyle, display: 'block', textDecoration: 'none' }}>
                 Log In
               </a>

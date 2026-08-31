@@ -1,507 +1,409 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
 import { Container, SectionLabel, Card, Button, PageAmbient } from '../components';
-import ComingSoonModal from '../components/ComingSoonModal';
-import {
-  COURSES,
-  AGE_GROUPS,
-  DISCOVERY_CALL_URL,
-  AI_ETHICS_INTRO,
-  AI_PRINCIPLES,
-  LEARNING_JOURNEY_STEPS,
-} from '../data/siteData';
+import { CONSULTATION } from '../data/siteData';
 import { theme, font } from '../styles/theme';
+import { usePageMeta } from '../hooks/usePageMeta';
 
-function journeyCtaUrl(urlKey) {
-  if (urlKey === 'discovery_call') return DISCOVERY_CALL_URL;
-  if (urlKey === 'tuition') return '/tuition';
-  return null;
-}
+const SUBJECT_PATHS = [
+  {
+    id: 'ai',
+    title: 'Artificial Intelligence',
+    promise: 'From understanding what AI is to building responsibly with it.',
+    accent: theme.teal,
+    continues:
+      'Continues into: independent research projects, contest preparation, and university foundations.',
+    levels: [
+      {
+        name: 'Foundations',
+        ages: 'ages 9 to 11',
+        bullets: [
+          'What AI actually is, and what it isn\'t',
+          'How computers "learn" from examples, without jargon',
+          'Using AI tools thoughtfully: asking good questions, spotting wrong answers',
+          'First guided experiments with visual AI tools',
+        ],
+      },
+      {
+        name: 'Building',
+        ages: 'ages 12 to 14',
+        bullets: [
+          'Introduction to machine learning: how models learn from data',
+          'First real Python projects: classifying, predicting, generating',
+          'The mechanics of prompting: why the same question gets different answers',
+          'The ethics of AI: bias, hallucination, and where human judgement wins',
+        ],
+      },
+      {
+        name: 'Depth',
+        ages: 'ages 15 to 17',
+        bullets: [
+          'Neural networks and the mathematics behind them',
+          'Working with modern LLMs: evaluation, fine tuning intuition, agents',
+          'Building end to end AI projects in Python',
+          'Preparing for university level ML coursework and technical interviews',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'cyber',
+    title: 'Cybersecurity (with Post Quantum Cryptography)',
+    promise: 'Digital defence for today, and the post quantum world coming next.',
+    accent: theme.navyLight,
+    continues:
+      'Continues into: independent security projects, PQC focused research, and CTF style competitions.',
+    levels: [
+      {
+        name: 'Foundations',
+        ages: 'ages 9 to 11',
+        bullets: [
+          'What "secret" means to a computer: an intuitive introduction to codes',
+          'Everyday safety: passwords, phishing, and safe online life',
+          'Why privacy matters, and who\'s on the other end of your data',
+          'First hands on games with classical ciphers',
+        ],
+      },
+      {
+        name: 'Building',
+        ages: 'ages 12 to 14',
+        bullets: [
+          'How real encryption works, from XOR to public key intuitions',
+          'Threat modelling: thinking like both defender and attacker',
+          'First encounter with post quantum cryptography: what "quantum threat" actually means',
+          'Building simple secure systems: passwords, hashes, digital signatures',
+        ],
+      },
+      {
+        name: 'Depth',
+        ages: 'ages 15 to 17',
+        bullets: [
+          'Modern cryptography: symmetric, asymmetric, and hash based systems',
+          'Lattice based cryptography and hash based signatures: the real mathematics of the post quantum transition',
+          'Hands on labs adapted from real cybersecurity workflows',
+          'Preparation for cybersecurity contests and university coursework',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'math-physics',
+    title: 'Math + Physics',
+    promise: 'Mathematics becomes powerful when it explains the universe. We teach them together.',
+    accent: theme.brandOrange,
+    continues:
+      'Continues into: contest preparation (AMC, CEMC, Physics Olympiad), research projects, and university foundations.',
+    levels: [
+      {
+        name: 'Foundations',
+        ages: 'ages 9 to 11',
+        bullets: [
+          'Foundational arithmetic and pre algebra, taught through real problems',
+          'First encounter with motion, force, and energy as physical intuitions',
+          'Estimation, measurement, and the habit of checking your answer',
+          'Puzzles and games that build genuine mathematical curiosity',
+        ],
+      },
+      {
+        name: 'Building',
+        ages: 'ages 12 to 14',
+        bullets: [
+          'Algebra, geometry, and the foundations of trigonometry',
+          'Newtonian mechanics: motion, forces, and conservation',
+          'Problem solving as a discipline: reading, modelling, checking',
+          'Introduction to mathematical proof and physical reasoning',
+        ],
+      },
+      {
+        name: 'Depth',
+        ages: 'ages 15 to 17',
+        bullets: [
+          'Single variable calculus and the physics it unlocks',
+          'Electricity, magnetism, and modern physics foundations',
+          'Olympiad grade problem sets for students who want that rigour',
+          'Preparation for university level math and physics coursework',
+        ],
+      },
+    ],
+  },
+];
 
-function enrollQuery(params) {
-  const sp = new URLSearchParams();
-  if (params.age) sp.set('age', params.age);
-  if (params.subject) sp.set('subject', params.subject);
-  const q = sp.toString();
-  return q ? `/enroll?${q}` : '/enroll';
-}
+const sectionHeading = {
+  fontFamily: font.display,
+  fontSize: 'clamp(2rem, 3.6vw, 2.65rem)',
+  color: theme.navy,
+  marginBottom: 12,
+  lineHeight: 1.2,
+};
 
-/** Hash targets from home page curriculum links (`#mathematics`, `#language`, `#cs`). */
-function courseSectionId(courseId) {
-  if (courseId === 'math') return 'mathematics';
-  return courseId;
+const bodyCopy = {
+  fontSize: 'clamp(1rem, 1.3vw, 1.12rem)',
+  color: theme.muted,
+  lineHeight: 1.75,
+  margin: 0,
+};
+
+function LevelBlock({ level, accent }) {
+  return (
+    <div className="paths-level-block">
+      <h3 className="paths-level-block__heading">
+        <span className="paths-level-chip" style={{ borderColor: `${accent}55`, color: accent }}>
+          {level.name}
+        </span>
+        <span className="paths-level-block__ages">{level.ages}</span>
+      </h3>
+      <ul className="home-pillar-list paths-level-block__list">
+        {level.bullets.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default function PathsPage() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [journeyModalIndex, setJourneyModalIndex] = useState(null);
-  const journeyModalStep =
-    journeyModalIndex !== null ? LEARNING_JOURNEY_STEPS[journeyModalIndex] : null;
-  const journeyModalCtaHref =
-    journeyModalStep?.cta ? journeyCtaUrl(journeyModalStep.cta.urlKey) : null;
-
-  useEffect(() => {
-    const id = location.hash?.replace(/^#/, '');
-    if (!id) return undefined;
-    const timer = window.setTimeout(() => {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 120);
-    return () => window.clearTimeout(timer);
-  }, [location.pathname, location.hash]);
+  usePageMeta({
+    title: 'Learning Paths — LuminoLearn',
+    description:
+      "LuminoLearn's curriculum grows with your child across three subjects, AI, Cybersecurity (with PQC), and Math + Physics, and three levels from ages 9 to 17. Canadian built, taught by real Canadian educators.",
+    path: '/learning-paths',
+  });
 
   return (
     <div className="home-page inner-ambient-page paths-page">
       <PageAmbient />
-      <>
-      {/* Hero */}
+
       <section
+        className="paths-hero"
+        aria-labelledby="paths-hero-heading"
         style={{
           paddingTop: 'clamp(112px, 12vh, 148px)',
-          paddingBottom: 60,
+          paddingBottom: 'clamp(56px, 8vw, 72px)',
           background: `linear-gradient(180deg, rgba(253, 250, 240, 0.42) 0%, rgba(253, 250, 240, 0.78) 28%, ${theme.light} 55%, ${theme.light} 100%)`,
         }}
       >
         <Container narrow style={{ textAlign: 'center', width: '100%' }}>
-          <SectionLabel>Learning Paths</SectionLabel>
-          <h1
-            className="fade-up inner-ambient-page__hero-title"
-            style={{
-              fontFamily: font.display,
-              color: theme.navy,
-              marginBottom: 16,
-            }}
-          >
-            Find the right path for your child
+          <SectionLabel>Learning paths</SectionLabel>
+          <h1 id="paths-hero-heading" className="fade-up inner-ambient-page__hero-title">
+            A clear path from curiosity to real capability.
           </h1>
-          <p
-            className="fade-up delay-1 inner-ambient-page__hero-lead"
-            style={{ color: theme.muted, lineHeight: 1.72 }}
-          >
-            Same focus as our home page: Mathematics, Language, and Computer Science for ages 9 to
-            17, with small groups and placement by ability. Every family starts with a free discovery
-            call, then LuminoStart™ assessment, then LuminoCore™ or LuminoPath™ cycles.
+          <p className="fade-up delay-1 inner-ambient-page__hero-lead" style={{ color: theme.muted, lineHeight: 1.72 }}>
+            LuminoLearn&apos;s curriculum grows with your child across three subjects and three levels, from first
+            intuitions at age 9 to Olympiad grade problem solving at 17. Every path is Canadian built, privacy
+            first, and taught by real Canadian educators.
+          </p>
+          <div className="home-hero-cta-row fade-up delay-2">
+            <Button to="/book">{CONSULTATION.cta}</Button>
+            <Button to="/how-we-teach" variant="secondary">
+              See how we teach
+            </Button>
+          </div>
+          <p className="home-hero-trust fade-up delay-3" role="note">
+            Not sure where your child fits? Our 20 minute consultation includes a free diagnostic.
           </p>
         </Container>
       </section>
 
-      {/* Course Selector */}
-      <section style={{ padding: '64px 0' }}>
-        <Container>
-          <h2
-            style={{
-              fontFamily: font.display,
-              fontSize: 30,
-              color: theme.navy,
-              marginBottom: 32,
-              textAlign: 'center',
-            }}
-          >
-            Choose a subject
+      <section className="home-section" aria-labelledby="structure-heading" style={{ background: theme.bg }}>
+        <Container narrow style={{ maxWidth: 820 }}>
+          <h2 id="structure-heading" style={sectionHeading}>
+            Three subjects. Three levels. One curriculum that grows.
           </h2>
-          <div
-            className="grid-3"
+          <p style={bodyCopy}>
+            Every LuminoLearn student learns through a curriculum built on three subjects: Artificial Intelligence,
+            Cybersecurity (with age appropriate Post Quantum Cryptography), and Math + Physics, organized into
+            three progressive levels. Levels are guided by age, but placement is based on an actual diagnostic
+            during your consultation, not a birthday. Students can study any single subject, combine two, or
+            follow all three as an integrated combined course.
+          </p>
+        </Container>
+      </section>
+
+      <section className="home-section paths-matrix-section" aria-labelledby="matrix-heading" style={{ background: theme.light }}>
+        <Container>
+          <h2 id="matrix-heading" style={{ ...sectionHeading, textAlign: 'center', marginBottom: 16 }}>
+            The three paths at a glance
+          </h2>
+          <p
             style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 24,
-              marginBottom: 56,
+              ...bodyCopy,
+              textAlign: 'center',
+              maxWidth: 640,
+              margin: '0 auto 40px',
             }}
           >
-            {COURSES.map((c) => (
-              <div key={c.id} id={courseSectionId(c.id)} style={{ scrollMarginTop: 96 }}>
-                <Card
-                  hoverable
-                  role="button"
-                  tabIndex={0}
-                  aria-label={`Open enrollment for ${c.label}`}
-                  onClick={() => navigate(enrollQuery({ subject: c.id }))}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      navigate(enrollQuery({ subject: c.id }));
-                    }
-                  }}
-                  style={{
-                    borderColor: theme.border,
-                    borderWidth: 2,
-                    textAlign: 'center',
-                  }}
-                >
-                  <div style={{ fontSize: 48, marginBottom: 12 }}>{c.icon}</div>
-                  <div
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: c.color,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.06em',
-                      marginBottom: 4,
-                    }}
-                  >
-                    {c.tagline}
-                  </div>
-                  <h3
+            Three subjects, each with Foundations, Building, and Depth. Placement follows your child&apos;s diagnostic,
+            not their age alone.
+          </p>
+          <div className="paths-matrix-grid">
+            {SUBJECT_PATHS.map((subject) => (
+              <article key={subject.id} className="paths-matrix-column">
+                <Card hoverable={false} className="paths-matrix-card">
+                  <h2
                     style={{
                       fontFamily: font.display,
-                      fontSize: 24,
+                      fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
                       color: theme.navy,
-                      marginBottom: 8,
+                      marginBottom: 10,
+                      lineHeight: 1.25,
                     }}
                   >
-                    {c.label}
-                  </h3>
-                  <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.62 }}>{c.desc}</p>
+                    {subject.title}
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: 'clamp(1rem, 1.3vw, 1.08rem)',
+                      fontWeight: 600,
+                      fontStyle: 'italic',
+                      color: subject.accent,
+                      marginBottom: 24,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {subject.promise}
+                  </p>
+                  {subject.levels.map((level, index) => (
+                    <React.Fragment key={level.name}>
+                      {index > 0 && <div className="paths-level-divider" aria-hidden />}
+                      <LevelBlock level={level} accent={subject.accent} />
+                    </React.Fragment>
+                  ))}
+                  <p className="paths-continues-note">{subject.continues}</p>
                 </Card>
-              </div>
+              </article>
             ))}
           </div>
+        </Container>
+      </section>
 
-          {/* Age Groups */}
+      <section className="home-section" aria-labelledby="combined-heading" style={{ background: theme.bg }}>
+        <Container narrow style={{ maxWidth: 760 }}>
+          <Card hoverable={false}>
+            <h2
+              id="combined-heading"
+              style={{
+                fontFamily: font.display,
+                fontSize: 'clamp(1.5rem, 2.8vw, 1.85rem)',
+                color: theme.navy,
+                marginBottom: 16,
+                lineHeight: 1.25,
+              }}
+            >
+              The combined course: three subjects, one integrated curriculum
+            </h2>
+            <p style={{ ...bodyCopy, marginBottom: 16 }}>
+              AI, Cybersecurity, and Math + Physics aren&apos;t separate subjects. They share a common mathematical
+              foundation and reinforce each other in ways isolated study can&apos;t match. The same lattice mathematics
+              behind post quantum cryptography underlies certain machine learning techniques, and both are best
+              understood alongside the physics that grounds them.
+            </p>
+            <p style={{ ...bodyCopy, marginBottom: 24 }}>
+              Students in our combined course study all three subjects together as an integrated curriculum, the
+              deepest and most connected path LuminoLearn offers. It&apos;s our recommended option for students
+              planning to stay with us for a full academic year or longer.
+            </p>
+            <Button to="/book">Ask about the combined course</Button>
+          </Card>
+        </Container>
+      </section>
+
+      <section className="home-section" aria-labelledby="placement-heading" style={{ background: theme.light }}>
+        <Container narrow style={{ maxWidth: 720, textAlign: 'center' }}>
+          <h2 id="placement-heading" style={sectionHeading}>
+            Not sure where your child fits?
+          </h2>
+          <p style={{ ...bodyCopy, marginBottom: 28 }}>
+            Levels are guided by age, but placement is based on an actual diagnostic, not a birthday. Some
+            10 year olds are ready for Building; some 14 year olds are best served by strengthening their
+            Foundations first. Our free 20 minute consultation includes a diagnostic across the subjects
+            you&apos;re considering, so we can place your child exactly where they&apos;ll grow fastest.
+          </p>
+          <Button to="/book">{CONSULTATION.cta}</Button>
+        </Container>
+      </section>
+
+      <section className="home-section" aria-labelledby="delivery-heading" style={{ background: theme.bg }}>
+        <Container narrow style={{ maxWidth: 720 }}>
+          <h2 id="delivery-heading" style={sectionHeading}>
+            Delivered the way that works for your child
+          </h2>
+          <p style={{ ...bodyCopy, marginBottom: 24 }}>
+            Every path can be taught one on one online, one on one in person (Greater Toronto Area / York Region),
+            or in a small group of up to six students matched by level and goals. The right format depends on
+            how your child learns best. We&apos;ll help you decide during your consultation.
+          </p>
+          <Button to="/how-we-teach" variant="secondary">
+            See the three formats
+          </Button>
+        </Container>
+      </section>
+
+      <section className="home-section" aria-labelledby="schools-heading" style={{ background: theme.light }}>
+        <Container narrow style={{ maxWidth: 720 }}>
+          <Card hoverable={false}>
+            <h2
+              id="schools-heading"
+              style={{
+                fontFamily: font.display,
+                fontSize: 'clamp(1.35rem, 2.5vw, 1.65rem)',
+                color: theme.navy,
+                marginBottom: 12,
+              }}
+            >
+              For schools, districts, and organizations
+            </h2>
+            <p style={{ ...bodyCopy, marginBottom: 24 }}>
+              Canadian school boards, private schools, and tutoring organizations can license the LuminoLearn
+              curriculum, any single subject, any combination, or the full integrated program, for their
+              classrooms.
+            </p>
+            <Button to="/schools" variant="secondary">
+              Explore school licensing
+            </Button>
+          </Card>
+        </Container>
+      </section>
+
+      <section
+        className="cta-banner-section cta-banner-navy paths-final-cta"
+        aria-labelledby="paths-final-cta-heading"
+        style={{
+          background: `linear-gradient(135deg, ${theme.navy} 0%, #1e3a5f 50%, #243a5c 100%)`,
+          padding: 'clamp(56px, 8vw, 72px) 0',
+          textAlign: 'center',
+        }}
+      >
+        <Container style={{ position: 'relative', zIndex: 1 }}>
           <h2
+            id="paths-final-cta-heading"
             style={{
               fontFamily: font.display,
-              fontSize: 30,
-              color: theme.navy,
-              marginBottom: 8,
-              textAlign: 'center',
+              fontSize: 'clamp(1.75rem, 3.2vw, 2rem)',
+              color: '#fff',
+              marginBottom: 12,
+              lineHeight: 1.2,
             }}
           >
-            Age groups
+            Ready to find the right path?
           </h2>
           <p
             style={{
-              fontSize: 16,
-              color: theme.muted,
-              textAlign: 'center',
-              marginBottom: 32,
+              color: 'rgba(255,255,255,0.9)',
+              fontSize: 'clamp(1rem, 1.4vw, 1.12rem)',
+              marginBottom: 28,
+              lineHeight: 1.72,
+              maxWidth: 560,
+              marginLeft: 'auto',
+              marginRight: 'auto',
             }}
           >
-            Students are placed by ability and learning style within their age group, not just by
-            grade.
+            Book a free 20 minute consultation. A real Canadian educator will run a short diagnostic and
+            recommend the path that fits your child.
           </p>
-          <div
-            className="grid-3"
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 24,
-              marginBottom: 56,
-            }}
-          >
-            {AGE_GROUPS.map((a, i) => (
-              <Card
-                key={a.id}
-                className={`fade-up delay-${i + 1}`}
-                hoverable
-                role="button"
-                tabIndex={0}
-                aria-label={`Open enrollment for ${a.label}`}
-                onClick={() => navigate(enrollQuery({ age: a.id }))}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    navigate(enrollQuery({ age: a.id }));
-                  }
-                }}
-                style={{ scrollMarginTop: 96 }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginBottom: 12,
-                  }}
-                >
-                  <span
-                    style={{
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: theme.teal,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                    }}
-                  >
-                    {a.tag}
-                  </span>
-                  <span
-                    style={{
-                      padding: '4px 12px',
-                      borderRadius: 20,
-                      background: theme.light,
-                      fontSize: 15,
-                      fontWeight: 600,
-                      color: theme.navy,
-                    }}
-                  >
-                    {a.label}
-                  </span>
-                </div>
-                <p
-                  style={{
-                    fontSize: 16,
-                    color: theme.muted,
-                    lineHeight: 1.62,
-                    marginBottom: 16,
-                  }}
-                >
-                  {a.desc}
-                </p>
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }} onClick={(e) => e.stopPropagation()}>
-                  {COURSES.map((c) => (
-                    <button
-                      type="button"
-                      key={c.id}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(enrollQuery({ age: a.id, subject: c.id }));
-                      }}
-                      style={{
-                        padding: '6px 12px',
-                        borderRadius: 12,
-                        border: 'none',
-                        cursor: 'pointer',
-                        background: `${c.color}18`,
-                        fontSize: 14,
-                        color: c.color,
-                        fontWeight: 600,
-                        fontFamily: 'inherit',
-                        textAlign: 'left',
-                      }}
-                    >
-                      {c.label}
-                    </button>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
-
-          {/* Journey timeline */}
-          <div className="paths-journey-wrap">
-            <h2
-              style={{
-                fontFamily: font.display,
-                fontSize: 30,
-                color: theme.navy,
-                marginBottom: 10,
-                textAlign: 'center',
-              }}
-            >
-              The learning journey
-            </h2>
-            <p
-              style={{
-                fontSize: 16,
-                color: theme.muted,
-                textAlign: 'center',
-                maxWidth: 560,
-                margin: '0 auto 28px',
-                lineHeight: 1.58,
-              }}
-            >
-              Tap any step for a fuller explanation. Steps follow the same order families experience
-              after the discovery call.
-            </p>
-            <div className="paths-journey-track" role="list">
-              {LEARNING_JOURNEY_STEPS.map((s, i) => (
-                <div key={s.id} className="paths-journey-node" role="listitem">
-                  <button
-                    type="button"
-                    className={`paths-journey-card paths-journey-card--${s.variant}`}
-                    onClick={() => setJourneyModalIndex(i)}
-                    aria-haspopup="dialog"
-                    aria-expanded={journeyModalIndex === i}
-                    aria-label={`${s.name}: more detail`}
-                  >
-                    <p className="paths-journey-card__title">{s.name}</p>
-                    <p className="paths-journey-card__sub">{s.sub}</p>
-                    <span className="paths-journey-card__hint">Learn more</span>
-                  </button>
-                  {i < LEARNING_JOURNEY_STEPS.length - 1 && (
-                    <span className="paths-journey-connector" aria-hidden>
-                      ›
-                    </span>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+          <Button variant="warm" to="/book">
+            {CONSULTATION.cta}
+          </Button>
         </Container>
       </section>
-
-      <ComingSoonModal
-        open={journeyModalIndex !== null}
-        onClose={() => setJourneyModalIndex(null)}
-        title={journeyModalStep?.name ?? ''}
-        wide
-        closeLabel="Close"
-      >
-        {journeyModalStep ? (
-          <>
-            <p
-              style={{
-                fontSize: 14,
-                fontWeight: 700,
-                color: theme.teal,
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                margin: '0 0 14px',
-              }}
-            >
-              {journeyModalStep.sub}
-            </p>
-            {journeyModalStep.body.map((para, i) => (
-              <p
-                key={i}
-                style={{
-                  fontSize: 17,
-                  color: theme.muted,
-                  lineHeight: 1.68,
-                  margin: i === journeyModalStep.body.length - 1 ? 0 : 14,
-                }}
-              >
-                {para}
-              </p>
-            ))}
-            {journeyModalStep.cta && journeyModalCtaHref ? (
-              <div
-                style={{
-                  marginTop: 22,
-                  paddingTop: 18,
-                  borderTop: `1px solid ${theme.border}`,
-                }}
-              >
-                {journeyModalStep.cta.urlKey === 'discovery_call' ? (
-                  <a
-                    href={journeyModalCtaHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-block',
-                      fontSize: 17,
-                      fontWeight: 700,
-                      color: theme.teal,
-                      textDecoration: 'underline',
-                      textUnderlineOffset: 3,
-                    }}
-                  >
-                    {journeyModalStep.cta.label} ↗
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setJourneyModalIndex(null);
-                      navigate(journeyModalCtaHref);
-                    }}
-                    style={{
-                      background: 'none',
-                      border: 'none',
-                      padding: 0,
-                      cursor: 'pointer',
-                      fontFamily: font.body,
-                      fontSize: 17,
-                      fontWeight: 700,
-                      color: theme.teal,
-                      textDecoration: 'underline',
-                      textUnderlineOffset: 3,
-                    }}
-                  >
-                    {journeyModalStep.cta.label}
-                  </button>
-                )}
-              </div>
-            ) : null}
-          </>
-        ) : null}
-      </ComingSoonModal>
-
-      {/* Our position on AI: after programs / journey */}
-      <section style={{ padding: '80px 0', background: theme.warm }}>
-        <Container>
-          <SectionLabel>Our Position on AI</SectionLabel>
-          <h2
-            style={{
-              fontFamily: font.display,
-              fontSize: 36,
-              color: theme.navy,
-              marginBottom: 24,
-              lineHeight: 1.25,
-            }}
-          >
-            We teach AI. We also teach when not to use it.
-          </h2>
-          <div
-            style={{
-              background: theme.card,
-              borderRadius: 16,
-              padding: '32px 36px',
-              border: `1px solid ${theme.border}`,
-              marginBottom: 40,
-            }}
-          >
-            {AI_ETHICS_INTRO.map((para, i) => (
-              <p
-                key={i}
-                style={{
-                  fontSize: 18,
-                  color: theme.text,
-                  lineHeight: 1.76,
-                  marginBottom: i === AI_ETHICS_INTRO.length - 1 ? 0 : 16,
-                }}
-              >
-                {para}
-              </p>
-            ))}
-          </div>
-          <div
-            className="paths-ai-principles grid-3"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}
-          >
-            {AI_PRINCIPLES.map((block, i) => (
-              <Card key={i} style={{ padding: 24 }}>
-                <div style={{ fontSize: 30, marginBottom: 12 }}>{block.icon}</div>
-                <h3 style={{ fontFamily: font.display, fontSize: 19, color: theme.navy, marginBottom: 10 }}>
-                  {block.title}
-                </h3>
-                <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.62 }}>{block.desc}</p>
-              </Card>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Bottom CTA */}
-      <section style={{ padding: '48px 0', textAlign: 'center' }}>
-        <Container>
-          <h2
-            style={{
-              fontFamily: font.display,
-              fontSize: 30,
-              color: theme.navy,
-              marginBottom: 12,
-            }}
-          >
-            Ready to find the right fit?
-          </h2>
-          <p style={{ fontSize: 17, color: theme.muted, marginBottom: 32, lineHeight: 1.65 }}>
-            Start with a free discovery call (same link as the home page). Then review plans and
-            tuition, or go straight to enrollment when you are ready.
-          </p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button href={DISCOVERY_CALL_URL}>Book Free Discovery Call</Button>
-            <Button variant="secondary" to="/tuition">
-              Plans & Tuition
-            </Button>
-            <Button variant="secondary" to="/enroll">
-              Enroll Your Child
-            </Button>
-          </div>
-        </Container>
-      </section>
-    </>
     </div>
   );
 }

@@ -59,15 +59,15 @@ export default function ProPage() {
           >
             <p style={{ fontSize: 15, color: theme.text, lineHeight: 1.6, margin: 0, flex: '1 1 240px', minWidth: 0 }}>
               <strong style={{ color: theme.navy }}>Student at Luminolearn Inc.?</strong> LuminoPro is for
-              schools and professionals. For children ages 9 to 17, use Learning Paths and
-              tuition instead.
+              schools and professionals. For children ages 9 to 17, use Learning Paths and How We Teach
+              instead.
             </p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               <Button to="/learning-paths" variant="warm" style={{ padding: '10px 18px', fontSize: 14 }}>
                 Learning Paths
               </Button>
-              <Button to="/tuition" variant="secondary" style={{ padding: '10px 18px', fontSize: 14 }}>
-                Plans & Tuition
+              <Button to="/how-we-teach" variant="secondary" style={{ padding: '10px 18px', fontSize: 14 }}>
+                How We Teach
               </Button>
             </div>
           </Card>

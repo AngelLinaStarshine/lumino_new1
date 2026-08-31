@@ -1,9 +1,23 @@
 import React from 'react';
-import { Container, SectionLabel, Card, Button } from '../components';
-import { CONTACT, CALENDLY_BOOKING_URL } from '../data/siteData';
+import { Container, SectionLabel, Card, Button, RelatedLinks } from '../components';
+import { CONTACT, CALENDLY_BOOKING_URL, CONSULTATION } from '../data/siteData';
 import { theme, font } from '../styles/theme';
+import { usePageMeta } from '../hooks/usePageMeta';
+
+const RELATED = [
+  { to: '/learning-paths', label: 'Learning paths' },
+  { to: '/how-we-teach', label: 'How we teach' },
+  { to: '/our-story', label: 'Our story' },
+];
 
 export default function BookPage() {
+  usePageMeta({
+    title: 'Book a Consultation — LuminoLearn',
+    description:
+      'Book a free consultation with a real Canadian educator. Discuss your child\'s level, goals, and the right path through AI, Cybersecurity, and Math + Physics.',
+    path: '/book',
+  });
+
   return (
     <section style={{ paddingTop: 140, paddingBottom: 80 }}>
       <Container>
@@ -17,7 +31,7 @@ export default function BookPage() {
           }}
         >
           <div>
-            <SectionLabel>Free Session</SectionLabel>
+            <SectionLabel>Consultation</SectionLabel>
             <h1
               style={{
                 fontFamily: font.display,
@@ -27,7 +41,7 @@ export default function BookPage() {
                 lineHeight: 1.2,
               }}
             >
-              Book a free 30 minute session
+              {CONSULTATION.name}
             </h1>
             <p
               style={{
@@ -37,9 +51,9 @@ export default function BookPage() {
                 marginBottom: 32,
               }}
             >
-              This is not a sales pitch. It's a conversation about your child: their strengths,
-              goals, and where they might benefit from structured support. We'll answer your
-              questions and, if it's a good fit, suggest a path forward.
+              This is not a sales pitch. It&apos;s a conversation about your child: their strengths,
+              goals, and where they might benefit from structured support. We&apos;ll answer your
+              questions and, if it&apos;s a good fit, suggest a path forward.
             </p>
 
             <div
@@ -50,7 +64,7 @@ export default function BookPage() {
                 marginBottom: 24,
               }}
             >
-              <h3
+              <h2
                 style={{
                   fontSize: 16,
                   fontWeight: 600,
@@ -58,30 +72,34 @@ export default function BookPage() {
                   marginBottom: 12,
                 }}
               >
-                What to expect:
-              </h3>
+                What to expect
+              </h2>
               {[
-                '30 minute video or phone call',
-                "Learn about your child's level and goals",
-                'See how our learning paths work',
-                'Get honest guidance: no pressure to enroll',
-                "If it's a fit, we'll help you start LuminoStart™",
-              ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
-                  <span style={{ color: theme.teal }}>✓</span>
+                '20 minute video or phone call with a Canadian educator',
+                "Learn about your child's level and goals across subjects",
+                'Short diagnostic to recommend Foundations, Building, or Depth',
+                'Honest guidance on format: online, in person, or small group',
+                'No pressure to enroll',
+              ].map((item) => (
+                <div key={item} style={{ display: 'flex', gap: 8, marginBottom: 6 }}>
+                  <span style={{ color: theme.teal }} aria-hidden>
+                    ✓
+                  </span>
                   <span style={{ fontSize: 14, color: theme.text }}>{item}</span>
                 </div>
               ))}
             </div>
 
             <div style={{ fontSize: 14, color: theme.muted }}>
-              <p style={{ marginBottom: 8 }}>📧 {CONTACT.email}</p>
-              <p>📞 {CONTACT.phone}</p>
+              <p style={{ marginBottom: 8 }}>{CONTACT.email}</p>
+              <p>{CONTACT.phone}</p>
             </div>
+
+            <RelatedLinks links={RELATED} />
           </div>
 
           <Card style={{ padding: 36 }}>
-            <h3
+            <h2
               style={{
                 fontFamily: font.display,
                 fontSize: 22,
@@ -90,13 +108,13 @@ export default function BookPage() {
               }}
             >
               Pick a time on Calendly
-            </h3>
+            </h2>
             <p style={{ fontSize: 15, color: theme.muted, lineHeight: 1.7, marginBottom: 28 }}>
-              Choose a slot that works for you. You'll get a confirmation email with the video or
+              Choose a slot that works for you. You&apos;ll get a confirmation email with the video or
               phone details.
             </p>
             <Button fullWidth href={CALENDLY_BOOKING_URL} style={{ marginBottom: 16 }}>
-              Open Calendly: schedule free session
+              {CONSULTATION.scheduleCta}
             </Button>
             <p
               style={{ fontSize: 13, color: theme.muted, textAlign: 'center', marginBottom: 24 }}
