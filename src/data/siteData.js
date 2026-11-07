@@ -657,7 +657,7 @@ export const STORY_VISION_MISSION_VALUES = {
   vision:
     'Every child learns with confidence and clarity, supported by strong skills, real progress, and teachers who know them by name. Not as a slogan. As a daily practice.',
   mission:
-    'To provide structured, measurable, human centered learning in Mathematics, Language, and Computer Science for children ages 9 to 17, making growth visible to students and families at every step.',
+    'To provide structured, measurable, human centered learning in Mathematics, Language, and Computer Science for children ages 12 to 18, making growth visible to students and families at every step.',
   values: [
     'Calm structure over chaotic content',
     'Caring instruction over automated delivery',

@@ -1227,6 +1227,241 @@ button {
   font-weight: 600;
 }
 
+/* ── /platform: the LuminoLearn Hub ── */
+.platform-hero {
+  padding-top: clamp(112px, 12vh, 148px);
+  padding-bottom: clamp(48px, 7vw, 72px);
+}
+
+.platform-hero__grid {
+  display: grid;
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+  grid-template-columns: 1fr;
+}
+
+.platform-hero__text {
+  text-align: center;
+}
+
+.inner-ambient-page .platform-hero .inner-ambient-page__hero-title {
+  font-size: clamp(2.1rem, 4.2vw + 0.4rem, 3.6rem);
+}
+
+.inner-ambient-page > section:first-of-type p.platform-hero__labels {
+  margin: 18px 0 0;
+  font-size: 13px !important;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+}
+
+.platform-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 28px;
+}
+
+.platform-hero__ctas > * {
+  min-height: 48px;
+}
+
+@media (min-width: 1024px) {
+  .platform-hero__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+
+  .platform-hero__text,
+  .inner-ambient-page .platform-hero .inner-ambient-page__hero-title,
+  .inner-ambient-page .platform-hero .inner-ambient-page__hero-lead {
+    text-align: left;
+    margin-left: 0 !important;
+  }
+
+  .platform-hero__ctas {
+    justify-content: flex-start;
+  }
+}
+
+.platform-people-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr;
+  margin-top: 28px;
+}
+
+@media (min-width: 768px) {
+  .platform-people-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .platform-people-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.platform-card,
+.platform-tour__text,
+.platform-available,
+.platform-faq {
+  text-align: left;
+}
+
+.platform-people__shot {
+  margin-bottom: 18px;
+}
+
+.platform-screen__window img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.platform-catalogue-card {
+  position: relative;
+  height: 100%;
+}
+
+.platform-catalogue-card__no {
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(17, 24, 39, 0.14);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+}
+
+.platform-stamp {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 6px 14px;
+  border: 2px solid var(--color-teal);
+  outline: 1px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  transform: rotate(-4deg);
+}
+
+.platform-tour {
+  display: grid;
+  gap: clamp(36px, 5vw, 56px);
+  margin-top: 28px;
+}
+
+.platform-tour__row {
+  display: grid;
+  gap: 18px;
+  align-items: center;
+  margin: 0;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .platform-tour__row {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+
+  .platform-tour__row--flip .platform-tour__image {
+    order: 2;
+  }
+}
+
+.platform-available {
+  margin-top: 32px;
+  padding: 22px 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(17, 24, 39, 0.1);
+  background: var(--color-white);
+}
+
+.platform-join-card {
+  height: 100%;
+}
+
+.platform-faq {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.platform-faq__item {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  background: var(--color-white);
+  padding: 0 20px;
+}
+
+.platform-faq__item summary {
+  cursor: pointer;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  font-weight: 700;
+  color: var(--color-navy);
+}
+
+.platform-faq__item summary::-webkit-details-marker {
+  display: none;
+}
+
+.platform-faq__item summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--color-teal);
+}
+
+.platform-faq__item[open] summary::after {
+  content: '−';
+}
+
+.platform-faq__item summary:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+.platform-faq__item[open] {
+  padding-bottom: 18px;
+}
+
+.platform-closing {
+  position: relative;
+  z-index: 13;
+  padding: clamp(48px, 7vw, 72px) 0;
+  background: var(--color-navy);
+}
+
+.platform-closing__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+  line-height: 1.25;
+  color: #ffffff;
+  margin: 0;
+}
+
+.platform-closing__ctas {
+  justify-content: center !important;
+}
+
 .book-meta {
   display: grid;
   grid-template-columns: auto 1fr;

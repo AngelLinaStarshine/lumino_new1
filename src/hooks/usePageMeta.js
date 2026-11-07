@@ -3,10 +3,14 @@ import { useEffect } from 'react';
 /**
  * Sets document title and meta description/OG tags for SPA routes.
  */
-export function usePageMeta({ title, description, path = '' }) {
+export function usePageMeta({ title, description, path = '', noindex = false }) {
   useEffect(() => {
     const prevTitle = document.title;
     document.title = title;
+
+    const robots = document.querySelector('meta[name="robots"]');
+    const prevRobots = robots?.getAttribute('content');
+    if (robots && noindex) robots.setAttribute('content', 'noindex, nofollow');
 
     const setMeta = (selector, attr, value) => {
       let el = document.querySelector(selector);
@@ -33,6 +37,7 @@ export function usePageMeta({ title, description, path = '' }) {
 
     return () => {
       document.title = prevTitle;
+      if (robots && prevRobots) robots.setAttribute('content', prevRobots);
     };
-  }, [title, description, path]);
+  }, [title, description, path, noindex]);
 }

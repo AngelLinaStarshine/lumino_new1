@@ -57,7 +57,7 @@ export default function ProgramsPage() {
   usePageMeta({
     title: 'Programs — LuminoLearn',
     description:
-      'LuminoLearn tutoring and courses in AI, Cybersecurity, and Math + Physics for ages 9 to 17: LuminoStart, LuminoCore, after-school and homeschool groups, a free taster class, and camps.',
+      'LuminoLearn tutoring and courses in AI, Cybersecurity, and Math + Physics for ages 12 to 18: LuminoStart, LuminoCore, after-school and homeschool groups, a free taster class, and camps.',
     path: '/programs',
   });
 
@@ -69,7 +69,7 @@ export default function ProgramsPage() {
         id="programs-hero-heading"
         label="Programs"
         title="Tutoring and courses"
-        lead="Live classes with Canadian educators in AI, Cybersecurity, and Math + Physics, for students ages 9 to 17."
+        lead="Live classes with Canadian educators in AI, Cybersecurity, and Math + Physics, for students ages 12 to 18."
       >
         <div className="home-hero-cta-row fade-up delay-2">
           <Button to="/book">{CONSULTATION.cta}</Button>

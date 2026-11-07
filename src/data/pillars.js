@@ -76,53 +76,161 @@ export const CAMPS = {
   ctaHref: `mailto:${CONTACT.email}?subject=LuminoLearn%20camps`,
 };
 
-export const PLATFORM_FEATURES = [
-  'Coding exercises in the browser, with instant feedback when students submit',
-  'Practice set by their educator and matched to their level',
-  'Progress reports for parents between classes',
-  "Messaging with the educator, with every message copied to the parent",
-  'Class schedule and joining links in one place',
+// Future Hub features, not built yet (keep off the site until they exist):
+// - Messaging with the educator, with every message copied to the parent
+// - Class schedule and joining links in one place
+
+export const PLATFORM_AUDIENCES = [
+  {
+    id: 'students',
+    title: 'For students',
+    image: '/images/platform/hub-home.webp',
+    alt: 'A student’s Hub home page showing their courses and progress.',
+    points: [
+      'See your courses and progress at a glance.',
+      'Write real Python in the browser, with nothing to install.',
+      "Instant feedback and step-by-step hints when you're stuck.",
+    ],
+  },
+  {
+    id: 'teachers',
+    title: 'For teachers',
+    image: '/images/platform/hub-teacher.webp',
+    alt: 'The teacher view showing where each student is in a lesson.',
+    points: [
+      'Choose the lessons your class sees.',
+      "See who's stuck, working or finished.",
+      'Export grades in one click; you approve every mark.',
+    ],
+  },
+  {
+    id: 'families',
+    title: 'For families',
+    image: '/images/platform/hub-family.webp',
+    alt: 'The family view showing a child’s progress and a note from the teacher.',
+    points: [
+      'Clear progress you can understand without coding.',
+      'A note from the teacher.',
+      "See and delete your child's data at any time.",
+    ],
+  },
+];
+
+export const PLATFORM_DIFFERENCES = [
+  {
+    id: 'exact',
+    title: 'Exact marking',
+    body: 'Code is checked by real tests, not AI guesses, so a pass means it truly works.',
+  },
+  {
+    id: 'proof',
+    title: 'Proof of learning',
+    body: "Every attempt is saved step by step, so progress is reliable evidence and the work is the student's own.",
+    stamp: 'Verified',
+  },
+  {
+    id: 'privacy',
+    title: 'Privacy by design',
+    body: 'Built in line with PIPEDA. We collect only what learning needs: no ads, no trackers, and no birthdates, addresses or student numbers.',
+  },
 ];
 
 export const PLATFORM_SCREENSHOTS = [
   {
     src: '/images/platform/hub-home.webp',
+    heading: 'Your courses',
     alt: 'Students see their courses and progress at a glance.',
     caption: 'Students see their courses and progress at a glance.',
   },
   {
     src: '/images/platform/hub-lesson.webp',
+    heading: 'Exact feedback',
     alt: 'Code is checked by real tests, with instant feedback and hints.',
     caption: 'Code is checked by real tests, with instant feedback and hints.',
   },
   {
     src: '/images/platform/hub-teacher.webp',
+    heading: 'Teacher view',
     alt: 'Teachers see where every student is and stay in charge of grades.',
     caption: 'Teachers see where every student is and stay in charge of grades.',
   },
   {
     src: '/images/platform/hub-stamps.webp',
+    heading: 'Stamps',
     alt: 'Students earn a stamp for every lesson they master.',
     caption: 'Students earn a stamp for every lesson they master.',
   },
   {
     src: '/images/platform/hub-family.webp',
+    heading: 'Family view',
     alt: 'Families see clear progress and a note from the teacher.',
     caption: 'Families see clear progress and a note from the teacher.',
   },
 ];
 
+export const HUB_AVAILABLE = {
+  now: ['Python fundamentals', 'Python for data', 'Probability and statistics with Python'],
+  coming2027: ['Secure coding in Python', 'Machine learning with Python'],
+};
+
+export const PLATFORM_JOIN = [
+  {
+    id: 'families',
+    title: 'Families',
+    body: 'Family plans: coming 2027. Platform access on its own, without live classes.',
+    ctaLabel: 'Book a free consultation',
+    to: '/book',
+  },
+  {
+    id: 'schools',
+    title: 'Schools',
+    body: 'Founding Schools pilot: spring 2027. A small group of schools, at a founding rate.',
+    ctaLabel: 'Learn more',
+    to: '/schools',
+  },
+  {
+    id: 'homeschool',
+    title: 'Homeschool',
+    body: 'Homeschool pilot: free term in spring 2027.',
+    ctaLabel: 'Join the homeschool pilot',
+    to: '/book',
+  },
+];
+
+export const PLATFORM_FAQ = [
+  {
+    q: 'Does it work on school Chromebooks?',
+    a: 'Yes. It runs in the browser, with nothing to install.',
+  },
+  {
+    q: 'Do parents need to know how to code?',
+    a: 'No. Work is checked automatically, and progress is shown in plain language.',
+  },
+  {
+    q: 'What information do you collect?',
+    a: "Only what learning needs. We don't collect birthdates, addresses or student numbers, there are no ads or trackers, and families can see and delete their child's data.",
+  },
+  {
+    q: "How do grades reach a school's gradebook?",
+    a: 'Teachers export grades in one click, in a format for their gradebook. Teachers approve every mark.',
+  },
+  {
+    q: 'Is it aligned with the Ontario curriculum?',
+    a: 'Yes. Each course connects to specific Ontario courses for Grades 8 to 12, linked above.',
+  },
+];
+
 const ONTARIO_CURRICULUM = {
   computerStudies: {
-    label: 'Computer Studies, Grades 10 to 12',
+    label: 'Computer Studies, Grades 10–12 (ICD2O, ICS3U, ICS4U)',
     href: 'https://www.dcp.edu.gov.on.ca/en/curriculum/computer-studies',
   },
   secondaryMath: {
-    label: 'Mathematics, Grades 9 to 12 (including MDM4U)',
+    label: 'Mathematics, Grades 9–12 (including MDM4U, Data Management)',
     href: 'https://www.dcp.edu.gov.on.ca/en/curriculum/secondary-mathematics',
   },
   grade8Math: {
-    label: 'Mathematics, Grade 8',
+    label: 'Mathematics, Grade 8 (including coding)',
     href: 'https://www.dcp.edu.gov.on.ca/en/curriculum/elementary-mathematics',
   },
   mth1w: {
@@ -130,11 +238,11 @@ const ONTARIO_CURRICULUM = {
     href: 'https://www.dcp.edu.gov.on.ca/en/curriculum/secondary-mathematics/courses/mth1w/context',
   },
   math10to12: {
-    label: 'Mathematics, Grades 10 to 12',
+    label: 'Mathematics, Grades 10–12 (MCR3U, MHF4U, MCV4U, MDM4U)',
     href: 'https://www.dcp.edu.gov.on.ca/en/curriculum/secondary-mathematics',
   },
   secondaryScience: {
-    label: 'Science, Grades 9 to 12',
+    label: 'Science, Grades 9–12 (SNC1W, SNC2D, SPH3U, SPH4U)',
     href: 'https://www.dcp.edu.gov.on.ca/en/curriculum/secondary-science',
   },
 };
@@ -174,7 +282,7 @@ export const PRIVACY_PROMISE =
   "We collect only what learning needs. No ads, no tracking, and families can see and delete their child's data.";
 
 export const PRIVACY_SUMMARY = [
-  'All student data is stored in Canada',
+  'We collect only what learning needs, with no ads or trackers',
   'Aligned with PIPEDA and Ontario privacy law',
   'Student data is never sold or used for advertising',
   "Families can see and delete their child's data",
@@ -215,6 +323,6 @@ export const SAFETY_POINTS = [
   'Every educator is a Canadian resident, vetted for working with minors, including background checks where required',
   'Educators follow a code of conduct and never contact students outside the platform',
   'Every message between an educator and a student is copied to the parent',
-  'Class recordings are stored in Canada and shared only with authorized staff and the parent',
+  'Class recordings are shared only with authorized staff and the parent',
   'Children under 13 need a parent’s consent before their account is active',
 ];

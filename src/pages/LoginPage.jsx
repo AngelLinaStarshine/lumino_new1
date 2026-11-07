@@ -3,6 +3,7 @@ import Container from '../components/Container';
 import { theme, font } from '../styles/theme';
 import { createSupabaseClient, isSupabaseConfigured } from '../lib/supabase';
 import { PLATFORM_URL, platformAuthCallbackUrl } from '../lib/platformUrl';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const SUPPORT_EMAIL = 'lumino@luminolearn.org';
 
@@ -90,6 +91,13 @@ const labelStyle = {
 };
 
 export default function LoginPage() {
+  usePageMeta({
+    title: 'Log in — LuminoLearn',
+    description: 'Sign in to the LuminoLearn class platform for families, students and teachers.',
+    path: '/login',
+    noindex: true,
+  });
+
   const [mode, setMode] = useState('parent');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

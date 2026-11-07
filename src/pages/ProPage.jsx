@@ -59,7 +59,7 @@ export default function ProPage() {
           >
             <p style={{ fontSize: 15, color: theme.text, lineHeight: 1.6, margin: 0, flex: '1 1 240px', minWidth: 0 }}>
               <strong style={{ color: theme.navy }}>Student at Luminolearn Inc.?</strong> LuminoPro is for
-              schools and professionals. For children ages 9 to 17, use Learning Paths and How We Teach
+              schools and professionals. For children ages 12 to 18, use Learning Paths and How We Teach
               instead.
             </p>
             <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>

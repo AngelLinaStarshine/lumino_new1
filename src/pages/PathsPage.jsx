@@ -164,7 +164,7 @@ export default function PathsPage() {
   usePageMeta({
     title: 'Learning Paths — LuminoLearn',
     description:
-      "LuminoLearn's curriculum grows with your child across three subjects, AI, Cybersecurity (with PQC), and Math + Physics, and three levels from ages 9 to 17. Canadian built, taught by real Canadian educators.",
+      "LuminoLearn's curriculum grows with your child across three subjects, AI, Cybersecurity (with PQC), and Math + Physics, and three levels from ages 12 to 18. Canadian built, taught by real Canadian educators.",
     path: '/learning-paths',
   });
 

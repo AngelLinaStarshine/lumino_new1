@@ -1,8 +1,8 @@
 # Luminolearn Inc.: Privacy Policy
 
-**Effective Date:** January 7, 2025
-**Last Updated:** January 7, 2025
-**Applies To:** luminolearn.org and all Luminolearn Inc. services
+**Effective Date:** November 6, 2026
+**Last Updated:** November 6, 2026
+**Applies To:** luminolearn.ca, luminolearn.org and all Luminolearn Inc. services
 
 ***
 
@@ -10,7 +10,7 @@
 
 Luminolearn Inc. ("LuminoLearn," "we," "us," or "our") is committed to protecting the privacy of all individuals who interact with our services, particularly the children and youth we serve. We recognize that the personal information of children and young people is especially sensitive and must be handled with the highest standard of care.
 
-This Privacy Policy explains what personal information we collect, why we collect it, how we use and protect it, and what rights you have regarding your information. It applies to our website (luminolearn.org), our learning platform, and all related services.
+This Privacy Policy explains what personal information we collect, why we collect it, how we use and protect it, and what rights you have regarding your information. It applies to our websites (luminolearn.ca and luminolearn.org), our tutoring class platform, and all related services.
 
 Luminolearn Inc. operates in Ontario, Canada, and complies with the Personal Information Protection and Electronic Documents Act (PIPEDA) and applicable provincial privacy legislation. We are guided by the Office of the Privacy Commissioner of Canada's recommendations on children's privacy, including the principle that the best interests of the child must be paramount in all decisions involving their personal information.
 
@@ -23,7 +23,7 @@ Luminolearn Inc. operates in Ontario, Canada, and complies with the Personal Inf
 
 ## 2. Definitions
 
-* **"Student"** means a child or young person (ages 9 to 17) enrolled in a LuminoLearn program.
+* **"Student"** means a child or young person (ages 12 to 18) enrolled in a LuminoLearn program.
 * **"Parent"** means the parent, legal guardian, or authorized caregiver of a Student.
 * **"User"** means any individual who visits our website or uses our services, including Parents, Students, and professional learners.
 * **"Personal information"** means information about an identifiable individual, as defined by PIPEDA.
@@ -39,19 +39,19 @@ We collect only the personal information that is necessary to provide our educat
 
 When you book a free consultation, submit an enrollment request, or communicate with us, we may collect:
 
-* Parent or guardian full name
+* Parent or guardian name
 * Email address
 * Phone number
-* Child's name
-* Child's age or date of birth
-* Preferred subject(s) and program
-* Any additional information you voluntarily provide about your child's learning needs, goals, or special requirements
+* The child's first name or chosen display name
+* The child's grade (we do not ask for a date of birth)
+* Preferred subject(s)
+* Anything else the parent chooses to share about the child's learning needs, goals, or special requirements
 
 ### 3.2 Information Collected During Enrollment and Instruction
 
 Once a Student is enrolled, we may collect:
 
-* Student name and age group
+* Student name (or chosen display name) and grade
 * Assessment results from LuminoStart™ and ongoing evaluations
 * Learning progress data (assignments completed, scores, skill mastery levels)
 * Teacher observation notes and feedback
@@ -59,13 +59,25 @@ Once a Student is enrolled, we may collect:
 * Attendance records
 * Communication between Parents and LuminoLearn staff
 
+If your family uses our tutoring class platform, it also stores:
+
+* Account details: email address, a securely stored (hashed) password, and for parents a hashed family passcode
+* Phone numbers, if a parent chooses to receive text-message reminders
+* Homework uploads, links to shared documents, scores, and written or audio feedback from teachers
+* Class schedules and the links used to join online classes
+* Messages between students and educators (a copy of each message goes to the parent)
+* Records of the email and text-message notifications we send
+* Payment records: amounts, due and paid dates, invoice links and payment reference numbers. We do not store payment card details.
+* Parental consent records
+* Security logs of account activity, including the type of browser used
+
 ### 3.3 Information Collected Automatically
 
 When you visit our website, we may automatically collect limited technical information:
 
 * IP address (anonymized where possible)
 * Browser type and version
-* Pages visited and time spent on site
+* Pages requested
 * Referring website
 * Device type (desktop, mobile, tablet)
 
@@ -124,7 +136,7 @@ We use personal information only for the following purposes, which are identifie
 
 ### 5.1 Parental Consent
 
-Because our Students are minors (ages 9 to 17), we obtain consent from a Parent before collecting, using, or disclosing a Student's personal information. Consent is obtained through the enrollment process, during which Parents are informed of the purposes for which information is collected and asked to provide their express agreement.
+Because our Students are minors (ages 12 to 18), we obtain consent from a Parent before collecting, using, or disclosing a Student's personal information. Consent is obtained through the enrollment process, during which Parents are informed of the purposes for which information is collected and asked to provide their express agreement.
 
 For Students under the age of 13, we rely exclusively on parental consent. For Students aged 13 to 17, we obtain parental consent and, where appropriate, also seek the Student's own understanding and agreement.
 
@@ -146,13 +158,21 @@ We do not sell, rent, trade, or otherwise disclose personal information to third
 
 We use a limited number of third party service providers to support our operations. These providers process personal information only on our behalf and under our instructions:
 
-| Service | Provider | Purpose | Data Processed |
-|---------|----------|---------|----------------|
-| Learning platform | Google Classroom | Lesson delivery, assignments | Student name, class materials, submissions |
-| Forms | Google Forms | Consultation and enrollment requests | Parent and Student contact information |
-| Email | Google Workspace | Communication with families | Email content, contact details |
-| Hosting | Render | Website hosting | Anonymized technical data |
-| Payment | Interac transfer (via banks) | Tuition payments | No payment data is stored by LuminoLearn |
+| Service | Provider | Purpose | Data Processed | Where Data May Be Stored |
+|---------|----------|---------|----------------|--------------------------|
+| Website hosting | Netlify | Hosts the public website (luminolearn.ca) | Technical data such as IP addresses | United States |
+| Class platform hosting | Render | Runs our tutoring class platform (the sign-in area for tutoring families, students and teachers) | Platform data described in Section 3.2 | United States |
+| Database, sign-in and file storage | Supabase | Stores tutoring class platform accounts, class records and uploaded files | Platform data described in Section 3.2 | [CHECK: the region set for our Supabase project] |
+| Card payments | Stripe | Online tuition payments on the class platform | Payment amounts and references. Card details are handled by Stripe and are never stored by LuminoLearn | United States |
+| Text messages | Twilio | Class and payment reminders by text message, only for parents who opt in | Phone number, message text | United States |
+| Platform email | Resend | Automatic emails from the class platform (reminders, feedback notices) | Email address, message content | United States |
+| Learning platform | Google Classroom | Lesson delivery, assignments | Student name, class materials, submissions | United States |
+| Forms | Google Forms | Consultation and enrollment requests | Parent and Student contact information | United States |
+| Email | Google Workspace | Communication with families | Email content, contact details | United States |
+| Consultation booking | Calendly | Booking free consultations | Name, email address, booking time, answers to booking questions | United States |
+| Payment | Interac e-Transfer (via banks) | Tuition payments | Sender name, amount and message, as shown by the bank | Canada |
+
+Providers marked "United States" may store personal information on servers in the United States, where it may be subject to the laws of that country.
 
 We require all service providers to maintain appropriate security safeguards and to use personal information only for the purposes for which it was disclosed to them.
 
@@ -170,7 +190,15 @@ We may share Student progress reports, assessment results, or learning data with
 
 ### 7.1 Where Data Is Stored
 
-Personal information is stored on servers located in Canada or the United States (through Google Workspace and Render). Where data is stored outside Canada, we ensure that the receiving jurisdiction provides an adequate level of protection, consistent with PIPEDA requirements.
+Personal information is stored on servers located in Canada or the United States. Specifically:
+
+* **Netlify** hosts the public website (luminolearn.ca). It may process technical data such as IP addresses on servers in the United States.
+* **Render** hosts our tutoring class platform (the sign-in area for tutoring families, students and teachers, with class materials and progress). Data stored for the platform includes account emails, securely stored passwords, names, phone numbers (if a parent opts in to text reminders), class progress, homework uploads and teacher feedback, teacher notes, messages between students and educators, notification records and payment records, on servers in the United States. The platform's database and file storage are provided by Supabase [CHECK: region]. The platform does not store payment card details.
+* **Google Workspace, Google Forms and Calendly** store email, form responses and consultation bookings, and may store them on servers in the United States.
+
+The LuminoLearn Hub for schools is a separate service and is not hosted on Render. Schools will receive a separate privacy notice for the Hub before any pilot.
+
+Where data is stored outside Canada, we ensure that the receiving jurisdiction provides an adequate level of protection, consistent with PIPEDA requirements.
 
 ### 7.2 How Long We Keep Data
 
@@ -259,10 +287,11 @@ When AI tools are used in Computer Science instruction for Students aged 12 and 
 
 ## 11. Cookies and Website Analytics
 
-Our website uses a minimal number of cookies necessary for basic functionality:
+We do not use analytics or advertising cookies.
 
-* **Essential cookies:** Required for the website to function (session management, security). These cannot be disabled.
-* **Analytics cookies:** We may use privacy respecting analytics (no advertising trackers) to understand how visitors use our website in aggregate. No personally identifiable information is collected through analytics.
+Our website and class platform use only what is necessary for basic functionality:
+
+* **Essential cookies and storage:** Required for signing in and keeping your session secure. These cannot be disabled.
 
 **We do not use:**
 * Third party advertising cookies

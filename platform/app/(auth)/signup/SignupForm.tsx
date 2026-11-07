@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { isUnder13 } from '@/lib/curriculum';
 import type { UserRole } from '@/types/database';
 
 const ROLES: { id: UserRole; label: string; description: string }[] = [
@@ -29,7 +28,7 @@ export default function SignupForm() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
+  const [under13, setUnder13] = useState<'' | 'yes' | 'no'>('');
   const [parentEmail, setParentEmail] = useState('');
   const [familyPasscode, setFamilyPasscode] = useState('');
   const [smsOptIn, setSmsOptIn] = useState(false);
@@ -37,7 +36,7 @@ export default function SignupForm() {
   const [loading, setLoading] = useState(false);
 
   const inviteOnly = configLoaded && !publicSignup;
-  const needsParentEmail = role === 'student' && dateOfBirth && isUnder13(dateOfBirth);
+  const needsParentEmail = role === 'student' && under13 === 'yes';
 
   useEffect(() => {
     const fromUrl = searchParams.get('invite');
@@ -66,7 +65,7 @@ export default function SignupForm() {
         email,
         phone: phone || null,
         password,
-        dateOfBirth: role === 'student' ? dateOfBirth : undefined,
+        under13: role === 'student' ? under13 === 'yes' : undefined,
         parentEmail: needsParentEmail ? parentEmail : undefined,
         familyPasscode: role === 'student' ? familyPasscode : undefined,
         smsOptIn,
@@ -158,10 +157,24 @@ export default function SignupForm() {
           </div>
 
           {role === 'student' && (
-            <div className="space-y-2">
-              <Label htmlFor="dob">Date of birth</Label>
-              <Input id="dob" type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} required />
-            </div>
+            <fieldset className="space-y-2">
+              <legend className="text-sm font-medium">Is the student under 13?</legend>
+              <div className="flex gap-6">
+                {(['yes', 'no'] as const).map((value) => (
+                  <label key={value} className="flex items-center gap-2 text-sm min-h-12">
+                    <input
+                      type="radio"
+                      name="under13"
+                      value={value}
+                      checked={under13 === value}
+                      onChange={() => setUnder13(value)}
+                      required
+                    />
+                    {value === 'yes' ? 'Yes' : 'No'}
+                  </label>
+                ))}
+              </div>
+            </fieldset>
           )}
 
           {needsParentEmail && (

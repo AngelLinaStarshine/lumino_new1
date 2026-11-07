@@ -79,7 +79,7 @@ const INCLUDED_COL_1 = [
 const INCLUDED_COL_2 = [
   'Full curriculum in AI, Cybersecurity (with PQC), and Math + Physics',
   'Canadian built, PIPEDA aligned technology',
-  "Canadian data residency. Your child's data stays in Canada",
+  "Privacy by design: no ads or trackers, and you can see and delete your child's data",
   'Monthly one on one parent check ins available on request',
   'No long term contract. You can adjust or pause any month',
 ];
@@ -144,7 +144,7 @@ export default function TuitionPage() {
   usePageMeta({
     title: 'How We Teach — LuminoLearn',
     description:
-      'LuminoLearn teaches AI, Cybersecurity, and Math + Physics to students ages 9 to 17, one on one online, one on one in person, or in small groups of up to six. Real Canadian educators. Book a free consultation.',
+      'LuminoLearn teaches AI, Cybersecurity, and Math + Physics to students ages 12 to 18, one on one online, one on one in person, or in small groups of up to six. Real Canadian educators. Book a free consultation.',
     path: '/how-we-teach',
   });
 
@@ -168,7 +168,7 @@ export default function TuitionPage() {
           </h1>
           <p className="fade-up delay-1 inner-ambient-page__hero-lead" style={{ color: theme.muted, lineHeight: 1.72 }}>
             LuminoLearn teaches AI, Cybersecurity (including post quantum cryptography), and Math + Physics to
-            students ages 9 to 17, in the format that works for your family. One on one online, one on one in
+            students ages 12 to 18, in the format that works for your family. One on one online, one on one in
             person, or in a small group of no more than six students.
           </p>
           <div className="home-hero-cta-row fade-up delay-2">

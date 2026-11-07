@@ -32,7 +32,7 @@ export default function SchoolsPage() {
   usePageMeta({
     title: 'For Schools — LuminoLearn',
     description:
-      'LuminoLearn for Canadian schools: the Founding Schools pilot, teacher training, classroom kits, and student data kept in Canada.',
+      'LuminoLearn for Canadian schools: the Founding Schools pilot, teacher training, classroom kits, and privacy by design in line with PIPEDA.',
     path: '/schools',
   });
 

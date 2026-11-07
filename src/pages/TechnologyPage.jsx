@@ -3,6 +3,9 @@ import { Container, SectionLabel, Card, Button, PageAmbient, RelatedLinks } from
 import { theme, font } from '../styles/theme';
 import { usePageMeta } from '../hooks/usePageMeta';
 
+const PRIVACY_BY_DESIGN =
+  'Privacy by design. Built in line with PIPEDA, LuminoLearn collects only what learning needs: no ads, no trackers. Student work is identified by a random ID, not a name. Canadian hosting for the learning platform is part of our roadmap.';
+
 const LAYERS = [
   {
     num: '1',
@@ -11,8 +14,8 @@ const LAYERS = [
   },
   {
     num: '2',
-    title: 'Privacy Preserving Data Layer',
-    body: 'Federated learning combined with entropy adaptive differential privacy. The platform learns from student behaviour without student behaviour leaving the student\'s control. No raw data centralization. Canadian data residency. PIPEDA aligned from the ground up.',
+    title: 'Privacy by Design Data Layer',
+    body: PRIVACY_BY_DESIGN,
   },
   {
     num: '3',
@@ -33,8 +36,8 @@ const LAYERS = [
 
 const DIFFERENTIATORS = [
   {
-    title: 'Privacy without compromise',
-    body: 'Most personalized learning platforms centralize student data to work. Ours doesn\'t. Federated learning means the model improves from patterns across many students without any student\'s raw data leaving their device or being pooled. Differential privacy adds mathematical guarantees on top. All data stays in Canada.',
+    title: 'Privacy by design',
+    body: PRIVACY_BY_DESIGN,
   },
   {
     title: 'Adaptation that actually adapts',
@@ -54,27 +57,26 @@ const PQC_PARAGRAPHS = [
 const AUDIENCES = [
   {
     title: 'For parents',
-    body: 'Your child\'s data stays under your control, stored in Canada. The platform learns from how they learn, not from a data profile on a server somewhere. And every AI response your child sees has been vetted for accuracy and age appropriateness before it reaches them.',
+    body: 'We collect only what learning needs, with no ads and no trackers, and you can see and delete your child\'s data at any time. And every AI response your child sees has been vetted for accuracy and age appropriateness before it reaches them.',
     cta: null,
   },
   {
     title: 'For Canadian schools & districts',
-    body: 'PIPEDA aligned, Canadian data residency, no third party ad tracking, full audit trail. Integrates alongside existing LMS deployments. License the curriculum, the platform, or both.',
+    body: 'Built in line with PIPEDA, no third party ad tracking, full audit trail. Integrates alongside existing LMS deployments. License the curriculum, the platform, or both.',
     cta: { label: 'Request a technical briefing', to: '/schools' },
   },
   {
     title: 'For researchers, partners, and funders',
-    body: 'We\'re actively pursuing collaborations with Canadian universities on federated learning and PQC pedagogy research. We\'re open to Mitacs, NSERC, and IRAP supported partnerships.',
+    body: 'We\'re actively pursuing collaborations with Canadian universities on PQC pedagogy research. We\'re open to Mitacs, NSERC, and IRAP supported partnerships.',
     cta: { label: 'Contact our research team', to: '/contact' },
   },
 ];
 
 const TECH_TRUST_ITEMS = [
   'Built in Canada',
-  'PIPEDA aligned',
-  'Canadian data residency',
-  'Federated learning',
-  'Differential privacy',
+  'Privacy by design',
+  'In line with PIPEDA',
+  'No ads or trackers',
   'Post quantum ready architecture',
 ];
 
@@ -105,7 +107,7 @@ export default function TechnologyPage() {
   usePageMeta({
     title: 'Technology — LuminoLearn',
     description:
-      'The five layer, privacy preserving architecture powering LuminoLearn\'s adaptive learning platform. Federated learning, differential privacy, and a post quantum ready foundation. Built in Canada.',
+      'The five layer architecture behind the LuminoLearn learning platform: privacy by design, built in line with PIPEDA, with no ads or trackers and a post quantum ready foundation. Built in Canada.',
     path: '/technology',
   });
 

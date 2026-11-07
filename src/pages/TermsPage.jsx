@@ -7,7 +7,7 @@ export default function TermsPage() {
   usePageMeta({
     title: 'Terms of Service — LuminoLearn',
     description:
-      'Terms of Service for LuminoLearn Inc., a Canadian educational technology company delivering AI, Cybersecurity, and Math + Physics programs to students ages 9–17.',
+      'Terms of Service for LuminoLearn Inc., a Canadian educational technology company delivering AI, Cybersecurity, and Math + Physics programs to students ages 12–18.',
     path: '/terms',
   });
 

@@ -17,7 +17,7 @@ const dmSerif = DM_Serif_Display({
 
 export const metadata: Metadata = {
   title: 'Luminolearn Inc.',
-  description: 'Personalized learning platform for students ages 9–17',
+  description: 'Personalized learning platform for students ages 12–18',
   icons: { icon: '/luminolearn-logo.png', apple: '/luminolearn-logo.png' },
 };
 

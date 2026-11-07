@@ -3,7 +3,6 @@ import crypto from 'crypto';
 import { createAccount } from '@/lib/account/create-account';
 import { writeAuditLog } from '@/lib/audit';
 import { isPublicSignupEnabled } from '@/lib/auth-config';
-import { isUnder13 } from '@/lib/curriculum';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { sendParentConsentEmail } from '@/lib/email';
 import { markInviteUsed, validateInviteCode } from '@/lib/invites';
@@ -18,7 +17,7 @@ export async function POST(request: Request) {
       email,
       phone,
       password,
-      dateOfBirth,
+      under13,
       parentEmail,
       familyPasscode,
       inviteCode,
@@ -28,7 +27,7 @@ export async function POST(request: Request) {
       email: string;
       phone?: string;
       password: string;
-      dateOfBirth?: string;
+      under13?: boolean;
       parentEmail?: string;
       familyPasscode?: string;
       inviteCode?: string;
@@ -58,7 +57,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid role' }, { status: 400 });
     }
 
-    const needsParentConsent = effectiveRole === 'student' && dateOfBirth && isUnder13(dateOfBirth);
+    const needsParentConsent = effectiveRole === 'student' && under13 === true;
     if (needsParentConsent && !parentEmail) {
       return NextResponse.json({ error: 'Parent email is required for students under 13' }, { status: 400 });
     }
@@ -71,7 +70,6 @@ export async function POST(request: Request) {
       password,
       familyPasscode: effectiveRole === 'student' && !inviteFamilyHash ? familyPasscode : undefined,
       familyPasscodeHash: inviteFamilyHash,
-      dateOfBirth,
       accountStatus: needsParentConsent ? 'pending_parent_verification' : 'active',
     });
 

@@ -57,7 +57,7 @@ const PAGE_GUIDE = {
   '/technology': {
     headline: 'Technology',
     body:
-      'The five layer privacy preserving architecture behind LuminoLearn. Federated learning, differential privacy, and post quantum readiness.',
+      'The five layer architecture behind LuminoLearn. Privacy by design, exact marking, and post quantum readiness.',
   },
   '/schools': {
     headline: 'Schools',
@@ -73,7 +73,7 @@ const PAGE_GUIDE = {
   },
   '/privacy': {
     headline: 'Privacy',
-    body: 'How LuminoLearn handles student and family data. PIPEDA aligned, Canadian data residency.',
+    body: 'How LuminoLearn handles student and family data, in line with PIPEDA.',
   },
   '/terms': {
     headline: 'Terms',

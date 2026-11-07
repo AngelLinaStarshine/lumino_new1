@@ -8,7 +8,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 interface StudentRow {
   id: string;
   name: string;
-  dob?: string | null;
   lastActive?: string | null;
   subjects: (string | undefined)[];
   nextClass?: string | null;

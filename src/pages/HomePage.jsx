@@ -109,9 +109,9 @@ const sectionLead = {
 
 export default function HomePage() {
   usePageMeta({
-    title: 'LuminoLearn — AI, Cybersecurity & Math + Physics for ages 9 to 17 (Canada)',
+    title: 'LuminoLearn | Coding, AI, Cyber & Math for Teens in the GTA',
     description:
-      'Canadian built learning platform teaching AI, Cybersecurity (including post quantum cryptography), and Math + Physics to students ages 9 to 17. Small groups, real Canadian teachers, adaptive AI, privacy first.',
+      'Tutoring, courses and a learning platform for ages 12–18: coding, AI, cybersecurity, math and physics. GTA and online, aligned with the Ontario curriculum.',
     path: '/',
   });
 

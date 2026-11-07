@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { TIER_LABELS, ageFromDob } from '@/lib/curriculum';
+import { TIER_LABELS } from '@/lib/curriculum';
 import { ProfileSettings } from '@/components/student/ProfileSettings';
 
 export default async function StudentProfilePage() {
@@ -20,10 +20,6 @@ export default async function StudentProfilePage() {
     .select('*, subjects(name), levels(tier, name)')
     .eq('student_id', user.id);
 
-  const age = profile?.date_of_birth ? ageFromDob(profile.date_of_birth) : null;
-  const ageBand =
-    age === null ? 'Not set' : age <= 11 ? '9 to 11' : age <= 14 ? '12 to 14' : '15 to 17';
-
   return (
     <div className="p-4 md:p-8 max-w-2xl mx-auto space-y-6">
       <header>
@@ -36,7 +32,6 @@ export default async function StudentProfilePage() {
         </CardHeader>
         <CardContent className="space-y-3 text-sm">
           <p><span className="text-muted-foreground">Display name:</span> {profile?.full_name}</p>
-          <p><span className="text-muted-foreground">Age band:</span> {ageBand}</p>
         </CardContent>
       </Card>
 

@@ -1,0 +1,6 @@
+# Build settings stay in the Netlify dashboard. Security headers live in public/_headers
+# and redirects in public/_redirects, so they also work if the site is ever deployed by hand.
+
+[[edge_functions]]
+  function = "block-ai-crawlers"
+  path = "/*"

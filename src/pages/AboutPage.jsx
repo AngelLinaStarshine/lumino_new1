@@ -36,7 +36,7 @@ export default function AboutPage() {
         id="about-hero-heading"
         label="About"
         title="About LuminoLearn"
-        lead="A Canadian company teaching AI, Cybersecurity, and Math + Physics to students ages 9 to 17."
+        lead="A Canadian company teaching AI, Cybersecurity, and Math + Physics to students ages 12 to 18."
       />
 
       <section className="home-section" aria-labelledby="about-story-heading" style={{ background: theme.bg }}>

@@ -8,7 +8,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 const WHY_WE_EXIST = [
   'The children starting school today will graduate into a world where artificial intelligence writes alongside them, cryptography protects or exposes their entire digital life, and the mathematics behind both defines what\'s possible. The old shape of literacy, reading, writing, arithmetic, remains necessary. It is no longer sufficient.',
   'We built LuminoLearn to teach the new literacy alongside the old. Not as an add-on, and not as a hobby elective, but as a serious, structured curriculum spanning AI, cybersecurity (including age appropriate post quantum cryptography), and integrated math + physics. Taught by real Canadian educators. Delivered on a Canadian built, privacy first platform. Available to families across Canada and to Canadian schools and districts as a licensable program.',
-  'We started in Canada because we believe the country\'s next generation deserves a first class version of this education, built here, aligned to Canadian standards, hosted on Canadian data infrastructure, and answerable to Canadian families. What we build well here, we will share more broadly. But the priority is clear, and it comes first.',
+  'We started in Canada because we believe the country\'s next generation deserves a first class version of this education, built here, aligned to Canadian standards, and answerable to Canadian families. What we build well here, we will share more broadly. But the priority is clear, and it comes first.',
 ];
 
 const PRINCIPLES = [
@@ -22,11 +22,11 @@ const PRINCIPLES = [
   },
   {
     title: 'Privacy is a first-order design decision',
-    body: 'Learning platforms don\'t have to centralize children\'s data to work. Ours doesn\'t. Federated learning, differential privacy, and Canadian data residency aren\'t features we added. They\'re constraints we built the platform inside from the beginning.',
+    body: 'Learning platforms don\'t have to collect everything about children to work. Ours doesn\'t. Built in line with PIPEDA, LuminoLearn collects only what learning needs, with no ads and no trackers, and families can see and delete their child\'s data. That isn\'t a feature we added. It\'s a constraint we built the platform inside from the beginning.',
   },
   {
     title: 'Canadian first, seriously',
-    body: 'Canadian curriculum standards. Canadian educators. Canadian data infrastructure. Canadian families. We\'re not a global product that happens to be available in Canada. We\'re a Canadian program, built here for here, first.',
+    body: 'Canadian curriculum standards. Canadian educators. Canadian families. We\'re not a global product that happens to be available in Canada. We\'re a Canadian program, built here for here, first.',
   },
   {
     title: 'Preparation for the internet that\'s actually coming',
@@ -149,7 +149,7 @@ export default function StoryPage() {
   usePageMeta({
     title: 'Our Story — LuminoLearn',
     description:
-      'LuminoLearn is a Canadian learning platform teaching artificial intelligence, cybersecurity (including post quantum cryptography), and integrated math + physics to students ages 9 to 17. Real Canadian educators. Privacy first. Built in Canada.',
+      'LuminoLearn is a Canadian learning platform teaching artificial intelligence, cybersecurity (including post quantum cryptography), and integrated math + physics to students ages 12 to 18. Real Canadian educators. Privacy first. Built in Canada.',
     path: '/our-story',
   });
 
@@ -232,9 +232,9 @@ export default function StoryPage() {
           </h2>
           <p className="story-prose" style={proseStyle}>
             LuminoLearn is a Canadian corporation delivering a structured curriculum in artificial intelligence,
-            cybersecurity (including post quantum cryptography), and integrated math + physics to students ages 9
-            to 17. Our adaptive learning platform is built on a five layer, privacy preserving architecture with
-            Canadian data residency and PIPEDA aligned handling of student information throughout. Classes are
+            cybersecurity (including post quantum cryptography), and integrated math + physics to students ages 12
+            to 18. Our learning platform is built on a five layer architecture with privacy by design, in line
+            with PIPEDA, throughout. Classes are
             delivered one on one online, one on one in person in the Greater Toronto Area, and in small groups
             of up to six students matched by level and goals.
           </p>

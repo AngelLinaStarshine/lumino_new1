@@ -40,7 +40,7 @@ export default async function EducatorDashboard() {
 
   const { data: todayClasses } = await admin
     .from('live_classes')
-    .select('student_id, subjects(name), student:profiles!live_classes_student_id_fkey(full_name, date_of_birth)')
+    .select('student_id, subjects(name), student:profiles!live_classes_student_id_fkey(full_name)')
     .eq('educator_id', user.id)
     .gte('scheduled_at', todayStart.toISOString())
     .lte('scheduled_at', todayEnd.toISOString());

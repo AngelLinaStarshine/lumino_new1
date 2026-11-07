@@ -103,7 +103,6 @@ export function AdminDashboard() {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [familyPasscode, setFamilyPasscode] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState('');
   const [createdUser, setCreatedUser] = useState<{ email: string; password: string } | null>(null);
 
   // Assign educator
@@ -207,7 +206,6 @@ export function AdminDashboard() {
       phone: phone || null,
       password,
       familyPasscode: role === 'student' ? familyPasscode : undefined,
-      dateOfBirth: role === 'student' ? dateOfBirth : undefined,
     });
     if (ok) {
       setCreatedUser({ email, password });
@@ -216,7 +214,6 @@ export function AdminDashboard() {
       setPhone('');
       setPassword('');
       setFamilyPasscode('');
-      setDateOfBirth('');
     }
   }
 
@@ -322,9 +319,6 @@ export function AdminDashboard() {
                   <Input placeholder="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
                   <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                   <Input placeholder="Phone (optional)" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                  {role === 'student' && (
-                    <Input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
-                  )}
                   <Input placeholder="Password (min 8)" value={password} onChange={(e) => setPassword(e.target.value)} minLength={8} required />
                   {role === 'student' && (
                     <Input placeholder="Family passcode 4-6 digits" inputMode="numeric" value={familyPasscode} onChange={(e) => setFamilyPasscode(e.target.value.replace(/\D/g, ''))} required />

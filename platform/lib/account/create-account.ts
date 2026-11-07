@@ -12,7 +12,6 @@ export interface CreateAccountInput {
   familyPasscode?: string;
   familyPasscodeHash?: string | null;
   smsOptIn?: boolean;
-  dateOfBirth?: string;
   accountStatus?: 'active' | 'pending_parent_verification' | 'suspended';
 }
 
@@ -26,7 +25,6 @@ export async function createAccount(input: CreateAccountInput) {
     familyPasscode,
     familyPasscodeHash,
     smsOptIn,
-    dateOfBirth,
     accountStatus = 'active',
   } = input;
 
@@ -64,7 +62,6 @@ export async function createAccount(input: CreateAccountInput) {
     first_name: firstName,
     email: email.trim().toLowerCase(),
     phone: phone ?? null,
-    date_of_birth: dateOfBirth ?? null,
     account_status: accountStatus,
   });
 

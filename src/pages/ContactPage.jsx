@@ -35,7 +35,7 @@ export default function ContactPage() {
             marginBottom: 32,
           }}
         >
-          For federated learning research, post quantum pedagogy collaborations, school licensing, educator
+          For post quantum pedagogy collaborations, school licensing, educator
           opportunities, or general questions about the LuminoLearn platform.
         </p>
 

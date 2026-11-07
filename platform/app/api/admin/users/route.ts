@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response;
 
   const body = await request.json();
-  const { role, fullName, email, phone, password, familyPasscode, smsOptIn, dateOfBirth } = body as {
+  const { role, fullName, email, phone, password, familyPasscode, smsOptIn } = body as {
     role: 'student' | 'teacher' | 'admin';
     fullName: string;
     email: string;
@@ -70,7 +70,6 @@ export async function POST(request: NextRequest) {
     password: string;
     familyPasscode?: string;
     smsOptIn?: boolean;
-    dateOfBirth?: string;
   };
 
   if (!fullName?.trim() || !email?.trim() || !password || password.length < 8) {
@@ -89,7 +88,6 @@ export async function POST(request: NextRequest) {
     password,
     familyPasscode: role === 'student' ? familyPasscode : undefined,
     smsOptIn,
-    dateOfBirth,
   });
 
   if (!result.ok) {

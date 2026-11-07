@@ -1,7 +1,7 @@
 # Terms of Service
 
 **Effective Date:** August 31, 2026  
-**Last Updated:** August 31, 2026
+**Last Updated:** November 6, 2026
 
 ***
 
@@ -15,10 +15,10 @@
 6. [Refund and Cancellation Policy](#6-refund-and-cancellation-policy)
 7. [Student Conduct and Program Expectations](#7-student-conduct-and-program-expectations)
 8. [Platform Accounts and Acceptable Use](#8-platform-accounts-and-acceptable-use)
-9. [Use of Technology, Adaptive AI, and Third-Party Services](#9-use-of-technology-adaptive-ai-and-third-party-services)
+9. [Use of Technology and Third-Party Services](#9-use-of-technology-and-third-party-services)
 10. [Class Delivery, Recording, and Safeguarding](#10-class-delivery-recording-and-safeguarding)
 11. [Intellectual Property](#11-intellectual-property)
-12. [Data Residency and Privacy](#12-data-residency-and-privacy)
+12. [Privacy](#12-privacy)
 13. [Communication](#13-communication)
 14. [Limitation of Liability](#14-limitation-of-liability)
 15. [Indemnification](#15-indemnification)
@@ -34,7 +34,7 @@
 
 These Terms of Service ("Terms") govern your use of the Luminolearn Inc. website ([luminolearn.ca](https://luminolearn.ca)), the LuminoLearn learning platform at [app.luminolearn.ca](https://app.luminolearn.ca), and all related educational services (collectively, "Services") operated by Luminolearn Inc. ("LuminoLearn," "we," "us," or "our").
 
-LuminoLearn is an educational technology company based in Ontario, Canada, providing structured programs in Artificial Intelligence, Cybersecurity (including age-appropriate Post-Quantum Cryptography), and integrated Math + Physics for students ages 9 to 17.
+LuminoLearn is an educational technology company based in Ontario, Canada, providing structured programs in Artificial Intelligence, Cybersecurity (including age-appropriate Post-Quantum Cryptography), and integrated Math + Physics for students ages 12 to 18.
 
 Our website is also reachable at luminolearn.org, which redirects to luminolearn.ca.
 
@@ -46,7 +46,7 @@ If you do not agree to these Terms, please do not use our Services.
 
 ## 2. Description of Services
 
-LuminoLearn provides structured educational programs and a secure learning platform for children and youth ages 9 to 17. Our Services include:
+LuminoLearn provides structured educational programs and a secure learning platform for children and youth ages 12 to 18. Our Services include:
 
 * **Free consultations:** A complimentary 15-minute consultation with a Canadian educator, including a placement diagnostic to understand your child's starting point and recommend next steps.
 * **Structured programs in three subjects:** Artificial Intelligence, Cybersecurity (including age-appropriate Post-Quantum Cryptography), and Math + Physics.
@@ -66,7 +66,7 @@ Program details, scheduling, and format availability may vary by subject, level,
 
 ### 3.1 Student eligibility
 
-LuminoLearn programs are designed for children and youth ages 9 to 17. We reserve the right to determine appropriate placement based on our assessment of a Student's readiness and fit.
+LuminoLearn programs are designed for children and youth ages 12 to 18. We reserve the right to determine appropriate placement based on our assessment of a Student's readiness and fit.
 
 ### 3.2 Parent or guardian requirement
 
@@ -211,11 +211,11 @@ LuminoLearn makes reasonable efforts to ensure the platform is available. We do 
 
 ***
 
-## 9. Use of Technology, Adaptive AI, and Third-Party Services
+## 9. Use of Technology and Third-Party Services
 
-### 9.1 Adaptive personalization
+### 9.1 Practice and feedback
 
-The LuminoLearn platform includes adaptive personalization features that adjust practice content based on how a student learns. This processing takes place within LuminoLearn's platform and is subject to our [Privacy Policy](/privacy). Student data is never sold, and no data is used to train third-party AI models.
+The LuminoLearn platform checks students' code with automated tests and shows hints when a student is stuck. Educators choose the practice their students see. This processing takes place within LuminoLearn's platform and is subject to our [Privacy Policy](/privacy). Student data is never sold, and no data is used to train third-party AI models.
 
 ### 9.2 AI-generated content in learning
 
@@ -223,7 +223,7 @@ The platform may present educator-approved AI-assisted explanations or feedback.
 
 ### 9.3 Third-party services
 
-LuminoLearn uses a limited set of vetted third-party services for infrastructure (hosting, authentication, messaging, video for live classes). All third-party services used for student data are selected with Canadian data residency, PIPEDA alignment, and appropriate safeguarding as requirements. A current list of subprocessors is maintained in our [Privacy Policy](/privacy).
+LuminoLearn uses a limited set of vetted third-party services for infrastructure (hosting, authentication, messaging, video for live classes). All third-party services used for student data are selected with PIPEDA alignment and appropriate safeguarding as requirements. Some of these services store data outside Canada. A current list of service providers, and where they may store data, is maintained in our [Privacy Policy](/privacy).
 
 ***
 
@@ -231,11 +231,11 @@ LuminoLearn uses a limited set of vetted third-party services for infrastructure
 
 ### 10.1 Live classes
 
-Live classes are delivered through a vetted video platform with Canadian data residency. Educators are responsible for maintaining a safe, professional learning environment throughout every session.
+Live classes are delivered through a vetted video platform. Educators are responsible for maintaining a safe, professional learning environment throughout every session.
 
 ### 10.2 Recording
 
-Classes may be recorded for educational review, quality assurance, and safeguarding purposes. Recordings are stored in Canada, accessible only to authorized LuminoLearn staff and the student's parent on request, retained for a period documented in our [Privacy Policy](/privacy), and never shared publicly or used for marketing without explicit written parental consent.
+Classes may be recorded for educational review, quality assurance, and safeguarding purposes. Recordings are accessible only to authorized LuminoLearn staff and the student's parent on request, retained for a period documented in our [Privacy Policy](/privacy), and never shared publicly or used for marketing without explicit written parental consent.
 
 ### 10.3 Educator conduct
 
@@ -258,13 +258,17 @@ Students retain ownership of their original work (projects, essays, code, artwor
 
 We will not publicly display identifiable Student work (for example, on our website or social media) without obtaining explicit written permission from the Parent.
 
+### 11.3 Use of our content
+
+All text, images, lessons, designs and code on this site and on the LuminoLearn Hub are owned by Luminolearn Inc. and protected by copyright. You may not copy, reproduce, scrape, or use them to train or improve artificial intelligence or machine-learning systems, or for text and data mining, without written permission. To ask for permission, contact [lumino@luminolearn.org](mailto:lumino@luminolearn.org).
+
 ***
 
-## 12. Data Residency and Privacy
+## 12. Privacy
 
-### 12.1 Canadian data residency
+### 12.1 Where data is stored
 
-All student personal information and learning data are stored on infrastructure located in Canada. LuminoLearn does not transfer student personal information outside Canada except where explicitly required for a service the student or parent has requested, and only with equivalent privacy protections in place.
+Some of the service providers we use store data on servers in the United States. Section 7.1 and the service-provider table in our [Privacy Policy](/privacy) list each provider and where it may store data. Where data is stored outside Canada, we take steps to make sure it receives a level of protection consistent with PIPEDA.
 
 ### 12.2 PIPEDA alignment
 
