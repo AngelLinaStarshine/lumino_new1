@@ -162,7 +162,7 @@ We use a limited number of third party service providers to support our operatio
 |---------|----------|---------|----------------|--------------------------|
 | Website hosting | Netlify | Hosts the public website (luminolearn.ca) | Technical data such as IP addresses | United States |
 | Class platform hosting | Render | Runs our tutoring class platform (the sign-in area for tutoring families, students and teachers) | Platform data described in Section 3.2 | United States |
-| Database, sign-in and file storage | Supabase | Stores tutoring class platform accounts, class records and uploaded files | Platform data described in Section 3.2 | [REGION] |
+| Database, sign-in and file storage | Supabase | Stores tutoring class platform accounts, class records and uploaded files | Platform data described in Section 3.2 | Canada or the United States |
 | Text messages | Twilio | Class and payment reminders by text message, only for parents who opt in | Phone number, message text | United States |
 | Platform email | Resend | Automatic emails from the class platform (reminders, feedback notices) | Email address, message content | United States |
 | Learning platform | Google Classroom | Lesson delivery, assignments | Student name, class materials, submissions | United States |

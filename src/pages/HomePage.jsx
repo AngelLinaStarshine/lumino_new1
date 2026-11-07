@@ -344,8 +344,8 @@ export default function HomePage() {
                   marginBottom: 24,
                 }}
               >
-                Give your child a decisive advantage in the subjects that matter most, with small classes, real
-                Canadian teachers, and progress you can see.
+                Give your child a decisive advantage in the subjects that matter most, with small classes, an
+                Ontario educator, and progress you can see.
               </p>
               <Button to="/book">{CONSULTATION.ctaLong}</Button>
             </Card>
@@ -358,7 +358,7 @@ export default function HomePage() {
                   marginBottom: 12,
                 }}
               >
-                For Canadian schools & districts
+                For schools
               </h3>
               <p
                 style={{
