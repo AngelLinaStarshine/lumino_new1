@@ -162,7 +162,7 @@ We use a limited number of third party service providers to support our operatio
 |---------|----------|---------|----------------|--------------------------|
 | Website hosting | Netlify | Hosts the public website (luminolearn.ca) | Technical data such as IP addresses | United States |
 | Class platform hosting | Render | Runs our tutoring class platform (the sign-in area for tutoring families, students and teachers) | Platform data described in Section 3.2 | United States |
-| Database, sign-in and file storage | Supabase | Stores tutoring class platform accounts, class records and uploaded files | Platform data described in Section 3.2 | Canada or the United States |
+| Database, sign-in and file storage | Supabase | Stores tutoring class platform accounts, class records and uploaded files | Platform data described in Section 3.2 | Canada |
 | Text messages | Twilio | Class and payment reminders by text message, only for parents who opt in | Phone number, message text | United States |
 | Platform email | Resend | Automatic emails from the class platform (reminders, feedback notices) | Email address, message content | United States |
 | Learning platform | Google Classroom | Lesson delivery, assignments | Student name, class materials, submissions | United States |
@@ -192,7 +192,7 @@ We may share Student progress reports, assessment results, or learning data with
 Personal information is stored on servers located in Canada or the United States. Specifically:
 
 * **Netlify** hosts the public website (luminolearn.ca). It may process technical data such as IP addresses on servers in the United States.
-* **Render** hosts our tutoring class platform (the sign-in area for tutoring families, students and teachers, with class materials and progress). Data stored for the platform includes account emails, securely stored passwords, names, phone numbers (if a parent opts in to text reminders), class progress, homework uploads and teacher feedback, teacher notes, messages between students and educators, notification records and payment records, on servers in the United States. The platform's database and file storage are provided by Supabase, on servers in [REGION]. The platform does not store payment card details.
+* **Render** hosts our tutoring class platform (the sign-in area for tutoring families, students and teachers, with class materials and progress). Data stored for the platform includes account emails, securely stored passwords, names, phone numbers (if a parent opts in to text reminders), class progress, homework uploads and teacher feedback, teacher notes, messages between students and educators, notification records and payment records, on servers in the United States. The platform's database and file storage are provided by Supabase, on servers in Canada. The platform does not store payment card details.
 * **Google Workspace, Google Forms and Calendly** store email, form responses and consultation bookings, and may store them on servers in the United States.
 
 The LuminoLearn Hub for schools is a separate service and is not hosted on Render. Schools will receive a separate privacy notice for the Hub before any pilot.
