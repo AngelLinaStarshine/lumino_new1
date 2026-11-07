@@ -41,7 +41,7 @@ const cardTitle = {
 const MORE_DETAIL = [
   {
     title: 'Subjects and levels',
-    body: 'AI, Cybersecurity, and Math + Physics, each at three levels: Foundations, Building, and Depth.',
+    body: 'AI, Cybersecurity, and Math + Physics, each at two levels: Building (ages 12 to 14) and Depth (ages 15 to 18).',
     to: '/learning-paths',
     cta: 'See learning paths',
   },

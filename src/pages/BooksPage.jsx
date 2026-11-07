@@ -23,7 +23,7 @@ const cardTitle = {
 export default function BooksPage() {
   usePageMeta({
     title: 'Books — LuminoLearn',
-    description: 'LuminoFrame storybooks from LuminoLearn: titles, prices, ISBNs, and where to buy.',
+    description: 'LuminoFrame storybooks from LuminoLearn for ages 4–8: titles, prices, ISBNs, and where to buy.',
     path: '/books',
   });
 
@@ -31,7 +31,7 @@ export default function BooksPage() {
     <div className="home-page inner-ambient-page">
       <PageAmbient />
 
-      <PageHero id="books-hero-heading" label="Books" title="LuminoFrame storybooks" lead="Storybooks for young readers." />
+      <PageHero id="books-hero-heading" label="Books" title="LuminoFrame storybooks" lead="For ages 4–8" />
 
       <section className="home-section" aria-labelledby="books-list-heading" style={{ background: theme.bg }}>
         <Container>

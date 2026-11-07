@@ -69,7 +69,7 @@ const SUBJECTS = [
 ];
 
 const INCLUDED_COL_1 = [
-  'Live classes with a real Canadian educator',
+  'Live classes, taught by an Ontario educator',
   'Access to the adaptive LuminoLearn platform between classes',
   "Personalized practice calibrated to your child's level",
   'Weekly progress updates for parents',
@@ -144,7 +144,7 @@ export default function TuitionPage() {
   usePageMeta({
     title: 'How We Teach — LuminoLearn',
     description:
-      'LuminoLearn teaches AI, Cybersecurity, and Math + Physics to students ages 12 to 18, one on one online, one on one in person, or in small groups of up to six. Real Canadian educators. Book a free consultation.',
+      'LuminoLearn teaches AI, Cybersecurity, and Math + Physics to students ages 12 to 18, one on one online, one on one in person, or in small groups of up to six. Taught by an Ontario educator. Book a free consultation.',
     path: '/how-we-teach',
   });
 
@@ -178,7 +178,7 @@ export default function TuitionPage() {
             </Button>
           </div>
           <p className="home-hero-trust fade-up delay-3" role="note">
-            Real Canadian educators · Personalized to your child · No long term contracts
+            Taught by an Ontario educator · Personalized to your child · No long term contracts
           </p>
         </Container>
       </section>

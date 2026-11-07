@@ -14,16 +14,6 @@ const SUBJECT_PATHS = [
       'Continues into: independent research projects, contest preparation, and university foundations.',
     levels: [
       {
-        name: 'Foundations',
-        ages: 'ages 9 to 11',
-        bullets: [
-          'What AI actually is, and what it isn\'t',
-          'How computers "learn" from examples, without jargon',
-          'Using AI tools thoughtfully: asking good questions, spotting wrong answers',
-          'First guided experiments with visual AI tools',
-        ],
-      },
-      {
         name: 'Building',
         ages: 'ages 12 to 14',
         bullets: [
@@ -35,7 +25,7 @@ const SUBJECT_PATHS = [
       },
       {
         name: 'Depth',
-        ages: 'ages 15 to 17',
+        ages: 'ages 15 to 18',
         bullets: [
           'Neural networks and the mathematics behind them',
           'Working with modern LLMs: evaluation, fine tuning intuition, agents',
@@ -54,16 +44,6 @@ const SUBJECT_PATHS = [
       'Continues into: independent security projects, PQC focused research, and CTF style competitions.',
     levels: [
       {
-        name: 'Foundations',
-        ages: 'ages 9 to 11',
-        bullets: [
-          'What "secret" means to a computer: an intuitive introduction to codes',
-          'Everyday safety: passwords, phishing, and safe online life',
-          'Why privacy matters, and who\'s on the other end of your data',
-          'First hands on games with classical ciphers',
-        ],
-      },
-      {
         name: 'Building',
         ages: 'ages 12 to 14',
         bullets: [
@@ -75,7 +55,7 @@ const SUBJECT_PATHS = [
       },
       {
         name: 'Depth',
-        ages: 'ages 15 to 17',
+        ages: 'ages 15 to 18',
         bullets: [
           'Modern cryptography: symmetric, asymmetric, and hash based systems',
           'Lattice based cryptography and hash based signatures: the real mathematics of the post quantum transition',
@@ -94,16 +74,6 @@ const SUBJECT_PATHS = [
       'Continues into: contest preparation (AMC, CEMC, Physics Olympiad), research projects, and university foundations.',
     levels: [
       {
-        name: 'Foundations',
-        ages: 'ages 9 to 11',
-        bullets: [
-          'Foundational arithmetic and pre algebra, taught through real problems',
-          'First encounter with motion, force, and energy as physical intuitions',
-          'Estimation, measurement, and the habit of checking your answer',
-          'Puzzles and games that build genuine mathematical curiosity',
-        ],
-      },
-      {
         name: 'Building',
         ages: 'ages 12 to 14',
         bullets: [
@@ -115,7 +85,7 @@ const SUBJECT_PATHS = [
       },
       {
         name: 'Depth',
-        ages: 'ages 15 to 17',
+        ages: 'ages 15 to 18',
         bullets: [
           'Single variable calculus and the physics it unlocks',
           'Electricity, magnetism, and modern physics foundations',
@@ -164,7 +134,7 @@ export default function PathsPage() {
   usePageMeta({
     title: 'Learning Paths — LuminoLearn',
     description:
-      "LuminoLearn's curriculum grows with your child across three subjects, AI, Cybersecurity (with PQC), and Math + Physics, and three levels from ages 12 to 18. Canadian built, taught by real Canadian educators.",
+      "LuminoLearn's curriculum grows with your child across three subjects, AI, Cybersecurity (with PQC), and Math + Physics, and two levels from ages 12 to 18. Canadian built. Taught by an Ontario educator.",
     path: '/learning-paths',
   });
 
@@ -187,9 +157,9 @@ export default function PathsPage() {
             A clear path from curiosity to real capability.
           </h1>
           <p className="fade-up delay-1 inner-ambient-page__hero-lead" style={{ color: theme.muted, lineHeight: 1.72 }}>
-            LuminoLearn&apos;s curriculum grows with your child across three subjects and three levels, from first
-            intuitions at age 9 to advanced problem solving at 17. Every path is Canadian built, privacy
-            first, and taught by real Canadian educators.
+            LuminoLearn&apos;s curriculum grows with your child across three subjects and two levels, from first
+            real projects at age 12 to advanced problem solving at 18. Every path is Canadian built and privacy
+            first. Taught by an Ontario educator.
           </p>
           <div className="home-hero-cta-row fade-up delay-2">
             <Button to="/book">{CONSULTATION.cta}</Button>
@@ -207,12 +177,12 @@ export default function PathsPage() {
       <section className="home-section" aria-labelledby="structure-heading" style={{ background: theme.bg }}>
         <Container narrow style={{ maxWidth: 820 }}>
           <h2 id="structure-heading" style={sectionHeading}>
-            Three subjects. Three levels. One curriculum that grows.
+            Three subjects. Two levels. One curriculum that grows.
           </h2>
           <p style={bodyCopy}>
             Every LuminoLearn student learns through a curriculum built on three subjects: Artificial Intelligence,
             Cybersecurity (with age appropriate Post Quantum Cryptography), and Math + Physics, organized into
-            three progressive levels. Levels are guided by age, but placement is based on an actual diagnostic
+            two progressive levels: Building (ages 12 to 14) and Depth (ages 15 to 18). Levels are guided by age, but placement is based on an actual diagnostic
             during your consultation, not a birthday. Students can study any single subject, combine two, or
             follow all three as an integrated combined course.
           </p>
@@ -232,7 +202,7 @@ export default function PathsPage() {
               margin: '0 auto 40px',
             }}
           >
-            Three subjects, each with Foundations, Building, and Depth. Placement follows your child&apos;s diagnostic,
+            Three subjects, each with Building and Depth. Placement follows your child&apos;s diagnostic,
             not their age alone.
           </p>
           <div className="paths-matrix-grid">
@@ -314,8 +284,8 @@ export default function PathsPage() {
           </h2>
           <p style={{ ...bodyCopy, marginBottom: 28 }}>
             Levels are guided by age, but placement is based on an actual diagnostic, not a birthday. Some
-            10 year olds are ready for Building; some 14 year olds are best served by strengthening their
-            Foundations first. Our free {CONSULTATION.durationAdjective} consultation includes a diagnostic across the subjects
+            13 year olds are ready for Depth; some 15 year olds are best served by strengthening the Building
+            level first. Our free {CONSULTATION.durationAdjective} consultation includes a diagnostic across the subjects
             you&apos;re considering, so we can place your child exactly where they&apos;ll grow fastest.
           </p>
           <Button to="/book">{CONSULTATION.cta}</Button>

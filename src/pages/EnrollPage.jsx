@@ -5,7 +5,7 @@ import { AGE_GROUPS, COURSES, getEnrollmentLink, CONSULTATION } from '../data/si
 import { theme, font } from '../styles/theme';
 import { usePageMeta } from '../hooks/usePageMeta';
 
-const AGE_INDEX = { junior: 0, middle: 1, senior: 2 };
+const AGE_INDEX = { middle: 0, senior: 1 };
 const VALID_AGES = new Set(AGE_GROUPS.map((a) => a.id));
 const VALID_SUBJECTS = new Set(COURSES.map((c) => c.id));
 

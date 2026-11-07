@@ -7,7 +7,7 @@ import { usePageMeta } from '../hooks/usePageMeta';
 
 const WHY_WE_EXIST = [
   'The children starting school today will graduate into a world where artificial intelligence writes alongside them, cryptography protects or exposes their entire digital life, and the mathematics behind both defines what\'s possible. The old shape of literacy, reading, writing, arithmetic, remains necessary. It is no longer sufficient.',
-  'We built LuminoLearn to teach the new literacy alongside the old. Not as an add-on, and not as a hobby elective, but as a serious, structured curriculum spanning AI, cybersecurity (including age appropriate post quantum cryptography), and integrated math + physics. Taught by real Canadian educators. Delivered on a Canadian built, privacy first platform. Available to families across Canada and to Canadian schools and districts as a licensable program.',
+  'We built LuminoLearn to teach the new literacy alongside the old. Not as an add-on, and not as a hobby elective, but as a serious, structured curriculum spanning AI, cybersecurity (including age appropriate post quantum cryptography), and integrated math + physics. Taught by an Ontario educator. Delivered on a Canadian built, privacy first platform. Available to families across Canada and to Canadian schools and districts as a licensable program.',
   'We started in Canada because we believe the country\'s next generation deserves a first class version of this education, built here, aligned to Canadian standards, and answerable to Canadian families. What we build well here, we will share more broadly. But the priority is clear, and it comes first.',
 ];
 
@@ -18,7 +18,7 @@ const PRINCIPLES = [
   },
   {
     title: 'Human educators at the centre',
-    body: 'Adaptive technology is powerful. It doesn\'t replace a teacher who notices a child is quietly confused, or one who challenges a student who\'s coasting. Every LuminoLearn student is taught by a real Canadian educator. The platform serves that relationship. It doesn\'t substitute for it.',
+    body: 'Adaptive technology is powerful. It doesn\'t replace a teacher who notices a child is quietly confused, or one who challenges a student who\'s coasting. Every LuminoLearn student is taught by an Ontario educator. The platform serves that relationship. It doesn\'t substitute for it.',
   },
   {
     title: 'Privacy is a first-order design decision',
@@ -149,7 +149,7 @@ export default function StoryPage() {
   usePageMeta({
     title: 'Our Story — LuminoLearn',
     description:
-      'LuminoLearn is a Canadian learning platform teaching artificial intelligence, cybersecurity (including post quantum cryptography), and integrated math + physics to students ages 12 to 18. Real Canadian educators. Privacy first. Built in Canada.',
+      'LuminoLearn is a Canadian learning platform teaching artificial intelligence, cybersecurity (including post quantum cryptography), and integrated math + physics to students ages 12 to 18. Taught by an Ontario educator. Privacy first. Built in Canada.',
     path: '/our-story',
   });
 
@@ -239,8 +239,8 @@ export default function StoryPage() {
             of up to six students matched by level and goals.
           </p>
           <p className="story-prose" style={{ ...proseStyle, marginBottom: 20 }}>
-            The curriculum is organized across three levels: Foundations (roughly ages 9 to 11), Building (roughly
-            ages 12 to 14), and Depth (roughly ages 15 to 17). Students may enrol in a single subject, combine two,
+            The curriculum is organized across two levels: Building (ages 12 to 14) and Depth (ages 15 to
+            18). Students may enrol in a single subject, combine two,
             or follow all three as an integrated combined course.
           </p>
           <p className="story-inline-links" style={{ ...proseStyle, marginBottom: 0, fontSize: 'clamp(0.98rem, 1.25vw, 1.08rem)' }}>

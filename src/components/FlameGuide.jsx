@@ -34,7 +34,7 @@ const PAGE_GUIDE = {
   '/learning-paths': {
     headline: 'Learning paths',
     body:
-      'Browse AI, Cybersecurity, and Math + Physics across Foundations, Building, and Depth. Book a consultation for placement.',
+      'Browse AI, Cybersecurity, and Math + Physics across Building and Depth. Book a consultation for placement.',
   },
   '/how-we-teach': {
     headline: 'How we teach',

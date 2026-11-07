@@ -50,7 +50,7 @@ LuminoLearn provides structured educational programs and a secure learning platf
 
 * **Free consultations:** A complimentary 15-minute consultation with a Canadian educator, including a placement diagnostic to understand your child's starting point and recommend next steps.
 * **Structured programs in three subjects:** Artificial Intelligence, Cybersecurity (including age-appropriate Post-Quantum Cryptography), and Math + Physics.
-* **Three levels per subject:** Foundations (roughly ages 9 to 11), Building (roughly ages 12 to 14), and Depth (roughly ages 15 to 17). Placement within a level is based on the diagnostic and educator recommendation, not age alone.
+* **Two levels per subject:** Building (ages 12 to 14) and Depth (ages 15 to 18). Placement within a level is based on the diagnostic and educator recommendation, not age alone.
 * **Three instruction formats:**
   * One-on-one online
   * One-on-one in-person (currently available in the Greater Toronto Area)

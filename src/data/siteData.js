@@ -6,7 +6,7 @@ export const COURSES = [
     tagline: 'AI literacy',
     desc: 'How machine learning works, responsible use, and building with AI in Python.',
     color: '#2A7B6F',
-    ageLabels: ['Foundations', 'Building', 'Depth'],
+    ageLabels: ['Building', 'Depth'],
   },
   {
     id: 'cyber',
@@ -15,7 +15,7 @@ export const COURSES = [
     tagline: 'Digital defence',
     desc: 'Encryption, threat modelling, and age appropriate post quantum cryptography.',
     color: '#4A5899',
-    ageLabels: ['Foundations', 'Building', 'Depth'],
+    ageLabels: ['Building', 'Depth'],
   },
   {
     id: 'math-physics',
@@ -24,17 +24,11 @@ export const COURSES = [
     tagline: 'Integrated STEM',
     desc: 'Mathematics taught alongside the physics that gives it meaning, from algebra to calculus.',
     color: '#8B6914',
-    ageLabels: ['Foundations', 'Building', 'Depth'],
+    ageLabels: ['Building', 'Depth'],
   },
 ];
 
 export const AGE_GROUPS = [
-  {
-    id: 'junior',
-    label: 'Ages 9 to 11',
-    tag: 'Foundations',
-    desc: 'Building intuition, vocabulary, and confidence across subjects',
-  },
   {
     id: 'middle',
     label: 'Ages 12 to 14',
@@ -43,7 +37,7 @@ export const AGE_GROUPS = [
   },
   {
     id: 'senior',
-    label: 'Ages 15 to 17',
+    label: 'Ages 15 to 18',
     tag: 'Depth',
     desc: 'Advanced work, contest grade rigour, and university preparation',
   },
@@ -171,7 +165,7 @@ export const LEARNING_JOURNEY_STEPS = [
     variant: 'indigo',
     body: [
       'We assess your child\'s current level across AI, Cybersecurity, and/or Math + Physics, not just grade level.',
-      'You receive a written placement recommendation and a suggested path through Foundations, Building, or Depth.',
+      'You receive a written placement recommendation and a suggested path through Building or Depth.',
     ],
     cta: { label: 'See our curriculum', urlKey: 'formats' },
   },
@@ -319,17 +313,11 @@ export const HOME_SUBJECT_DETAILS = {
     curriculumTagline: 'From number sense to formal proof',
     levels: [
       {
-        label: 'Ages 9 to 11 (Foundations)',
-        points: [
-          'Number fluency, fractions, intro geometry, logical reasoning, word problems',
-        ],
-      },
-      {
-        label: 'Ages 12 to 14 (Growth)',
+        label: 'Ages 12 to 14 (Building)',
         points: ['Algebra, data analysis, proportional thinking, mathematical argumentation'],
       },
       {
-        label: 'Ages 15 to 17 (Mastery)',
+        label: 'Ages 15 to 18 (Depth)',
         points: ['Functions, trigonometry, intro calculus, competition prep, proof writing'],
       },
     ],
@@ -340,19 +328,13 @@ export const HOME_SUBJECT_DETAILS = {
     curriculumTagline: 'From confident reading to powerful writing',
     levels: [
       {
-        label: 'Ages 9 to 11 (Foundations)',
-        points: [
-          'Reading fluency, vocabulary building, structured paragraphs, oral expression',
-        ],
-      },
-      {
-        label: 'Ages 12 to 14 (Growth)',
+        label: 'Ages 12 to 14 (Building)',
         points: [
           'Essay structure, critical reading, literary analysis, persuasive writing, public speaking',
         ],
       },
       {
-        label: 'Ages 15 to 17 (Mastery)',
+        label: 'Ages 15 to 18 (Depth)',
         points: [
           'Academic writing, research skills, rhetorical analysis, university prep composition',
         ],
@@ -365,19 +347,13 @@ export const HOME_SUBJECT_DETAILS = {
     curriculumTagline: 'From first program to real world projects',
     levels: [
       {
-        label: 'Ages 9 to 11 (Foundations)',
-        points: [
-          'Computational thinking, block based coding, simple algorithms, digital citizenship',
-        ],
-      },
-      {
-        label: 'Ages 12 to 14 (Growth)',
+        label: 'Ages 12 to 14 (Building)',
         points: [
           'Python fundamentals, web development basics, data structures, intro to AI concepts',
         ],
       },
       {
-        label: 'Ages 15 to 17 (Mastery)',
+        label: 'Ages 15 to 18 (Depth)',
         points: [
           'Software projects, AI/ML foundations, cybersecurity awareness, ethics of technology, portfolio building',
         ],
@@ -648,7 +624,7 @@ export const SUBJECT_PHILOSOPHY = [
 export const AI_POSITION_TEXT = [
   'Most EdTech products are designed to maximize engagement, which sounds positive until you realize that "engagement" in Silicon Valley means the same thing whether you\'re learning algebra or scrolling TikTok. Streaks, badges, leaderboards, and dopamine triggering animations are attention capture tools borrowed from social media. They make products stickier. They don\'t make learning deeper.',
   "We take a different approach. Our platform is deliberately simple. It shows your child what they're working on this week, what's due, and what they've completed. There are no feeds, no notifications competing for attention, and no features designed to make a child open the app more often. When your child is done with their work, the platform has nothing else to offer them, and that's intentional.",
-  "We do teach artificial intelligence, starting with computational thinking at age 9 and progressing to AI and machine learning foundations by age 15. But we teach it the way we think it should be taught: as a subject to understand, not a crutch to depend on. Students learn how language models work, what training data is, why AI outputs can be biased or wrong, and how to evaluate AI written content critically.",
+  "We do teach artificial intelligence, starting with how AI works and first Python projects at age 12 and progressing to neural networks and modern language models by age 15. But we teach it the way we think it should be taught: as a subject to understand, not a crutch to depend on. Students learn how language models work, what training data is, why AI outputs can be biased or wrong, and how to evaluate AI written content critically.",
   "Every assignment that uses AI at LuminoLearn has one rule: the student must be able to explain their reasoning without the AI. If they can't, they haven't learned, they've outsourced. And we tell them that directly.",
   "We think this is the right approach for children growing up in a world where AI tools are becoming ubiquitous. The students who will thrive aren't the ones who can use AI fastest. They're the ones who can think clearly when the AI is wrong.",
 ];
@@ -773,7 +749,7 @@ export const CONSULTATION = {
   expectations: [
     '15-minute video or phone call with a Canadian educator',
     "Your child's level and goals across subjects",
-    'Short diagnostic: Foundations, Building, or Depth',
+    'Short diagnostic: Building or Depth',
     'Format options: online, in person, or small group',
     'No obligation to enroll',
   ],
@@ -789,11 +765,6 @@ export const CONSULTATION = {
  * Use null when the form is not set yet: enroll page falls back to Calendly.
  */
 export const ENROLLMENT_FORMS = {
-  junior: {
-    ai: null,
-    cyber: 'https://forms.gle/AdkicVongWKAfSdt5',
-    'math-physics': 'https://forms.gle/txh4xWL3PuJpJpTr6',
-  },
   middle: {
     ai: null,
     cyber: null,
