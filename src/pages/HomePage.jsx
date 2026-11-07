@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Card, Button, PageAmbient, FooterTrustBlock, HERO_TRUST_STRIP } from '../components';
 import { CONSULTATION } from '../data/siteData';
+import { COMPANY_PILLARS } from '../data/pillars';
 import { theme, font } from '../styles/theme';
 import { usePageMeta } from '../hooks/usePageMeta';
 
@@ -41,7 +43,7 @@ const PILLARS = [
       'Algebra, geometry, and calculus taught through motion, force, and energy',
       'Physics problem solving as applied mathematics',
       'Problem sets calibrated to the student, not the average',
-      'Deep intuition first, then Olympiad grade rigour for those who want it',
+      'Deep intuition first, then extra challenge for students who want it',
     ],
     accent: theme.brandOrange,
   },
@@ -51,41 +53,41 @@ const HOW_IT_WORKS = [
   {
     num: '1',
     title: 'Assessment',
-    body: '30 minute diagnostic pinpoints exactly where the student is across each subject.',
+    body: 'A short diagnostic shows where your child is in each subject.',
   },
   {
     num: '2',
-    title: 'Personalized path',
-    body: "The platform builds an adaptive curriculum aligned to the student's level, pace, and goals.",
+    title: 'Personal learning path',
+    body: "We match lessons to your child's level, pace and goals.",
   },
   {
     num: '3',
     title: 'Live small group classes',
-    body: 'A real Canadian educator teaches groups of 3 to 6 online, weekly.',
+    body: 'An Ontario educator teaches groups of 3 to 6 online, weekly.',
   },
   {
     num: '4',
-    title: 'Continuous adaptation',
-    body: 'Between classes, the AI adjusts practice, flags gaps, and reports progress to parents.',
+    title: 'Practice with instant feedback',
+    body: "Between classes, students practise in our coding labs. Work is checked exactly, hints help when they're stuck, and parents see clear progress.",
   },
 ];
 
 const DIFFERENTIATORS = [
   {
-    title: 'Built in Canada, for Canada first',
-    body: "Curriculum aligned to Canadian provincial standards. Data stored in Canada. Educators based in Canada. We're building the AI and security literacy Canada's next generation will need.",
+    title: 'Proof of learning',
+    body: "Students' code is checked by real tests, not AI guesses, so a pass means it truly works. Every attempt is saved step by step, giving teachers and parents reliable evidence of what each student has mastered, and that the work is their own.",
   },
   {
-    title: 'Privacy first by design',
-    body: "Federated learning and differential privacy mean students' data supports learning without ever leaving their control.",
+    title: 'Privacy by design',
+    body: "Built in line with PIPEDA, LuminoLearn collects only what learning needs. We don't ask for students' birthdates, addresses or student numbers, there are no ads or trackers, and families can see and delete their child's data at any time.",
   },
   {
     title: 'Post quantum cryptography for young learners',
-    body: "We're one of the first platforms anywhere teaching PQC concepts to students under 18, because the cryptographic transition happening right now will define the internet they inherit.",
+    body: 'We teach the basics of post-quantum cryptography to students under 18, because the change to new encryption standards happening now will shape the internet they inherit.',
   },
   {
     title: 'Human educators at the centre',
-    body: 'AI adapts. Teachers teach. Kids learn best when both are present.',
+    body: 'Technology supports. Teachers teach. Kids learn best when both are present.',
   },
 ];
 
@@ -130,8 +132,9 @@ export default function HomePage() {
               The three subjects that will define the next generation.
             </h1>
             <p className="home-hero-lead">
-              LuminoLearn teaches AI, Cybersecurity, and Math + Physics to students ages 9 to 17, through real
-              Canadian educators, small groups, and an adaptive, privacy first platform built in Canada.
+              LuminoLearn teaches AI, Cybersecurity, and Math + Physics to students ages 12 to 18, through
+              small-group classes with an Ontario educator and a learning ecosystem that marks work exactly and
+              keeps a verifiable record of progress.
             </p>
             <div className="home-hero-cta-row">
               <Button to="/book">{CONSULTATION.ctaLong}</Button>
@@ -146,6 +149,26 @@ export default function HomePage() {
         </Container>
       </section>
 
+      <section className="home-section home-company-row" aria-labelledby="home-company-heading" style={{ background: theme.bg }}>
+        <Container>
+          <h2 id="home-company-heading" className="visually-hidden">
+            What we do
+          </h2>
+          <div className="pillar-row-grid">
+            {COMPANY_PILLARS.map((pillar) => (
+              <Link key={pillar.id} to={pillar.to} className="pillar-row-card">
+                <span className="pillar-card-tag">{pillar.label}</span>
+                <span className="pillar-row-card__title">{pillar.title}</span>
+                <span className="pillar-row-card__body">{pillar.body}</span>
+                <span className="pillar-row-card__cta">
+                  {pillar.cta} <span aria-hidden>→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       <section
         className="home-section"
         aria-labelledby="home-pillars-heading"
@@ -153,7 +176,7 @@ export default function HomePage() {
       >
         <Container>
           <h2 id="home-pillars-heading" style={sectionHeading}>
-            The three pillars
+            Three subjects
           </h2>
           <p style={sectionLead}>
             AI, Cybersecurity, and Math fused with Physics, taught with depth, not hype.
@@ -345,11 +368,39 @@ export default function HomePage() {
                   marginBottom: 24,
                 }}
               >
-                License our AI, Cybersecurity (including PQC), and Math + Physics curriculum for your classrooms,
-                with Canadian data residency and full PIPEDA alignment.
+                Bring Ontario-aligned coding, data and cybersecurity lessons into your classroom. Students&apos; code
+                is marked exactly, teachers stay in charge of every lesson and grade, and LuminoLearn is designed in
+                line with PIPEDA and to support school boards&apos; obligations under MFIPPA.
               </p>
               <Button to="/schools" variant="secondary">
-                Request a pilot
+                Join the Founding Schools pilot (spring 2027)
+              </Button>
+            </Card>
+            <Card hoverable={false}>
+              <h3
+                style={{
+                  fontFamily: font.display,
+                  fontSize: 'clamp(1.35rem, 2.5vw, 1.65rem)',
+                  color: theme.navy,
+                  marginBottom: 12,
+                }}
+              >
+                For homeschooling families
+              </h3>
+              <p
+                style={{
+                  fontSize: 'clamp(1rem, 1.3vw, 1.12rem)',
+                  color: theme.muted,
+                  lineHeight: 1.72,
+                  marginBottom: 24,
+                }}
+              >
+                Teach coding and data even if you don&apos;t code yourself. Lessons are marked automatically, your
+                child works at their own pace, and short sessions with a teacher are there when you need them. Free
+                pilot term in spring 2027.
+              </p>
+              <Button to="/book" variant="secondary">
+                Join the homeschool pilot
               </Button>
             </Card>
           </div>

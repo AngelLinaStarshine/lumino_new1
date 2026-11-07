@@ -52,7 +52,7 @@ export default async function StudentMessagesPage() {
   return (
     <div className="p-4 md:p-8 max-w-2xl mx-auto space-y-4 h-full flex flex-col">
       <header>
-        <h1 className="text-2xl font-display">Messages</h1>
+        <h1 className="page-title">Messages</h1>
         <p className="text-muted-foreground text-sm">
           Chat with your educator only. Parents receive a copy of educator messages.
         </p>

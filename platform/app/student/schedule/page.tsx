@@ -29,7 +29,7 @@ export default async function StudentSchedulePage() {
   return (
     <div className="p-4 md:p-8 max-w-3xl mx-auto space-y-6">
       <header>
-        <h1 className="text-2xl font-display">Your schedule</h1>
+        <h1 className="page-title">Your schedule</h1>
         <p className="text-muted-foreground">Upcoming live classes for the next two weeks.</p>
       </header>
 

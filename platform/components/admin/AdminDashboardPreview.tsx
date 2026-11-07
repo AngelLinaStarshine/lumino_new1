@@ -53,7 +53,7 @@ export function AdminDashboardPreview() {
       <div className="p-6 max-w-6xl mx-auto space-y-6">
         {tab === 'overview' && (
           <>
-            <h1 className="text-2xl font-display">Admin overview</h1>
+            <h1 className="page-title">Admin overview</h1>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { label: 'Students', value: stats.students },
@@ -126,7 +126,7 @@ export function AdminDashboardPreview() {
 
         {tab === 'assignments' && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Assignments</h1>
+            <h1 className="page-title">Assignments</h1>
             <Card>
               <CardHeader><CardTitle>Assign student to educator (1:1)</CardTitle></CardHeader>
               <CardContent className="grid sm:grid-cols-3 gap-3">
@@ -177,7 +177,7 @@ export function AdminDashboardPreview() {
 
         {tab === 'classes' && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Classes</h1>
+            <h1 className="page-title">Classes</h1>
             <Card>
               <CardHeader><CardTitle>Schedule class</CardTitle></CardHeader>
               <CardContent className="grid sm:grid-cols-2 gap-3">
@@ -212,7 +212,7 @@ export function AdminDashboardPreview() {
 
         {tab === 'payments' && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Payments</h1>
+            <h1 className="page-title">Payments</h1>
             <div className="grid sm:grid-cols-2 gap-3">
               <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">Pending</p><p className="text-xl font-display">{fmtCAD(14900)}</p></CardContent></Card>
               <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">Collected (Aug)</p><p className="text-xl font-display">{fmtCAD(29800)}</p></CardContent></Card>
@@ -257,7 +257,7 @@ export function AdminDashboardPreview() {
 
         {tab === 'invites' && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Invites</h1>
+            <h1 className="page-title">Invites</h1>
             <Card>
               <CardHeader><CardTitle>Generate invite code</CardTitle></CardHeader>
               <CardContent className="space-y-3">

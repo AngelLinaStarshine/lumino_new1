@@ -6,11 +6,14 @@ import { theme, font } from '../styles/theme';
 import { LOGIN_PATH } from '../lib/platformUrl';
 
 const MAIN_NAV = [
-  { path: '/learning-paths', label: 'Learning Paths' },
-  { path: '/technology', label: 'Technology' },
-  { path: '/how-we-teach', label: 'How We Teach' },
-  { path: '/our-story', label: 'Our Story' },
+  { path: '/programs', label: 'Programs', match: ['/programs', '/learning-paths', '/how-we-teach', '/enroll'] },
+  { path: '/platform', label: 'Platform', match: ['/platform', '/technology'] },
+  { path: '/schools', label: 'For Schools', match: ['/schools'] },
+  { path: '/books', label: 'Books', match: ['/books'] },
+  { path: '/about', label: 'About', match: ['/about', '/our-story', '/contact'] },
 ];
+
+const isNavActive = (link, pathname) => link.match.includes(pathname);
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -86,7 +89,7 @@ export default function Navbar() {
           }}
         >
           {MAIN_NAV.map((link) => {
-            const active = location.pathname === link.path;
+            const active = isNavActive(link, location.pathname);
             return (
               <button
                 key={link.path}
@@ -194,7 +197,7 @@ export default function Navbar() {
                 border: 'none',
                 padding: '14px 0',
                 fontSize: 18,
-                fontWeight: location.pathname === link.path ? 600 : 400,
+                fontWeight: isNavActive(link, location.pathname) ? 600 : 400,
                 color: theme.navy,
                 cursor: 'pointer',
                 fontFamily: font.body,

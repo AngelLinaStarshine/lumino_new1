@@ -14,7 +14,7 @@ export default function BookPage() {
   usePageMeta({
     title: 'Book a Consultation — LuminoLearn',
     description:
-      'Book a free 15 minute consultation with a Canadian educator. Discuss your child\'s level, goals, and whether structured support is a good fit.',
+      'Book a free 15-minute consultation with a Canadian educator. Discuss your child\'s level, goals, and whether structured support is a good fit.',
     path: '/book',
   });
 

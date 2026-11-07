@@ -380,7 +380,7 @@ export default function StoryPage() {
               marginRight: 'auto',
             }}
           >
-            Talk with us about your child. Book a free {CONSULTATION.duration} consultation with a Canadian
+            Talk with us about your child. Book a free {CONSULTATION.durationAdjective} consultation with a Canadian
             educator.
           </p>
           <Button variant="warm" to="/book">

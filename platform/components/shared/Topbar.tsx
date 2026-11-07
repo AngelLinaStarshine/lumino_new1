@@ -12,7 +12,7 @@ export function Topbar({ greeting, subtitle, stagePill, avatar, name }: TopbarPr
   return (
     <header className="flex items-start justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-display">{greeting}</h1>
+        <h1 className="page-title">{greeting}</h1>
         {subtitle && <p className="text-sm text-muted-foreground mt-1">{subtitle}</p>}
         {stagePill && <span className="stage-pill mt-2">{stagePill}</span>}
       </div>

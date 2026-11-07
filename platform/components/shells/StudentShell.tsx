@@ -60,7 +60,7 @@ export function StudentShell({ userName, children }: StudentShellProps) {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center justify-between gap-3 px-4 py-3 border-b border-black/[0.06] bg-white/70 backdrop-blur-sm">
+        <header className="app-topbar flex items-center justify-between gap-3 px-4 py-3 border-b">
           <p className="text-sm text-muted-foreground hidden sm:block">Today&apos;s work</p>
           <div className="flex items-center gap-3 ml-auto">
             <button type="button" className="p-2 rounded-lg hover:bg-brand-warm/60" aria-label="Notifications">

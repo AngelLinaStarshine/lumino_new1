@@ -10,4 +10,5 @@ export { default as FooterTrustBlock, HERO_TRUST_STRIP } from './FooterTrustBloc
 export { default as PageAmbient } from './PageAmbient';
 export { default as CtaBanner } from './CtaBanner';
 export { default as RelatedLinks } from './RelatedLinks';
+export { default as PageHero } from './PageHero';
 export { SmoothScrollProvider, useLenis } from './SmoothScrollProvider';

@@ -64,7 +64,7 @@ const SUBJECTS = [
   },
   {
     title: 'Math + Physics',
-    body: 'Mathematics taught alongside the physics that gives it meaning, from foundational algebra to Olympiad grade problem solving.',
+    body: 'Mathematics taught alongside the physics that gives it meaning, from foundational algebra to advanced problem solving, with extra challenge for students who want it.',
   },
 ];
 
@@ -88,7 +88,7 @@ const HOW_IT_STARTS = [
   {
     num: '1',
     title: 'Book a free consultation',
-    body: `A ${CONSULTATION.duration} conversation with a Canadian educator about your child's level, goals, and format options.`,
+    body: `A ${CONSULTATION.durationAdjective} conversation with a Canadian educator about your child's level, goals, and format options.`,
   },
   {
     num: '2',
@@ -341,8 +341,10 @@ export default function TuitionPage() {
               For schools, districts, and organizations
             </h2>
             <p style={{ ...bodyCopy, marginBottom: 24 }}>
-              Canadian school boards, private schools, and tutoring organizations can license LuminoLearn&apos;s
-              curriculum and platform for their classrooms. Pilot programs are available for Canadian institutions.
+              School boards, private schools and learning organizations in Ontario can bring LuminoLearn into their
+              classrooms: Ontario-aligned lessons in coding, data and cybersecurity, a learning hub that marks
+              students’ work exactly, and teacher tools that keep educators in charge. Pilot programs are available
+              for Canadian institutions.
             </p>
             <Button to="/schools" variant="secondary">
               Request a school licensing conversation
@@ -403,7 +405,7 @@ export default function TuitionPage() {
               marginRight: 'auto',
             }}
           >
-            Book a free {CONSULTATION.duration} consultation. A Canadian educator will discuss format
+            Book a free {CONSULTATION.durationAdjective} consultation. A Canadian educator will discuss format
             options and answer your questions.
           </p>
           <Button variant="warm" to="/book">

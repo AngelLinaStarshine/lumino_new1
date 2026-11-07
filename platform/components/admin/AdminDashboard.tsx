@@ -263,7 +263,7 @@ export function AdminDashboard() {
 
         {tab === 'overview' && (
           <>
-            <h1 className="text-2xl font-display">Admin overview</h1>
+            <h1 className="page-title">Admin overview</h1>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { label: 'Students', value: stats.students },
@@ -377,7 +377,7 @@ export function AdminDashboard() {
 
         {tab === 'assignments' && catalog && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Assignments</h1>
+            <h1 className="page-title">Assignments</h1>
 
             <Card>
               <CardHeader><CardTitle>Assign student to educator (1:1)</CardTitle></CardHeader>
@@ -556,7 +556,7 @@ export function AdminDashboard() {
 
         {tab === 'classes' && catalog && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Schedule classes</h1>
+            <h1 className="page-title">Schedule classes</h1>
             <Card>
               <CardHeader>
                 <CardTitle>Schedule online, in-person, or group class</CardTitle>
@@ -642,7 +642,7 @@ export function AdminDashboard() {
 
         {tab === 'payments' && catalog && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Payments</h1>
+            <h1 className="page-title">Payments</h1>
             <div className="grid sm:grid-cols-3 gap-3">
               <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">Pending</p><p className="text-xl font-display">{paymentSummary.pending}</p></CardContent></Card>
               <Card><CardContent className="p-4"><p className="text-xs text-muted-foreground">Paid</p><p className="text-xl font-display">{paymentSummary.paid}</p></CardContent></Card>
@@ -731,7 +731,7 @@ export function AdminDashboard() {
 
         {tab === 'invites' && (
           <div className="space-y-6">
-            <h1 className="text-2xl font-display">Invites</h1>
+            <h1 className="page-title">Invites</h1>
             <Card>
               <CardHeader><CardTitle>Generate invite code</CardTitle></CardHeader>
               <CardContent>

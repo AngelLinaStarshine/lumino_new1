@@ -26,7 +26,7 @@
     --secondary: 40 100% 97%;
     --secondary-foreground: 222 47% 11%;
     --muted: 40 40% 96%;
-    --muted-foreground: 215 16% 35%;
+    --muted-foreground: 213 22% 32%;
     --accent: 125 40% 92%;
     --accent-foreground: 175 77% 22%;
     --destructive: 0 72% 51%;
@@ -36,11 +36,6 @@
     --ring: 175 77% 22%;
     --radius: 0.75rem;
   }
-}
-
-@keyframes body-gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
 }
 
 @keyframes brand-gradient {
@@ -63,20 +58,24 @@
     font-family: var(--font-body), system-ui, sans-serif;
     color: var(--color-text);
     background-color: var(--color-bg);
-    background-image: linear-gradient(
-      125deg,
-      #fdfaf0 0%,
-      #fff9f2 35%,
-      #fff5e6 70%,
-      #fdfaf0 100%
-    );
-    background-size: 220% 220%;
-    animation: body-gradient-shift 20s ease infinite;
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+  }
+
+  p {
+    line-height: 1.7;
   }
 
   h1, h2, h3, .font-display {
     font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
     color: var(--color-navy);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-teal);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 }
 
@@ -102,28 +101,69 @@
   }
 
   .platform-card {
-    @apply rounded-xl border bg-white/90 shadow-sm;
+    @apply border;
+    border-radius: 18px;
+    background: var(--color-card);
     border-color: var(--color-border);
     box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
   }
 
   .platform-sidebar {
     @apply border-r min-h-screen flex flex-col p-4;
-    background: rgba(255, 255, 255, 0.72);
+    background: rgba(253, 250, 240, 0.94);
+    backdrop-filter: blur(12px);
+    border-color: var(--color-border);
+  }
+
+  .app-topbar {
+    background: rgba(253, 250, 240, 0.94);
     backdrop-filter: blur(12px);
     border-color: var(--color-border);
   }
 
   .nav-link-active {
-    background: rgba(125, 207, 182, 0.18);
-    color: var(--color-teal);
+    background: rgba(125, 207, 182, 0.16);
+    color: var(--color-navy);
     font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--color-teal);
+  }
+
+  .page-title {
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
+    color: var(--color-navy);
+    font-size: clamp(1.85rem, 3vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  .page-lead {
+    color: var(--color-muted);
+    font-size: clamp(1rem, 1.3vw, 1.12rem);
+    line-height: 1.72;
+  }
+
+  .section-label {
+    @apply inline-block text-xs font-bold uppercase rounded-lg;
+    padding: 6px 14px;
+    letter-spacing: 0.06em;
+    color: var(--color-navy);
+    background: rgba(45, 155, 132, 0.1);
+    border: 1px solid rgba(45, 155, 132, 0.28);
   }
 
   .stage-pill {
-    @apply inline-block text-xs font-medium px-2.5 py-1 rounded-full;
+    @apply inline-block text-xs font-semibold px-2.5 py-1 rounded-full;
     background: rgba(125, 207, 182, 0.2);
     color: var(--color-teal);
+  }
+
+  .status-badge {
+    @apply inline-block text-xs font-bold uppercase rounded-full;
+    padding: 4px 10px;
+    letter-spacing: 0.04em;
+    color: var(--color-navy);
+    background: var(--color-warm);
+    border: 1px solid rgba(255, 154, 61, 0.45);
   }
 
   .auth-shell {
@@ -139,10 +179,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body {
-    animation: none;
-    background-size: 100% 100%;
-  }
   .brand-wordmark {
     animation: none;
     background-size: 100% 100%;
@@ -162,7 +198,8 @@ html.high-contrast body {
   color: #000000;
 }
 
-html.high-contrast .platform-sidebar {
+html.high-contrast .platform-sidebar,
+html.high-contrast .app-topbar {
   background: #ffffff;
   border-color: #000000;
 }

@@ -40,7 +40,7 @@ export default function StudentAccountPreview() {
       </div>
       <div className="p-4 md:p-8 max-w-3xl mx-auto space-y-8">
         <header>
-          <h1 className="text-2xl md:text-3xl font-display">Welcome back, {name}</h1>
+          <h1 className="page-title">Welcome back, {name}</h1>
           <p className="text-muted-foreground mt-1">Here is what is on your plate today.</p>
         </header>
 

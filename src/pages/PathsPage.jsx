@@ -119,7 +119,7 @@ const SUBJECT_PATHS = [
         bullets: [
           'Single variable calculus and the physics it unlocks',
           'Electricity, magnetism, and modern physics foundations',
-          'Olympiad grade problem sets for students who want that rigour',
+          'Extra challenge for students who want it',
           'Preparation for university level math and physics coursework',
         ],
       },
@@ -188,7 +188,7 @@ export default function PathsPage() {
           </h1>
           <p className="fade-up delay-1 inner-ambient-page__hero-lead" style={{ color: theme.muted, lineHeight: 1.72 }}>
             LuminoLearn&apos;s curriculum grows with your child across three subjects and three levels, from first
-            intuitions at age 9 to Olympiad grade problem solving at 17. Every path is Canadian built, privacy
+            intuitions at age 9 to advanced problem solving at 17. Every path is Canadian built, privacy
             first, and taught by real Canadian educators.
           </p>
           <div className="home-hero-cta-row fade-up delay-2">
@@ -198,7 +198,7 @@ export default function PathsPage() {
             </Button>
           </div>
           <p className="home-hero-trust fade-up delay-3" role="note">
-            Not sure where your child fits? Our free {CONSULTATION.duration} consultation{' '}
+            Not sure where your child fits? Our free {CONSULTATION.durationAdjective} consultation{' '}
             {CONSULTATION.heroNote}.
           </p>
         </Container>
@@ -315,7 +315,7 @@ export default function PathsPage() {
           <p style={{ ...bodyCopy, marginBottom: 28 }}>
             Levels are guided by age, but placement is based on an actual diagnostic, not a birthday. Some
             10 year olds are ready for Building; some 14 year olds are best served by strengthening their
-            Foundations first. Our free {CONSULTATION.duration} consultation includes a diagnostic across the subjects
+            Foundations first. Our free {CONSULTATION.durationAdjective} consultation includes a diagnostic across the subjects
             you&apos;re considering, so we can place your child exactly where they&apos;ll grow fastest.
           </p>
           <Button to="/book">{CONSULTATION.cta}</Button>
@@ -353,9 +353,9 @@ export default function PathsPage() {
               For schools, districts, and organizations
             </h2>
             <p style={{ ...bodyCopy, marginBottom: 24 }}>
-              Canadian school boards, private schools, and tutoring organizations can license the LuminoLearn
-              curriculum, any single subject, any combination, or the full integrated program, for their
-              classrooms.
+              School boards, private schools and learning organizations in Ontario can bring LuminoLearn into their
+              classrooms: Ontario-aligned lessons in coding, data and cybersecurity, a learning hub that marks
+              students’ work exactly, and teacher tools that keep educators in charge.
             </p>
             <Button to="/schools" variant="secondary">
               Explore school licensing
@@ -397,7 +397,7 @@ export default function PathsPage() {
               marginRight: 'auto',
             }}
           >
-            Book a free {CONSULTATION.duration} consultation. A Canadian educator will run a short diagnostic and
+            Book a free {CONSULTATION.durationAdjective} consultation. A Canadian educator will run a short diagnostic and
             recommend a path forward.
           </p>
           <Button variant="warm" to="/book">

@@ -11,3 +11,7 @@ export { default as LoginPage } from './LoginPage';
 export { default as SchoolsPage } from './SchoolsPage';
 export { default as TechnologyPage } from './TechnologyPage';
 export { default as ContactPage } from './ContactPage';
+export { default as ProgramsPage } from './ProgramsPage';
+export { default as PlatformPage } from './PlatformPage';
+export { default as BooksPage } from './BooksPage';
+export { default as AboutPage } from './AboutPage';

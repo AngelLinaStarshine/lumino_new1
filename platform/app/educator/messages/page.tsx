@@ -17,7 +17,7 @@ export default async function EducatorMessagesPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-4">
-      <h1 className="text-2xl font-display">Message centre</h1>
+      <h1 className="page-title">Message centre</h1>
       <p className="text-sm text-muted-foreground">Messages to students are copied to parents automatically.</p>
       <div className="space-y-2">
         {(threads ?? []).map((t) => (

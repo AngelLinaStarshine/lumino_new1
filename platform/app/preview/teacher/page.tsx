@@ -32,7 +32,7 @@ export default function EducatorAccountPreview() {
       </div>
       <div className="p-6 max-w-6xl mx-auto space-y-6">
         <header>
-          <h1 className="text-2xl font-display">Educator dashboard</h1>
+          <h1 className="page-title">Educator dashboard</h1>
         </header>
 
         <Card>

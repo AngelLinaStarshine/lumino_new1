@@ -27,7 +27,7 @@ export default async function StudentProfilePage() {
   return (
     <div className="p-4 md:p-8 max-w-2xl mx-auto space-y-6">
       <header>
-        <h1 className="text-2xl font-display">Your profile</h1>
+        <h1 className="page-title">Your profile</h1>
       </header>
 
       <Card>

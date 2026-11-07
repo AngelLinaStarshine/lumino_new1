@@ -47,7 +47,7 @@ export default async function EducatorStudentsPage() {
 
   return (
     <div className="p-6 max-w-6xl mx-auto space-y-4">
-      <h1 className="text-2xl font-display">Student roster</h1>
+      <h1 className="page-title">Student roster</h1>
       <EducatorRoster students={rows} />
     </div>
   );

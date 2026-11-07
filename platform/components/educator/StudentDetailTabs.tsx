@@ -38,7 +38,7 @@ export function StudentDetailTabs(props: StudentDetailTabsProps) {
 
   return (
     <div className="space-y-4">
-      <h1 className="text-2xl font-display">{props.student.name}</h1>
+      <h1 className="page-title">{props.student.name}</h1>
       <Tabs defaultValue="overview">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>

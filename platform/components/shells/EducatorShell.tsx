@@ -75,13 +75,13 @@ export function EducatorShell({ userName, children }: EducatorShellProps) {
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="flex items-center justify-between px-6 py-3 border-b border-black/[0.06] bg-white/80">
-          <h1 className="text-sm font-semibold text-brand-navy">Educator workspace</h1>
+        <header className="app-topbar flex items-center justify-between px-6 py-3 border-b">
+          <p className="text-sm font-semibold text-brand-navy">Educator workspace</p>
           <Avatar className="h-8 w-8">
             <AvatarFallback className="text-xs">{getInitials(userName)}</AvatarFallback>
           </Avatar>
         </header>
-        <main className="flex-1 overflow-auto bg-brand-bg/50">{children}</main>
+        <main className="flex-1 overflow-auto">{children}</main>
       </div>
     </div>
   );

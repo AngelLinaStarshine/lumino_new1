@@ -9,7 +9,7 @@ export default async function EducatorAssignPage() {
 
   return (
     <div className="p-6 max-w-3xl mx-auto space-y-4">
-      <h1 className="text-2xl font-display">Assign practice</h1>
+      <h1 className="page-title">Assign practice</h1>
       <AssignPracticeForm educatorId={user.id} />
     </div>
   );

@@ -47,7 +47,7 @@ export function PracticeRunner({ taskId, title, subject, content }: PracticeRunn
     <div className="min-h-screen p-4 md:p-8 max-w-2xl mx-auto space-y-6">
       <div>
         <p className="text-sm text-brand-teal font-semibold">{subject}</p>
-        <h1 className="text-2xl font-display mt-1">{title}</h1>
+        <h1 className="page-title mt-1">{title}</h1>
       </div>
 
       {!result ? (

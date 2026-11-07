@@ -87,16 +87,17 @@ export default function Footer() {
             </div>
 
             <div>
-              <div style={headingStyle}>Learn</div>
-              <FooterLink to="/learning-paths">Learning Paths</FooterLink>
-              <FooterLink to="/how-we-teach">How We Teach</FooterLink>
-              <FooterLink to="/technology">Technology</FooterLink>
+              <div style={headingStyle}>Explore</div>
+              <FooterLink to="/programs">Programs</FooterLink>
+              <FooterLink to="/platform">Platform</FooterLink>
+              <FooterLink to="/schools">For Schools</FooterLink>
+              <FooterLink to="/books">Books</FooterLink>
             </div>
 
             <div>
               <div style={headingStyle}>About</div>
+              <FooterLink to="/about">About</FooterLink>
               <FooterLink to="/our-story">Our Story</FooterLink>
-              <FooterLink to="/schools">For Schools</FooterLink>
               <FooterLink to="/contact">Contact</FooterLink>
               <FooterLink to="/privacy">Privacy Policy</FooterLink>
               <FooterLink to="/terms">Terms of Service</FooterLink>

@@ -15,6 +15,10 @@ import {
   SchoolsPage,
   TechnologyPage,
   ContactPage,
+  ProgramsPage,
+  PlatformPage,
+  BooksPage,
+  AboutPage,
 } from './pages';
 function AppLayout({ children }) {
   return (
@@ -36,6 +40,38 @@ export default function App() {
         element={
           <AppLayout>
             <HomePage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/programs"
+        element={
+          <AppLayout>
+            <ProgramsPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/platform"
+        element={
+          <AppLayout>
+            <PlatformPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/books"
+        element={
+          <AppLayout>
+            <BooksPage />
+          </AppLayout>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <AppLayout>
+            <AboutPage />
           </AppLayout>
         }
       />

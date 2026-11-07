@@ -10,6 +10,22 @@ const PAGE_GUIDE = {
     body:
       'You are on the home page. Scroll for how we teach, subjects, and next steps, or ask me below.',
   },
+  '/programs': {
+    headline: 'Programs',
+    body: 'LuminoStart, LuminoCore, after-school and homeschool groups, a free taster class, and camps.',
+  },
+  '/platform': {
+    headline: 'Platform',
+    body: 'The coding lab, screenshots, courses and their Ontario curriculum links, and family plans coming in 2027.',
+  },
+  '/books': {
+    headline: 'Books',
+    body: 'LuminoFrame storybooks: titles, prices, ISBNs, and where to buy.',
+  },
+  '/about': {
+    headline: 'About',
+    body: 'Our story, how we keep students safe, accessibility, and how to contact us.',
+  },
   '/our-story': {
     headline: 'Our story',
     body:
@@ -45,7 +61,7 @@ const PAGE_GUIDE = {
   },
   '/schools': {
     headline: 'Schools',
-    body: 'License AI, Cybersecurity, and Math + Physics for Canadian classrooms. Request a pilot or contact our team.',
+    body: 'The Founding Schools pilot, classroom kits, teacher training, and a privacy summary.',
   },
   '/contact': {
     headline: 'Contact',

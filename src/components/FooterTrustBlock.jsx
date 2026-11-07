@@ -2,10 +2,10 @@ import React from 'react';
 
 const TRUST_ITEMS = [
   'Built in Canada',
-  'PIPEDA aligned',
-  'Canadian data residency',
-  'Privacy first architecture',
-  'Real Canadian educators',
+  'Privacy by design',
+  'Ontario curriculum aligned',
+  'Exact marking',
+  'Taught by an Ontario educator',
 ];
 
 function TrustMarqueeTrack({ items, classPrefix }) {
@@ -27,7 +27,7 @@ function TrustMarqueeTrack({ items, classPrefix }) {
 export default function FooterTrustBlock() {
   return (
     <section className="footer-trust-block footer-trust-marquee" aria-label="Trust and compliance">
-      <p className="visually-hidden">{TRUST_ITEMS.join('. ')}</p>
+      <p className="visually-hidden">{`${TRUST_ITEMS.join('. ')}.`}</p>
       <div className="footer-trust-marquee__viewport">
         <TrustMarqueeTrack items={TRUST_ITEMS} classPrefix="footer-trust-marquee" />
       </div>
@@ -36,6 +36,6 @@ export default function FooterTrustBlock() {
 }
 
 export const HERO_TRUST_STRIP =
-  'Built in Canada · Privacy first architecture · PIPEDA aligned · Real Canadian educators';
+  'Built in Canada · Privacy by design, in line with PIPEDA · Aligned with the Ontario curriculum · Taught by an Ontario educator';
 
 export { TRUST_ITEMS };

@@ -27,7 +27,7 @@ export default async function EducatorCurriculumPage() {
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <header>
-        <h1 className="text-2xl font-display">Curriculum browser</h1>
+        <h1 className="page-title">Curriculum browser</h1>
         <p className="text-sm text-muted-foreground">Read-only. Contact admin to edit curriculum.</p>
       </header>
       {(subjects ?? []).map((s) => (

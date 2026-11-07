@@ -32,7 +32,7 @@ export default async function EducatorSchedulePage() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <h1 className="text-2xl font-display">Schedule</h1>
+      <h1 className="page-title">Schedule</h1>
 
       {pending?.length ? (
         <section>

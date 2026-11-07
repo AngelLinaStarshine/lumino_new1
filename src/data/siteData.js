@@ -128,7 +128,7 @@ export const HOW_IT_WORKS = [
   {
     step: '1',
     tabLabel: 'Consultation',
-    title: 'Free 15 minute consultation',
+    title: 'Free 15-minute consultation',
     desc: "A conversation about your child's strengths, goals, and where structured support might help. We answer your questions honestly.",
   },
   {
@@ -761,16 +761,17 @@ export const DISCOVERY_CALL_URL =
 
 /** User facing name for the complimentary Calendly booking (not a class). */
 export const CONSULTATION = {
-  name: 'Free 15 minute consultation',
+  name: 'Free 15-minute consultation',
   cta: 'Book a free consultation',
-  ctaLong: 'Book a free 15 minute consultation',
+  ctaLong: 'Book a free 15-minute consultation',
   scheduleCta: 'Schedule on Calendly',
   duration: '15 minutes',
+  durationAdjective: '15-minute',
   durationShort: '15 min',
   intro:
     "It's a conversation about your child: their strengths, goals, and where they might benefit from structured support. We'll answer your questions and, if it's a good fit, suggest a path forward.",
   expectations: [
-    '15 minute video or phone call with a Canadian educator',
+    '15-minute video or phone call with a Canadian educator',
     "Your child's level and goals across subjects",
     'Short diagnostic: Foundations, Building, or Depth',
     'Format options: online, in person, or small group',
@@ -779,7 +780,7 @@ export const CONSULTATION = {
   heroNote:
     'includes a diagnostic across the subjects you\'re considering',
   ctaBannerSubtext:
-    "A 15 minute conversation about your child's strengths, goals, and where structured support might help.",
+    "A 15-minute conversation about your child's strengths, goals, and where structured support might help.",
   noObligation: 'No obligation to enroll.',
 };
 
